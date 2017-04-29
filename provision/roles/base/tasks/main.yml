@@ -1,0 +1,6 @@
+---
+- name: install git
+  apt: name=git
+
+- name: install unzip
+  apt: name=unzip

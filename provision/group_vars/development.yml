@@ -1,0 +1,26 @@
+server_name: local.sym-ang-stack.com
+document_root: /var/www
+backend_path: "{{ document_root }}/backend"
+
+# Database config
+db_host: 127.0.0.1
+db_port: 'null'
+db_name: stack
+db_user: stack
+db_password: stack
+db_root_password: ''
+
+# Mailer config
+mailer_transport: smtp
+mailer_host: 127.0.0.1
+mailer_user: guest
+mailer_password: guest
+
+# Symfony config
+symfony_env: dev
+sf_secret: 55cbb4fd0eaf9b34acb6ff95791b625dba5e5c29
+
+# Admin config
+app_admin_user: admin
+app_admin_password: admin
+app_admin_email: admin@admin.com

@@ -1,0 +1,54 @@
+---
+- name: Add PPA for Nginx.
+  apt_repository:
+    repo: 'ppa:nginx/{{ nginx_ppa_version }}'
+    state: present
+    update_cache: yes
+  register: nginx_ppa_added
+  when: nginx_ppa_use
+
+- name: Update apt
+  become: yes
+  apt: update_cache=yes
+
+- name: Install Nginx
+  become: yes
+  apt: pkg=nginx state=latest
+  register: nginx_ppa_added
+
+- name: Ensure nginx will reinstall if the PPA was just added.
+  apt:
+    name: nginx
+    state: absent
+  when: nginx_ppa_added.changed
+
+- name: Define nginx_user.
+  set_fact:
+    nginx_user: "{{ nginx_user }}"
+  when: nginx_user is not defined
+
+# Vhost configuration.
+- include: vhosts.yml
+
+# Nginx setup.
+- name: Copy nginx configuration in place.
+  template:
+    src: nginx.conf.j2
+    dest: "{{ nginx_conf_file_path }}"
+    owner: root
+    group: "{{ root_group }}"
+    mode: 0644
+  notify:
+    - reload nginx
+
+# Configure phpfpm-nginx
+- name: Add phpfpm_params file
+  template:
+    src: phpfpm_params.j2
+    dest: "/etc/nginx/phpfpm_params"
+    mode: 0644
+  when: nginx_vhosts|length > 0
+  notify: reload nginx
+
+- name: Ensure nginx is started and enabled to start at boot.
+  service: name=nginx state=started enabled=yes

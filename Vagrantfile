@@ -4,9 +4,12 @@
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/trusty64"
 
-  config.vm.network "forwarded_port", guest: 443, host: 5443
-  config.vm.network "forwarded_port", guest: 80, host: 580
-  config.vm.network :private_network, ip: "10.0.0.100"
+  config.vm.network "forwarded_port", guest: 443, host: 55443
+  config.vm.network "forwarded_port", guest: 80, host: 5580
+  config.vm.network :private_network, ip: "10.10.10.100"
+
+  # synced folder
+  config.vm.synced_folder ".", "/var/www", owner: "www-data", group: "www-data", mount_options: ["dmode=777","fmode=777"]
 
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "2048"

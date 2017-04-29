@@ -10,6 +10,7 @@ php_packages:
   - php7.0-mysql
   - php7.0-gd
   - php7.0-mcrypt
+  - php7.0-xml
 php_timezone: America/Argentina/Cordoba
 php_upload_max_filesize: "5M"
 php_post_max_size: "5M"

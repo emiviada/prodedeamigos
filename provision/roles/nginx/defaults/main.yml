@@ -1,0 +1,75 @@
+---
+nginx_user: www-data
+root_group: root
+
+# Use the official Nginx PPA for Ubuntu, and the version to use if so.
+nginx_ppa_use: true
+nginx_ppa_version: stable
+
+nginx_worker_processes: "{{ ansible_processor_vcpus | default(ansible_processor_count) }}"
+nginx_worker_connections: "1024"
+nginx_multi_accept: "off"
+
+nginx_pidfile: /var/run/nginx.pid
+nginx_vhost_path: /etc/nginx/sites-enabled
+nginx_conf_file_path: /etc/nginx/nginx.conf
+nginx_conf_path: /etc/nginx/conf.d
+nginx_error_log: "/var/log/nginx/error.log warn"
+nginx_access_log: "/var/log/nginx/access.log main buffer=16k"
+nginx_remove_default_vhost: true
+
+nginx_mime_file_path: /etc/nginx/mime.types
+
+nginx_server_names_hash_bucket_size: "64"
+nginx_sendfile: "on"
+nginx_tcp_nopush: "on"
+nginx_tcp_nodelay: "on"
+nginx_keepalive_timeout: "65"
+nginx_keepalive_requests: "100"
+nginx_client_max_body_size: "64m"
+
+nginx_proxy_cache_path: ""
+
+# Virtual hosts
+nginx_vhosts_filename: "vhosts.conf"
+#nginx_vhosts: []
+nginx_vhosts:
+  - listen: "80"
+    server_name: "{{ server_name }}"
+    root: "{{ document_root }}"
+    index: "index.php index.html index.htm"
+    access_log: "/var/log/nginx/{{ server_name }}_access.log"
+    error_log: "/var/log/nginx/{{ server_name }}_error.log"
+    #extra_parameters: |
+    #  location ~ \.php$ {
+    #      fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    #      fastcgi_pass unix:/var/run/php5-fpm.sock;
+    #      fastcgi_index index.php;
+    #      fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    #      include fastcgi_params;
+    #  }
+
+nginx_extra_conf_options: ""
+# Example extra main options, used within the main nginx's context:
+#   nginx_extra_conf_options: |
+#     env VARIABLE;
+#     include /etc/nginx/main.d/*.conf;
+
+nginx_extra_http_options: ""
+# Example extra http options, printed inside the main server http config:
+#    nginx_extra_http_options: |
+#      proxy_buffering    off;
+#      proxy_set_header   X-Real-IP $remote_addr;
+#      proxy_set_header   X-Scheme $scheme;
+#      proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+#      proxy_set_header   Host $http_host;
+
+nginx_upstreams: []
+# - name: myapp1
+#   strategy: "ip_hash" # "least_conn", etc.
+#   keepalive: 16 # optional
+#   servers: {
+#     "srv1.example.com",
+#     "srv2.example.com weight=3",
+#     "srv3.example.com"
+#   }

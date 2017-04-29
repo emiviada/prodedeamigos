@@ -1,0 +1,46 @@
+---
+- name: Install MariaDB repository
+  apt_repository: repo='deb http://ftp.igh.cnrs.fr/pub/mariadb/repo/10.0/ubuntu trusty main' state=present
+
+- name: Add repository key to the system
+  apt_key: keyserver=keyserver.ubuntu.com id=0xcbcb082a1bb943db
+
+- name: Install MariaDB Server
+  apt: name=mariadb-server state=latest update_cache=yes
+
+- name: start MariaDB service
+  service: name=mysql state=started
+
+- name: restart MariaDB
+  service:
+    name: mysql
+    state: restarted
+    enabled: yes
+
+- name: install MariaDB client
+  apt: name=mariadb-client
+
+- name: Install MySQLdb Python package for secure installations.
+  apt: pkg=python-mysqldb state=present
+
+- name: Create DataBase
+  mysql_db:
+    name: "{{ db_name }}"
+    state: present
+    login_user: root
+    login_password: ''
+  register: db_created
+
+- name: Add database user
+  command: 'mysql -uroot -ne "{{ item }}"'
+  with_items:
+    - CREATE USER '{{ db_user }}'@'localhost' IDENTIFIED BY '{{ db_password }}'
+    - GRANT ALL PRIVILEGES ON {{ db_name }} . * TO '{{ db_user }}'@'localhost'
+  when: db_created.changed
+
+- name: Reload privilege tables
+  command: 'mysql -uroot -ne "{{ item }}"'
+  with_items:
+    - FLUSH PRIVILEGES
+  changed_when: False
+  when: db_created.changed

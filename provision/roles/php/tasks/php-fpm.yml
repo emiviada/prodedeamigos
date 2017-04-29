@@ -62,3 +62,7 @@
               regexp='max_execution_time(\s)?='
               line='max_execution_time = {{ php_max_execution_time }}'
   notify: restart php7-fpm
+
+- name: Set right listen uri
+  lineinfile: "dest=/etc/php/7.0/fpm/pool.d/www.conf state=present regexp='^;?listen =' line='listen = 127.0.0.1:9000'"
+  notify: restart php7-fpm

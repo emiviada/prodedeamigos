@@ -1,6 +1,9 @@
 # Vagrant
 .vagrant
 
+# Ansible
+provision/playbook.retry
+
 # Cache and logs (Symfony2)
 /app/cache/*
 /app/logs/*
