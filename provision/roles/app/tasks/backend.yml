@@ -1,0 +1,165 @@
+---
+- name: Check if Symfony app exists
+  stat: path={{ backend_path }}
+  register: backend
+
+- name: Install Symfony
+  become: yes
+  become_method: sudo
+  shell: "{{ item }}"
+  with_items:
+    - sudo curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony
+    - sudo chmod a+x /usr/local/bin/symfony
+    - symfony new {{ backend_path }}
+  when: backend.stat.exists == False
+
+- name: Copy parameters.yml file
+  template:
+    src: templates/parameters.yml.j2
+    dest: "{{ backend_path }}/app/config/parameters.yml"
+  when: backend.stat.exists == False
+
+- name: Install EasyAdminBundle
+  shell: "{{ item }}"
+  with_items:
+    - cd {{ backend_path }};composer require javiereguiluz/easyadmin-bundle
+  when: backend.stat.exists == False
+
+- name: Install FOSUserBundle
+  shell: "{{ item }}"
+  with_items:
+    - cd {{ backend_path }};composer require friendsofsymfony/user-bundle "~2.0@dev"
+  when: backend.stat.exists == False
+
+- name: Update Composer
+  become: yes
+  become_user: vagrant
+  shell: "{{ item }}"
+  with_items:
+    - cd {{ backend_path }};composer update && composer clear-cache
+
+- name: Enable the EasyAdminBundle and FOSUserBundle bundles
+  lineinfile:
+    dest: "{{ backend_path }}/app/AppKernel.php"
+    line: "{{ item }}"
+    insertbefore: "];"
+    state: present
+  with_items:
+    - new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
+    - new FOS\UserBundle\FOSUserBundle(),
+
+- name: Create "Entity" folder within AppBundle
+  file: path={{ backend_path }}/src/AppBundle/Entity state=directory
+
+- name: Check if User class exists
+  stat: path={{ backend_path }}/src/AppBundle/Entity/User.php
+  register: user_class
+
+- name: Copy User class
+  template:
+    src: templates/User.php.j2
+    dest: "{{ backend_path }}/src/AppBundle/Entity/User.php"
+  when: user_class.stat.exists == False
+
+- name: Copy routing.yml file
+  template:
+    src: templates/routing.yml.j2
+    dest: "{{ backend_path }}/app/config/routing.yml"
+  when: backend.stat.exists == False
+
+- name: Copy security.yml file
+  template:
+    src: templates/security.yml.j2
+    dest: "{{ backend_path }}/app/config/security.yml"
+  when: backend.stat.exists == False
+
+- name: Copy config.yml file
+  template:
+    src: templates/config.yml.j2
+    dest: "{{ backend_path }}/app/config/config.yml"
+  when: backend.stat.exists == False
+
+- name: Clear Cache, Update Schema and Create assets symlink
+  shell: "{{ item }}"
+  with_items:
+    - /usr/bin/php {{ backend_path }}/bin/console doctrine:schema:update --force
+    - /usr/bin/php {{ backend_path }}/bin/console assets:install {{ backend_path }}/web --symlink
+
+- name: Create admin user
+  shell: "{{ item }}"
+  with_items:
+    - "/usr/bin/php {{ backend_path }}/bin/console fos:user:create {{ app_admin_user }} {{ app_admin_email }} {{ app_admin_password }} --super-admin"
+  when: backend.stat.exists == False
+
+- name: Create /app/Resources/views/easy_admin directory
+  file: path={{ backend_path }}/app/Resources/views/easy_admin state=directory
+
+- name: Overide layout to add logout link
+  copy:
+    src: src/layout.html.twig
+    dest: "{{ backend_path }}/app/Resources/views/easy_admin/layout.html.twig"
+  when: backend.stat.exists == False
+
+- name: Create /app/Resources/FOSUserBundle/views directory
+  file: path={{ backend_path }}/app/Resources/FOSUserBundle/views state=directory
+
+- name: Overide layout for login page
+  copy:
+    src: src/login.html.twig
+    dest: "{{ backend_path }}/app/Resources/FOSUserBundle/views/layout.html.twig"
+  when: backend.stat.exists == False
+
+- name: Create /web/css directory
+  file: path={{ backend_path }}/web/css state=directory
+
+- name: Copy css/login.css
+  copy:
+    src: src/login.css
+    dest: "{{ backend_path }}/web/css/login.css"
+  when: backend.stat.exists == False
+
+- name: Install Bundles for API (FOSRestBundle, JMSSerializerBundle, NelmioCORSBundle)
+  shell: "{{ item }}"
+  with_items:
+    - cd {{ backend_path }};composer require friendsofsymfony/rest-bundle
+    - cd {{ backend_path }};composer require jms/serializer-bundle
+    - cd {{ backend_path }};composer require nelmio/cors-bundle
+  when: "{{ enable_api }}"
+
+- name: Enable the API bundles
+  lineinfile:
+    dest: "{{ backend_path }}/app/AppKernel.php"
+    line: "{{ item }}"
+    insertbefore: "];"
+    state: present
+  with_items:
+    - new FOS\RestBundle\FOSRestBundle(),
+    - new JMS\SerializerBundle\JMSSerializerBundle(),
+    - new Nelmio\CorsBundle\NelmioCorsBundle(),
+  when: "{{ enable_api }}"
+
+- name: Setup API config
+  blockinfile:
+    dest: "{{ backend_path }}/app/config/config.yml"
+    block: |
+      nelmio_cors:
+          defaults:
+              allow_credentials: false
+              allow_origin: ['*']
+              allow_headers: ['*']
+              allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+              max_age: 3600
+              hosts: []
+              origin_regex: false
+      # FOSRest Configuration
+      fos_rest:
+          body_listener: true
+          format_listener:
+              rules:
+                  - { path: '^/', priorities: ['json'], fallback_format: json, prefer_extension: false }
+          param_fetcher_listener: true
+          view:
+              view_response_listener: 'force'
+              formats:
+                  json: true
+  when: "{{ enable_api }}"

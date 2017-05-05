@@ -4,8 +4,8 @@
   become_method: sudo
 
   roles:
-    - base
-    - mariadb
-    - php
-    - nginx
+    #- base
+    #- mariadb
+    #- php
+    #- nginx
     - app

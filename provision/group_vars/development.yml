@@ -24,3 +24,6 @@ sf_secret: 55cbb4fd0eaf9b34acb6ff95791b625dba5e5c29
 app_admin_user: admin
 app_admin_password: admin
 app_admin_email: admin@admin.com
+
+# API
+enable_api: false
