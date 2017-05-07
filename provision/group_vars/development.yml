@@ -1,6 +1,7 @@
 server_name: local.sym-ang-stack.com
 document_root: /var/www
 backend_path: "{{ document_root }}/backend"
+frontend_path: "{{ document_root }}/frontend"
 
 # Database config
 db_host: 127.0.0.1

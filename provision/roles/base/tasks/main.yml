@@ -7,3 +7,20 @@
 
 - name: install unzip
   apt: name=unzip
+
+- name: Add NodeJS PPA and install it
+  shell: "{{ item }}"
+  with_items:
+    - apt-get install python-software-properties
+    - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+    - apt-get install nodejs -y
+
+- name: Install Typescript
+  shell: "{{ item }}"
+  with_items:
+    - npm install typescript -g
+
+- name: Install Angular-CLI
+  shell: "{{ item }}"
+  with_items:
+    - npm install angular-cli -g

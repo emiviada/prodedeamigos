@@ -1,0 +1,15 @@
+---
+- name: Check if Angular app exists
+  stat: path={{ frontend_path }}
+  register: frontend
+
+# Copy package.json, tslint.json, angular-cli.json, karma.conf.js, protractor.conf.js
+# Create frontend directory
+# Create frontend/environments folder with its files
+# Copy polyfills.ts, tsconfig.json, styles.css, index.html, main.ts, test.ts
+# Create app folder
+# Copy app.module.ts and app.component.ts, app.component.html, app.component.css
+# Create assets frontend/folder
+# Copy favicon.ico
+# Run ng build
+# In your host: Run ng serve &
