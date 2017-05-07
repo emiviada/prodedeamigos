@@ -52,3 +52,7 @@ provision/playbook.retry
 
 # Backup entities generated with doctrine:generate:entities command
 */Entity/*~
+
+# Node modules and dist folder
+/dist/
+/node_modules/

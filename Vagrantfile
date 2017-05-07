@@ -4,8 +4,6 @@
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/trusty64"
 
-  config.vm.network "forwarded_port", guest: 443, host: 55443
-  config.vm.network "forwarded_port", guest: 80, host: 5580
   config.vm.network :private_network, ip: "10.10.10.100"
 
   # synced folder
@@ -13,7 +11,6 @@ Vagrant.configure(2) do |config|
 
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "2048"
-    vb.name = "sym-ang-stack"
     vb.cpus = 1
   end
 

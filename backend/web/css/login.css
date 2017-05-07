@@ -1,0 +1,75 @@
+/*** Login Stylesheet ***/
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+h2 {
+    max-width: 330px;
+    text-align: center;
+    margin: 0 auto;
+}
+label {
+    display: block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+form {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+form input {
+  display: block;
+  box-sizing: border-box;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+form label[for="remember_me"],
+form input[type="checkbox"] { display: inline-block; }
+#username, #password, input[type="submit"] { width: 100%; }
+form .checkbox {
+  margin-bottom: 10px;
+}
+form .checkbox {
+  font-weight: normal;
+}
+form .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+form .form-control:focus {
+  z-index: 2;
+}
+form input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+form input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+form input[type="submit"] {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+  border-radius: 6px;
+  padding: 10px 0;
+  border: 1px solid transparent;
+  font-weight: bold;
+  border: 1px solid transparent;
+  margin-top: 10px;
+}
+/* Errors */
+.container > div {
+  text-align: center;
+  color: red;
+}

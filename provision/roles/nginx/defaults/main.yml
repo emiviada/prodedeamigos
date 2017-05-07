@@ -42,10 +42,10 @@ nginx_vhosts:
     error_log: "/var/log/nginx/{{ server_name }}_error.log"
   - listen: "80"
     server_name: "{{ backend_server_name }}"
-    root: "{{ document_root }}"
-    index: "index.php index.html index.htm"
-    access_log: "/var/log/nginx/{{ server_name }}_access.log"
-    error_log: "/var/log/nginx/{{ server_name }}_error.log"
+    root: "{{ backend_path }}/web"
+    index: "index.php app.php index.html index.htm"
+    access_log: "/var/log/nginx/{{ backend_server_name }}_access.log"
+    error_log: "/var/log/nginx/{{ backend_server_name }}_error.log"
 
 nginx_extra_conf_options: ""
 # Example extra main options, used within the main nginx's context:

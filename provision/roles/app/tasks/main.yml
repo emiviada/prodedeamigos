@@ -1,6 +1,6 @@
 ---
 # Backend app (Symfony).
-#- include: backend.yml
+- include: backend.yml
 
 # Frontend app (Angular).
 - include: frontend.yml

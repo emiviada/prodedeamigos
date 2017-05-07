@@ -13,7 +13,7 @@ server {
     index {{ vhost.index | default('index.html index.htm') }};
 
 {% if vhost.access_log is defined %}
-    access_logextra_parameters {{ vhost.access_log }};
+    access_log {{ vhost.access_log }};
 {% endif %}
 {% if vhost.error_log is defined %}
     error_log {{ vhost.error_log }} error;
