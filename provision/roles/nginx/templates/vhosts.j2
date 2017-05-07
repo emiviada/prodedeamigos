@@ -13,7 +13,7 @@ server {
     index {{ vhost.index | default('index.html index.htm') }};
 
 {% if vhost.access_log is defined %}
-    access_log {{ vhost.access_log }};
+    access_logextra_parameters {{ vhost.access_log }};
 {% endif %}
 {% if vhost.error_log is defined %}
     error_log {{ vhost.error_log }} error;
@@ -27,20 +27,29 @@ server {
     {{ vhost.extra_parameters|indent(4) }}
 {% endif %}
 
+{% if vhost.server_name == server_name %}
+    location / {
+        try_files $uri /index.html;
+    }
+{% endif %}
+
+{% if vhost.server_name == backend_server_name %}
     location ~ \.php$ {
         include phpfpm_params;
-        fastcgi_index   index.php;
     }
 
-    location ~ ^/backend(/.*)$ {
-        try_files /backend/web$1 @symfony;
+    location / {
+        # try to serve file directly, fallback to app.php
+        try_files $uri /app.php$is_args$args;
     }
 
-    location @symfony {
-        include phpfpm_params;
-        fastcgi_param SCRIPT_FILENAME $document_root/backend/web/app.php;
-        fastcgi_param SCRIPT_NAME       /backend/app.php;
-        fastcgi_param REQUEST_URI       /backend$1;
+    location ~ ^/app\.php(/|$) {
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT $realpath_root;
+        internal;
     }
+{% endif %}
 }
 {% endfor %}

@@ -3,13 +3,87 @@
   stat: path={{ frontend_path }}
   register: frontend
 
-# Copy package.json, tslint.json, angular-cli.json, karma.conf.js, protractor.conf.js
-# Create frontend directory
-# Create frontend/environments folder with its files
-# Copy polyfills.ts, tsconfig.json, styles.css, index.html, main.ts, test.ts
-# Create app folder
-# Copy app.module.ts and app.component.ts, app.component.html, app.component.css
-# Create assets frontend/folder
-# Copy favicon.ico
-# Run ng build
-# In your host: Run ng serve &
+- name: Copy package.json
+  copy:
+    src: src/package.json
+    dest: "{{ document_root }}/package.json"
+  when: frontend.stat.exists == False
+
+- name: Copy tslint.json
+  copy:
+    src: src/tslint.json
+    dest: "{{ document_root }}/tslint.json"
+  when: frontend.stat.exists == False
+
+- name: Copy angular-cli.json file
+  template:
+    src: templates/angular-cli.json.j2
+    dest: "{{ document_root }}/angular-cli.json"
+  when: frontend.stat.exists == False
+
+- name: Copy karma.conf.js file
+  template:
+    src: templates/karma.conf.js.j2
+    dest: "{{ document_root }}/karma.conf.js"
+  when: frontend.stat.exists == False
+
+- name: Copy protractor.conf.js
+  copy:
+    src: src/protractor.conf.js
+    dest: "{{ document_root }}/protractor.conf.js"
+  when: frontend.stat.exists == False
+
+- name: Create frontend directory
+  file: path={{ frontend_path }} state=directory
+  when: frontend.stat.exists == False
+
+- name: Create environments directory
+  file: path={{ frontend_path }}/environments state=directory
+  when: frontend.stat.exists == False
+
+- name: Copy environments files
+  copy:
+    src: src/{{ item }}
+    dest: "{{ frontend_path }}/environments/{{ item }}"
+  with_items:
+    - environment.ts
+    - environment.prod.ts
+  when: frontend.stat.exists == False
+
+- name: Copy basic files for frontend app
+  copy:
+    src: src/{{ item }}
+    dest: "{{ frontend_path }}/{{ item }}"
+  with_items:
+    - polyfills.ts
+    - tsconfig.json
+    - styles.css
+    - index.html
+    - main.ts
+    - test.ts
+    - favicon.ico
+  when: frontend.stat.exists == False
+
+- name: Create app and assets directories
+  file: path={{ frontend_path }}/{{ item }} state=directory
+  with_items:
+    - app
+    - assets
+  when: frontend.stat.exists == False
+
+- name: Copy app scripts
+  copy:
+    src: src/{{ item }}
+    dest: "{{ frontend_path }}/app/{{ item }}"
+  with_items:
+    - app.module.ts
+    - app.component.ts
+    - app.component.html
+    - app.component.css
+  when: frontend.stat.exists == False
+
+- name: Run npm install & ng build
+  shell: "{{ item }}"
+  with_items:
+    - cd {{ frontend_path }};npm install
+    - cd {{ frontend_path }};ng build

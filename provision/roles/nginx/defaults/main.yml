@@ -34,20 +34,18 @@ nginx_proxy_cache_path: ""
 nginx_vhosts_filename: "vhosts.conf"
 #nginx_vhosts: []
 nginx_vhosts:
-  - listen: "80"
+  - listem: "80"
     server_name: "{{ server_name }}"
+    root: "{{ document_root }}/dist"
+    index: "index.php app.php index.html index.htm"
+    access_log: "/var/log/nginx/{{ server_name }}_access.log"
+    error_log: "/var/log/nginx/{{ server_name }}_error.log"
+  - listen: "80"
+    server_name: "{{ backend_server_name }}"
     root: "{{ document_root }}"
     index: "index.php index.html index.htm"
     access_log: "/var/log/nginx/{{ server_name }}_access.log"
     error_log: "/var/log/nginx/{{ server_name }}_error.log"
-    #extra_parameters: |
-    #  location ~ \.php$ {
-    #      fastcgi_split_path_info ^(.+\.php)(/.+)$;
-    #      fastcgi_pass unix:/var/run/php5-fpm.sock;
-    #      fastcgi_index index.php;
-    #      fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    #      include fastcgi_params;
-    #  }
 
 nginx_extra_conf_options: ""
 # Example extra main options, used within the main nginx's context:
