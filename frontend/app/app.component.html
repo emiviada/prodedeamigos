@@ -1,3 +1,10 @@
-<h1>
-  {{title}}
-</h1>
+<menu-component *ngIf="isLoggedIn()"></menu-component>
+
+<main id="panel">
+  <header *ngIf="isLoggedIn()">
+    <button class="toggle-button">☰</button>
+    <h2>Panel</h2>
+    <button class="toggle-button-right">X</button>
+  </header>
+  <router-outlet></router-outlet>
+</main>
