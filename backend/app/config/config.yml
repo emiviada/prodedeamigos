@@ -7,6 +7,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    api.max_results_default: 20
 
 framework:
     #esi:             ~
@@ -82,3 +83,39 @@ fos_user:
 easy_admin:
     entities:
         - AppBundle\Entity\User
+
+# Nelmio CORS Configuration
+nelmio_cors:
+    defaults:
+        allow_credentials: false
+        allow_origin: ['*']
+        allow_headers: ['*']
+        allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+        max_age: 3600
+        hosts: []
+        origin_regex: false
+
+# FOSRest Configuration
+fos_rest:
+    body_listener: true
+    format_listener:
+        rules:
+            - { path: '^/api/*', priorities: ['json'], fallback_format: json, prefer_extension: false }
+    zone:
+        - { path: ^/api/* }
+    param_fetcher_listener: true
+    view:
+        view_response_listener: 'force'
+        formats:
+            json: true
+
+# JMSSerializer Configuration
+jms_serializer:
+    metadata:
+        auto_detection: true
+        directories:
+            AppBundle:
+                path: "@AppBundle/Resources/config/serializer"
+            FOSUB:
+                namespace_prefix: "FOS\\UserBundle"
+                path: "%kernel.root_dir%/Resources/FOSUserBundle/serializer"

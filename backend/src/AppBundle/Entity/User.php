@@ -21,6 +21,14 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        // your own logic
+        $this->enabled = true;
+    }
+
+    /**
+     * isNew() method
+     */
+    public function isNew()
+    {
+        return is_null($this->id);
     }
 }
