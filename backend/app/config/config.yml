@@ -81,8 +81,14 @@ fos_user:
 
 # EasyAdminBundle Configuration
 easy_admin:
+    site_name: 'Prode de Amigos'
     entities:
-        - AppBundle\Entity\User
+        User:
+            class: AppBundle\Entity\User
+            label: 'Users'
+            list:
+                title: 'Users'
+                fields: ['username', 'email', 'enabled', 'facebookId', 'lastLogin']
 
 # Nelmio CORS Configuration
 nelmio_cors:

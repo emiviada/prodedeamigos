@@ -18,11 +18,19 @@ class UserController extends FOSRestController
     /**
      * @Rest\Get("/users")
      */
-    public function getAction()
+    public function getAction(Request $request)
     {
         $defaultLimit = $this->container->getParameter('api.max_results_default');
+        $findParams = array();
+        $allowedSearchProperties = array('facebook_id');
+        $propertyMapper = array('facebook_id' => 'facebookId');
+        foreach ($allowedSearchProperties as $property) {
+            if ($request->query->get($property)) {
+                $findParams[$propertyMapper[$property]] = $request->query->get($property);
+            }
+        }
         $result = $this->getDoctrine()->getRepository('AppBundle:User')->findBy(
-            array(),
+            $findParams,
             array(),
             $defaultLimit
         );
