@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/map';
 import { FacebookService, InitParams, LoginResponse, LoginOptions } from 'ngx-facebook';
+
+import { ApiService } from './api.service';
 
 // https://github.com/localForage/localForage
 import * as localForage from "localforage";
@@ -17,7 +18,7 @@ export class AuthService {
     loggedIn: boolean;
     loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
 
-    constructor(private http: Http, private fb: FacebookService, private router: Router) {
+    constructor(private api: ApiService, private fb: FacebookService, private router: Router) {
         const initParams: InitParams = {
           appId: '809333382485791',
           xfbml: true,
@@ -54,13 +55,58 @@ export class AuthService {
 
         this.fb.login(options)
           .then((response: LoginResponse) =>  {
-              console.log(response);
-              localForage.setItem('prodeUser', response.authResponse.userID);
-              this.setLoggedIn(true);
-              this.router.navigate(['/dashboard']);
+              //console.log(response);
+              let fbId = response.authResponse.userID;
+              let token = response.authResponse.accessToken;
+              // Check if user exists
+              this.api.findUsers({facebook_id: fbId})
+                  .subscribe(
+                      data  => {
+                        if (data.length) { // User exists, just authenticate
+                            let userId = data[0].id;
+                            this.authenticate(userId, token);
+                        } else { // Create the user
+                          let fields = 'id,name,picture,email';
+                          this.fb.api('/' + fbId + '?fields=' + fields)
+                            .then(res => {
+                              let picture = res.picture.data.url;
+                              let params = {'user': {
+                                'email': res.email,
+                                'password': res.id,
+                                'facebookId': res.id,
+                                'username': res.name
+                              }};
+                              this.api.createUser(params)
+                                .subscribe(
+                                  data => {
+                                    let p = data.split('/');
+                                    let userId = p[3];
+                                    this.authenticate(userId, token);
+                                  },
+                                  error => {return Observable.throw(error);}
+                                );
+                            })
+                            .catch(error => {return Observable.throw(error);});
+                        }
+                      },
+                      error => console.log(<any>error)
+                  );
           })
           .catch((error: any) => console.error(error));
 
+    }
+
+    authenticate(userId, token) {
+      console.log(userId, token);
+      //this.api.authenticate()
+      //  .subscribe(
+      //      data => {
+              localForage.setItem('prodeUser', userId);
+              this.setLoggedIn(true);
+              this.router.navigate(['/dashboard']);
+      //      },
+      //      error => console.log(<any>error)
+      //  );
     }
 
     logout() {

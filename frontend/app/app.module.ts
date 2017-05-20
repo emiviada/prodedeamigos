@@ -8,6 +8,7 @@ import { FacebookModule } from 'ngx-facebook';
 import { appRoutes } from './routes';
 import { AuthGuard } from './service/auth.guard';
 import { AuthService } from './service/auth.service';
+import { ApiService } from './service/api.service';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './common/menu.component';
 import { HomepageComponent } from './common/homepage.component';
@@ -26,7 +27,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HttpModule
   ],
   providers: [
-    AuthService, AuthGuard
+    AuthService, AuthGuard, ApiService
   ],
   bootstrap: [AppComponent]
 })

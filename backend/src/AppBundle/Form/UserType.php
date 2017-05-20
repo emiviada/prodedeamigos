@@ -29,15 +29,8 @@ class UserType extends AbstractType
         $builder->add('username', null, array('required' => true));
         $builder->add('email', EmailType::class, array('required' => true));
         $builder->add('password', PasswordType::class, array('required' => true));
+        $builder->add('facebookId', null, array('required' => false));
     }
-
-    /**
-     * {@inheritdoc}
-     
-    public function getBlockPrefix()
-    {
-        return 'appbundle_user';
-    }*/
 
     /**
      * {@inheritdoc}
