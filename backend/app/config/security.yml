@@ -13,7 +13,23 @@ security:
         fos_userbundle:
             id: fos_user.user_provider.username
 
+        api_provider:
+            memory:
+                users:
+                    api_user:
+                        password: qRH0ZhAUU8Vt0Ev
+                        roles:    ROLE_API
+
     firewalls:
+        api:
+            pattern: ^/api
+            anonymous: true
+            logout: ~
+            provider: api_provider
+
+            guard:
+                authenticators:
+                    - app.token_authenticator
         main:
             pattern: ^/
             form_login:
@@ -32,3 +48,4 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin, role: ROLE_ADMIN }
+        #- { path: ^/api, role: ROLE_USER }

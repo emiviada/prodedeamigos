@@ -10,10 +10,13 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class ApiService {
   private baseUrl = environment.api_url + '/api';  // URL to web API
+  private apiUsername = environment.api_user;
+  private apiPassword = environment.api_password;
 
   private headers = new Headers({
     'Content-Type': 'application/json',
-    'Accept': 'application/json'
+    'Accept': 'application/json',
+    'X-PRODE-AUTH-TOKEN': this.apiUsername + ':' + this.apiPassword
   });
 
   constructor (private http: Http) {}
@@ -24,7 +27,7 @@ export class ApiService {
   findUsers(params) {
     let query = Object.keys(params)
       .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`).join('&');
-    return this.http.get(this.baseUrl + '/users?' + query)
+    return this.http.get(this.baseUrl + '/users?' + query, {headers: this.headers})
       .map(this.extractData)
       .catch(this.handleError);
   }

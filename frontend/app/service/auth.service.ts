@@ -18,6 +18,8 @@ export class AuthService {
     loggedIn: boolean;
     loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
 
+    loading = document.getElementById('loading');
+
     constructor(private api: ApiService, private fb: FacebookService, private router: Router) {
         const initParams: InitParams = {
           appId: '809333382485791',
@@ -53,6 +55,7 @@ export class AuthService {
           scope: 'public_profile,email'
         };
 
+        this.loading.style.display = 'block';
         this.fb.login(options)
           .then((response: LoginResponse) =>  {
               //console.log(response);
@@ -101,6 +104,7 @@ export class AuthService {
       //this.api.authenticate()
       //  .subscribe(
       //      data => {
+              this.loading.style.display = 'none';
               localForage.setItem('prodeUser', userId);
               this.setLoggedIn(true);
               this.router.navigate(['/dashboard']);
