@@ -2,9 +2,21 @@
 
 <main id="panel">
   <header *ngIf="isLoggedIn()">
-    <button class="toggle-button">☰</button>
-    <h2>Panel</h2>
-    <button class="toggle-button-right">X</button>
+    <div class="row ptm">
+      <div class="col-xs-4">
+        <button class="toggle-button mls">
+          <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="col-xs-4 text-center">
+        <img src="/assets/imgs/prode-logo-small.png" />
+      </div>
+      <div class="col-xs-4 text-right">
+        <button class="toggle-button-right mrm">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
   </header>
   <router-outlet></router-outlet>
 </main>

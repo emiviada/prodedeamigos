@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { AuthService } from '../service/auth.service';
+
 // https://slideout.js.org/
 const Slideout = require('slideout');
 
@@ -8,10 +10,21 @@ const Slideout = require('slideout');
   templateUrl: './menu.component.html'
 })
 export class MenuComponent {
+    private slideoutLeft;
+    private slideoutRight;
+
+    constructor(private auth: AuthService) { }
+
+    logout(): void {
+        this.slideoutRight.toggle();
+        this.auth.logout();
+    }
+
     ngOnInit(): void {
+        let _this = this;
         let menuRight = document.getElementById('menu-right'),
             padding = 256;
-        var slideoutLeft = new Slideout({
+        this.slideoutLeft = new Slideout({
             'panel': document.getElementById('panel'),
             'menu': document.getElementById('menu-left'),
             'padding': padding,
@@ -24,10 +37,10 @@ export class MenuComponent {
         });
         // Toggle button
         document.querySelector('.toggle-button').addEventListener('click', function() {
-            slideoutLeft.toggle();
+            _this.slideoutLeft.toggle();
         });
 
-        var slideoutRight = new Slideout({
+        this.slideoutRight = new Slideout({
             'panel': document.getElementById('panel'),
             'menu': menuRight,
             'padding': 256,
@@ -36,7 +49,7 @@ export class MenuComponent {
         });
         // Toggle button
         document.querySelector('.toggle-button-right').addEventListener('click', function() {
-            slideoutRight.toggle();
+            _this.slideoutRight.toggle();
         });
     }
 }
