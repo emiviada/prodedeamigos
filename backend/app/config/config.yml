@@ -8,6 +8,7 @@ imports:
 parameters:
     locale: en
     api.max_results_default: 20
+    app.path.team_images: /uploads/images/teams
 
 framework:
     #esi:             ~
@@ -89,6 +90,22 @@ easy_admin:
             list:
                 title: 'Users'
                 fields: ['username', 'email', 'enabled', 'facebookId', 'lastLogin']
+        Team:
+            class: AppBundle\Entity\Team
+            label: 'Teams'
+            list:
+                title: 'Teams'
+                fields:
+                    - name
+                    - alias
+                    - { property: 'flag', type: 'image', base_path: '%app.path.team_images%' }
+                    - stadium
+            form:
+                fields:
+                    - name
+                    - alias
+                    - { property: 'flagFile', type: 'vich_image' }
+                    - stadium
 
 # Nelmio CORS Configuration
 nelmio_cors:
@@ -126,3 +143,11 @@ jms_serializer:
             FOSUB:
                 namespace_prefix: "FOS\\UserBundle"
                 path: "%kernel.root_dir%/Resources/FOSUserBundle/serializer"
+
+# Vich Uploader
+vich_uploader:
+    db_driver: orm
+    mappings:
+        team_images:
+            uri_prefix:         '%app.path.team_images%'
+            upload_destination: '%kernel.root_dir%/../web/uploads/images/teams'

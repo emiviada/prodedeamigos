@@ -251,6 +251,7 @@ a {
   background: rgba(0, 0, 0, 0.5);
   padding: 10px 0;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 .prode-snapshot img {
   -webkit-border-radius: 50%;
@@ -296,7 +297,7 @@ a {
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   .col-sm-6 {
-    width: 48%;
+    width: 47%;
     margin: 0 6px;
   }
   #panel header .toggle-button,
