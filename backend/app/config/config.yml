@@ -90,6 +90,9 @@ easy_admin:
             list:
                 title: 'Users'
                 fields: ['username', 'email', 'enabled', 'facebookId', 'lastLogin']
+        Tournament:
+            class: AppBundle\Entity\Tournament
+            label: 'Tournaments'
         Team:
             class: AppBundle\Entity\Team
             label: 'Teams'

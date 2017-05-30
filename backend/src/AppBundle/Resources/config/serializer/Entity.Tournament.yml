@@ -1,0 +1,7 @@
+AppBundle\Entity\Tournament:
+    exclusion_policy: all
+    properties:
+        id:
+            expose: true
+        name:
+            expose: true
