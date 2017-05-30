@@ -6,3 +6,6 @@ parameters:
 services:
     app.token_authenticator:
         class: AppBundle\Security\TokenAuthenticator
+    app.cloudinary_storage:
+        class:     AppBundle\Storage\CloudinaryStorage
+        arguments: ['@vich_uploader.property_mapping_factory']

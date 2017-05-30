@@ -204,6 +204,14 @@ class Team
     }
 
     /**
+     * getFlagUri() getter
+     */
+    public function getFlagUri()
+    {
+        return \Cloudinary::cloudinary_url($this->getFlag());
+    }
+
+    /**
      * Set updatedAt
      *
      * @param \DateTime $updatedAt

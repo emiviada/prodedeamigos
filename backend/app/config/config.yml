@@ -98,7 +98,7 @@ easy_admin:
                 fields:
                     - name
                     - alias
-                    - { property: 'flag', type: 'image', base_path: '%app.path.team_images%' }
+                    - { property: 'flagUri', type: 'image' }
                     - stadium
             form:
                 fields:
@@ -147,7 +147,9 @@ jms_serializer:
 # Vich Uploader
 vich_uploader:
     db_driver: orm
+    storage:   "@app.cloudinary_storage"
     mappings:
         team_images:
             uri_prefix:         '%app.path.team_images%'
             upload_destination: '%kernel.root_dir%/../web/uploads/images/teams'
+            namer:              vich_uploader.namer_uniqid
