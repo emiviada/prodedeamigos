@@ -55,6 +55,14 @@ class Tournament
     }
 
     /**
+     * __toString() Magic Method
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
+    /**
      * Get id
      *
      * @return int

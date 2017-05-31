@@ -83,6 +83,8 @@ fos_user:
 # EasyAdminBundle Configuration
 easy_admin:
     site_name: 'Prode de Amigos'
+    formats:
+        datetime: 'd/m/Y H:i'
     entities:
         User:
             class: AppBundle\Entity\User
@@ -109,6 +111,20 @@ easy_admin:
                     - alias
                     - { property: 'flagFile', type: 'vich_image' }
                     - stadium
+        Game:
+            class: AppBundle\Entity\Game
+            label: 'Games'
+            list:
+                fields: [ tournament, versus, playDateAt, result, finished ]
+            form:
+                fields:
+                    - { property: 'tournament', type_options: { required: true, placeholder: 'None' } }
+                    - { property: 'teamHome', type_options: { required: true, placeholder: 'None' } }
+                    - { property: 'teamAway', type_options: { required: true, placeholder: 'None' } }
+                    - playDateAt
+                    - goalsHome
+                    - goalsAway
+                    - finished
 
 # Nelmio CORS Configuration
 nelmio_cors:
