@@ -62,6 +62,19 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+        mappings:
+            gedmo_slugable:
+                type: annotation
+                prefix: Gedmo\Slugable\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Sluggable"
+                is_bundle: false
+
+# Stof Doctrine Extensions
+stof_doctrine_extensions:
+    default_locale: en_US
+    orm:
+        default:
+            sluggable: true
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -125,6 +138,25 @@ easy_admin:
                     - goalsHome
                     - goalsAway
                     - finished
+        FantasyTournament:
+            class: AppBundle\Entity\FantasyTournament
+            label: 'Fantasy Tournaments'
+            list:
+                title: '%%entity_label%%'
+            form:
+                fields:
+                    - name
+                    - pointsPerGame
+                    - matchExact
+                    - { property: 'pointsPerExact', type_options: { required: false } }
+                    - { property: 'tournament', type_options: { required: true, placeholder: 'None' } }
+                    - { property: 'owner', type_options: { required: true, placeholder: 'None' } }
+                    - members
+            new:
+                title: 'Create %%entity_label%%'
+            edit:
+                title: 'Edit %%entity_label%%'
+
 
 # Nelmio CORS Configuration
 nelmio_cors:
