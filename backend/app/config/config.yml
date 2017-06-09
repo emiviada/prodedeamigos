@@ -9,6 +9,7 @@ parameters:
     locale: en
     api.max_results_default: 20
     app.path.team_images: /uploads/images/teams
+    app.path.fantasy_tournament_images: /uploads/images/fantasy_tournaments
 
 framework:
     #esi:             ~
@@ -147,6 +148,7 @@ easy_admin:
                 fields:
                     - name
                     - pointsPerGame
+                    - { property: 'pictureFile', type: 'vich_image' }
                     - matchExact
                     - { property: 'pointsPerExact', type_options: { required: false } }
                     - { property: 'tournament', type_options: { required: true, placeholder: 'None' } }
@@ -203,4 +205,8 @@ vich_uploader:
         team_images:
             uri_prefix:         '%app.path.team_images%'
             upload_destination: '%kernel.root_dir%/../web/uploads/images/teams'
+            namer:              vich_uploader.namer_uniqid
+        fantasy_tournament_images:
+            uri_prefix:         '%app.path.fantasy_tournament_images%'
+            upload_destination: '%kernel.root_dir%/../web/uploads/images/fantasy_tournaments'
             namer:              vich_uploader.namer_uniqid

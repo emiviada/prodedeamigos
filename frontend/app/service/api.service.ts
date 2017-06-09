@@ -4,6 +4,7 @@ import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/share';
 
 import { environment } from '../../environments/environment';
 
@@ -40,6 +41,17 @@ export class ApiService {
   }
 
   /*** END USERS functionalities ***/
+
+  /*** FANTASY TOURNAMENTS functionalities ***/
+
+  // getFantasyTournaments
+  getFantasyTournaments(userId) {
+    return this.http.get(this.baseUrl + '/users/' + userId + '/fantasy-tournaments', {headers: this.headers})
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  /*** END FANTASY TOURNAMENTS functionalities ***/
 
   private extractData(res: Response) {
     let data = {};

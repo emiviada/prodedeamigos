@@ -1,0 +1,21 @@
+AppBundle\Entity\FantasyTournament:
+    exclusion_policy: all
+    properties:
+        name:
+            expose: true
+        owner:
+            expose: true
+        pointsPerGame:
+            expose: true
+        matchExact:
+            expose: true
+        pointsPerExact:
+            expose: true
+        slug:
+            expose: true
+        members:
+            expose: true
+    virtual_properties:
+        getPictureUri:
+            serialized_name: picture_uri
+            type: string

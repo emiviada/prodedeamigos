@@ -300,11 +300,15 @@ a {
     width: 47%;
     margin: 0 6px;
   }
-  #panel header .toggle-button,
-  #panel header .toggle-button-right { display: none; }
-  .main-content {
+  header, .main-content {
     width: 80%;
     margin: 0 auto;
+  }
+  #panel header .toggle-button,
+  #panel header .toggle-button-right { margin: 0 15px; }
+  .logo-title {
+    font-size: 18px;
+    padding: 10px;
   }
   .create-prode .col-xs-12 { padding-left: 0; }
 }

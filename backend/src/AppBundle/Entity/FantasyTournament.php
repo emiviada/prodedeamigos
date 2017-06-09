@@ -4,13 +4,16 @@ namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * FantasyTournament
  *
  * @ORM\Table(name="fantasy_tournaments")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\FantasyTournamentRepository")
+ * @Vich\Uploadable
  */
 class FantasyTournament
 {
@@ -45,6 +48,24 @@ class FantasyTournament
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="picture", type="string", length=255, nullable=true)
+     */
+    private $picture;
+
+    /**
+     * @Vich\UploadableField(mapping="fantasy_tournament_images", fileNameProperty="picture")
+     * @var File
+     */
+    private $pictureFile;
+
+    /**
+     * @var string
+     */
+    private $pictureUri;
 
     /**
      * @var int
@@ -85,6 +106,21 @@ class FantasyTournament
      */
     private $slug;
 
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->members = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->updatedAt = new \DateTime();
+    }
 
     /**
      * Get id
@@ -190,13 +226,6 @@ class FantasyTournament
     public function getPointsPerExact()
     {
         return $this->pointsPerExact;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->members = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -313,5 +342,88 @@ class FantasyTournament
     public function isNew()
     {
         return is_null($this->id);
+    }
+
+    /**
+     * setPictureFile
+     * @param string $picture
+     */
+    public function setPictureFile(File $picture = null)
+    {
+        $this->pictureFile = $picture;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($picture) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    /**
+     * getPictureFile() getter
+     */
+    public function getPictureFile()
+    {
+        return $this->pictureFile;
+    }
+
+    /**
+     * getPictureUri() getter
+     */
+    public function getPictureUri()
+    {
+        $this->pictureUri = ($this->getPicture())?
+            \Cloudinary::cloudinary_url($this->getPicture()) : null;
+        return $this->pictureUri;
+    }
+
+    /**
+     * Set picture
+     *
+     * @param string $picture
+     *
+     * @return FantasyTournament
+     */
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * Get picture
+     *
+     * @return string
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return FantasyTournament
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }

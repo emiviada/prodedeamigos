@@ -3,7 +3,7 @@
 
     <div class="row create-prode">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-            <a href="" class="btn btn-primary btn-block">
+            <a routerLink="/crear-torneo" class="btn btn-primary btn-block">
                 <i class="fa fa-trophy" aria-hidden="true"></i>&nbsp;
                 Crear nuevo torneo Prode
             </a>
@@ -13,15 +13,15 @@
     <div class="snapshot-wrapper">
         <div class="container-fluid">
             <div class="row">
-                <div class="prode-snapshot col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <div *ngFor="let ftournament of fantasyTournaments" class="prode-snapshot col-xs-12 col-sm-6 col-md-4 col-lg-4">
                     <div class="col-xs-2 pan text-center">
-                        <img src="/assets/imgs/trophy_placeholder.png" width="100%">
+                        <img src="{{ ftournament.picture_uri || '/assets/imgs/trophy_placeholder.png' }}" width="100%">
                     </div>
                     <div class="col-xs-8">
-                        <h3 class="ttitle">Torneo Club 1</h3>
+                        <h3 class="ttitle">{{ ftournament.name }}</h3>
                         <span class="players">
                             <i class="fa fa-user-plus" aria-hidden="true"></i>
-                            9 Jugadores
+                            {{ ftournament.members.length }} Jugadores
                         </span>
                         <span class="info">Some info</span>
                     </div>
@@ -36,7 +36,11 @@
                     </div>
                 </div>
 
-                <div class="prode-snapshot col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <p *ngIf="!fantasyTournaments?.length && !loading">
+                    No estas participando de ning&uacute;n torneo. Espera a ser invitado a alguno, &oacute; puedes crear tu propio torneo e invitar a tus amigos.
+                </p>
+
+                <!--<div class="prode-snapshot col-xs-12 col-sm-6 col-md-4 col-lg-4">
                     <div class="col-xs-2 pan text-center">
                         <img src="/assets/imgs/trophy_placeholder.png" width="100%">
                     </div>
@@ -80,7 +84,7 @@
                             <i class="fa fa-level-down" aria-hidden="true"></i>
                         </span>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>

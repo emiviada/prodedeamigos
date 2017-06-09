@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 import { FacebookService, InitParams, LoginResponse, LoginOptions } from 'ngx-facebook';
 
 import { ApiService } from './api.service';
+import { prodeUserKey } from '../global';
 
 // https://github.com/localForage/localForage
 import * as localForage from "localforage";
@@ -105,7 +106,7 @@ export class AuthService {
       //  .subscribe(
       //      data => {
               this.loading.style.display = 'none';
-              localForage.setItem('prodeUser', userId);
+              localForage.setItem(prodeUserKey, userId);
               this.setLoggedIn(true);
               this.router.navigate(['/dashboard']);
       //      },
@@ -116,7 +117,7 @@ export class AuthService {
     logout() {
         let router = this.router;
         // remove user from local storage to log user out
-        localForage.removeItem('prodeUser').then(err => {
+        localForage.removeItem(prodeUserKey).then(err => {
             this.setLoggedIn(false);
             router.navigate(['/']);
         });

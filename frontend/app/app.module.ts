@@ -14,10 +14,12 @@ import { MenuComponent } from './common/menu.component';
 import { HomepageComponent } from './common/homepage.component';
 import { NotFoundComponent } from './common/notfound.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { NewFantasyTournamentComponent } from './fantasy_tournament/new_fantasy_tournament.component';
 
 @NgModule({
   declarations: [
-    AppComponent, MenuComponent, HomepageComponent, NotFoundComponent, DashboardComponent
+    AppComponent, MenuComponent, HomepageComponent, NotFoundComponent, DashboardComponent,
+    NewFantasyTournamentComponent
   ],
   imports: [
     BrowserModule,

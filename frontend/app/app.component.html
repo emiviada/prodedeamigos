@@ -3,20 +3,25 @@
 <main id="panel">
   <header *ngIf="isLoggedIn()">
     <div class="row ptm">
-      <div class="col-xs-4">
+      <div class="col-xs-3">
         <button class="toggle-button mls">
           <i class="fa fa-bars" aria-hidden="true"></i>
         </button>
       </div>
-      <div class="col-xs-4 text-center">
-        <img src="/assets/imgs/prode-logo-small.png" />
+      <div class="col-xs-6 text-center">
+        <a routerLink="/">
+          <img src="/assets/imgs/prode-logo-small.png" />
+          <span class="logo-title hidden-xs">Prode De Amigos</span>
+        </a>
       </div>
-      <div class="col-xs-4 text-right">
+      <div class="col-xs-3 text-right">
         <button class="toggle-button-right mrm">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
         </button>
       </div>
     </div>
   </header>
+
   <router-outlet></router-outlet>
+
 </main>
