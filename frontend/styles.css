@@ -15,15 +15,17 @@ a {
 }
 
 /*** Margin & Paddings styles ***/
-.mrm, .mam { margin-right: 10px; }
-.mls, .mas { margin-left: 5px; }
-.mrs, .mas { margin-right: 5px; }
+.mtl, .mal { margin-top: 20px !important; }
+.mtm, .mam { margin-top: 10px !important; }
+.mrm, .mam { margin-right: 10px !important; }
+.mls, .mas { margin-left: 5px !important; }
+.mrs, .mas { margin-right: 5px !important; }
 
-.ptm, .pam { padding-top: 10px; }
-.ptn, .pan { padding-top: 0; }
-.prn, .pan { padding-right: 0; }
-.pbn, .pan { padding-bottom: 0; }
-.pln, .pan { padding-left: 0; }
+.ptm, .pam { padding-top: 10px !important; }
+.ptn, .pan { padding-top: 0 !important; }
+.prn, .pan { padding-right: 0 !important; }
+.pbn, .pan { padding-bottom: 0 !important; }
+.pln, .pan { padding-left: 0 !important; }
 /*** End Margin & Paddings styles ***/
 
 /*** Loading styles ***/
@@ -160,6 +162,9 @@ a {
 }
 #panel header .toggle-button:focus,
 #panel header .toggle-button-right:focus { outline: none; }
+
+a.logo { text-decoration: none; }
+a.logo:hover,a.logo:active { color: inherit; }
 /*** End Header styles ***/
 
 /*** SlideOut styles ***/
@@ -291,6 +296,15 @@ a {
 .prode-snapshot .pos .posr .fa-level-down { color: #d9534f; }
 /*** END Dashboard ***/
 
+/*** Angular CSS classes ***/
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
+/*** END Angular CSS classes ***/
+
 .bg-strong-success { background-color: #468847; }
 
 /*** MEDIA QUERIES ***/
@@ -311,6 +325,7 @@ a {
     padding: 10px;
   }
   .create-prode .col-xs-12 { padding-left: 0; }
+  .single-form { width: 50%; }
 }
 @media (min-width: 1200px) {
   .col-lg-4 {
