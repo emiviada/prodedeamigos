@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FacebookModule } from 'ngx-facebook';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ToasterModule } from 'angular2-toaster';
 
 import { appRoutes } from './routes';
 import { AuthGuard } from './service/auth.guard';
@@ -23,10 +25,12 @@ import { NewFantasyTournamentComponent } from './fantasy_tournament/new_fantasy_
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
     FacebookModule.forRoot(),
     FormsModule,
-    HttpModule
+    HttpModule,
+    ToasterModule
   ],
   providers: [
     AuthService, AuthGuard, ApiService

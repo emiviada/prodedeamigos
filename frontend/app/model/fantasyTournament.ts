@@ -5,4 +5,8 @@ export class FantasyTournament {
   pointsPerGame: number;
   matchExact: boolean;
   pointsPerExact: number;
+
+  constructor() {
+      this.pointsPerGame = 3;
+  }
 }

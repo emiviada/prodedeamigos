@@ -305,6 +305,10 @@ a.logo:hover,a.logo:active { color: inherit; }
 }
 /*** END Angular CSS classes ***/
 
+/*** Override Toastr ***/
+.toast-top-right { top: 25px !important; }
+/*** END Override Toastr ***/
+
 .bg-strong-success { background-color: #468847; }
 
 /*** MEDIA QUERIES ***/

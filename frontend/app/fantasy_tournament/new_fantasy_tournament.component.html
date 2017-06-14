@@ -1,11 +1,11 @@
 <div class="main-content">
     <h1>Crear Nuevo Torneo</h1>
-    <form (ngSubmit)="upsert(); tournamentForm.reset()" #tournamentForm="ngForm" class="single-form">
+    <form (ngSubmit)="upsert(); tournamentForm.reset();" #tournamentForm="ngForm" class="single-form">
         <div class="form-group">
             <label for="tournament">Elige un Torneo:</label>
             <select class="form-control" id="tournament" required [(ngModel)]="model.tournament" name="tournament" #tournament="ngModel">
                 <option value="">---</option>
-                <option *ngFor="let tournament of tournaments" [value]="tournament">{{tournament}}</option>
+                <option *ngFor="let tournament of tournaments" [value]="tournament.id">{{tournament.name}}</option>
             </select>
             <div [hidden]="tournament.valid || tournament.pristine" class="alert alert-danger">
                 Debes elegir un torneo.

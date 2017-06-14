@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { IToasterConfig, ToasterConfig } from 'angular2-toaster';
 
 import { AuthService } from './service/auth.service';
 
@@ -8,6 +9,12 @@ import { AuthService } from './service/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+    private appToasterConfig: IToasterConfig = new ToasterConfig({
+        animation: 'fade',
+        timeout: 3000
+    });
+
     constructor(private auth: AuthService) { }
 
     isLoggedIn() {

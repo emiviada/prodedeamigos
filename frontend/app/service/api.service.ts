@@ -53,6 +53,17 @@ export class ApiService {
 
   /*** END FANTASY TOURNAMENTS functionalities ***/
 
+  /*** TOURNAMENTS functionalities ***/
+
+  // getTournaments
+  getTournaments() {
+    return this.http.get(this.baseUrl + '/tournaments', {headers: this.headers})
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  /*** END TOURNAMENTS functionalities ***/
+
   private extractData(res: Response) {
     let data = {};
     if (res.status === 200) {
