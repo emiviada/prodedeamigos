@@ -22,7 +22,8 @@ export class MenuComponent {
 
     ngOnInit(): void {
         let _this = this;
-        let menuRight = document.getElementById('menu-right'),
+        let menuLeft = document.getElementById('menu-left'),
+            menuRight = document.getElementById('menu-right'),
             padding = 256;
         this.slideoutLeft = new Slideout({
             'panel': document.getElementById('panel'),
@@ -33,7 +34,10 @@ export class MenuComponent {
         }).on('beforeopen', function() {
             menuRight.style.transform = "translateX(" + padding + "px)";
         }).on('beforeclose', function() {
+            menuLeft.style.visibility = "hidden";
+        }).on('close', function() {
             menuRight.style.transform = "translateX(0px)";
+            menuLeft.style.visibility = "visible";
         });
         // Toggle button
         document.querySelector('.toggle-button').addEventListener('click', function() {
@@ -46,6 +50,13 @@ export class MenuComponent {
             'padding': 256,
             'tolerance': 70,
             'side': 'right'
+        }).on('beforeopen', function() {
+            menuLeft.style.transform = "translateX(-" + padding + "px)";
+        }).on('beforeclose', function() {
+            menuRight.style.visibility = "hidden";
+        }).on('close', function() {
+            menuLeft.style.transform = "translateX(0px)";
+            menuRight.style.visibility = "visible";
         });
         // Toggle button
         document.querySelector('.toggle-button-right').addEventListener('click', function() {

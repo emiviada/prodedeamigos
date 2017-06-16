@@ -1,9 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+/*html {
+  background-image: url('/assets/imgs/prode-background.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+}*/
 body {
   width: 100%;
   height: 100%;
   margin: 0;
-  background-color: #000;
+  background-image: url('/assets/imgs/prode-background.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-color: rgba(0, 0, 0, 1);
   color: #fff;
   font-family: "Calibre Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -190,7 +206,8 @@ a.logo:hover,a.logo:active { color: inherit; }
   position: relative;
   z-index: 1;
   will-change: transform;
-  background-color: #000; /* A background-color is required */
+  //background-color: transparent; /* A background-color is required */
+  background-color: rgba(0, 0, 0, 0.7);
   min-height: 100vh;
 }
 .slideout-open,
@@ -205,8 +222,8 @@ a.logo:hover,a.logo:active { color: inherit; }
 
 /*** Sidebar Menu ***/
 .menu {
-    background-color: #1D1F20;
-    background-image: linear-gradient(145deg, #1D1F20, #404348);
+    background-color: #000;
+    background-image: linear-gradient(175deg, #000, #111);
 }
 .menu-section { margin: 25px 0; }
 .menu-section-title {
