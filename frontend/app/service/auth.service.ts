@@ -15,6 +15,8 @@ import * as localForage from "localforage";
 @Injectable()
 export class AuthService {
 
+    userId;
+
     // Create a stream of logged in status to communicate throughout app
     loggedIn: boolean;
     loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
@@ -45,9 +47,11 @@ export class AuthService {
     }
 
     isLoggedIn() {
+        let that = this;
         this.checkLoginStatus().subscribe(value => {
             let authenticated = (value)? true : false;
             this.setLoggedIn(authenticated);
+            that.userId = value;
         });
     }
 

@@ -51,6 +51,16 @@ export class ApiService {
       .catch(this.handleError);
   }
 
+  createFantasyTournament(userId, object) {
+    let data = {'fantasy_tournament': object};
+    return this.http.post(
+      this.baseUrl + '/users/' + userId + '/fantasy-tournaments',
+      data,
+      {headers: this.headers})
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
   /*** END FANTASY TOURNAMENTS functionalities ***/
 
   /*** TOURNAMENTS functionalities ***/

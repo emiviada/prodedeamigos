@@ -21,6 +21,7 @@ a {
 .mls, .mas { margin-left: 5px !important; }
 .mrs, .mas { margin-right: 5px !important; }
 
+.ptl, .pal { padding-top: 20px !important; }
 .ptm, .pam { padding-top: 10px !important; }
 .ptn, .pan { padding-top: 0 !important; }
 .prn, .pan { padding-right: 0 !important; }
@@ -310,6 +311,7 @@ a.logo:hover,a.logo:active { color: inherit; }
 /*** END Override Toastr ***/
 
 .bg-strong-success { background-color: #468847; }
+.create-success { font-size: 16px; }
 
 /*** MEDIA QUERIES ***/
 /* Small devices (tablets, 768px and up) */
