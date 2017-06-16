@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 // https://github.com/localForage/localForage
 import * as localForage from "localforage";
@@ -17,7 +18,7 @@ export class DashboardComponent implements OnInit {
     loading = true;
     fantasyTournaments: FantasyTournament[];
 
-    constructor(private auth: AuthService, private api: ApiService) {}
+    constructor(private auth: AuthService, private api: ApiService, private router: Router) {}
 
     ngOnInit(): void {
         loading.style.display = 'block';
@@ -38,5 +39,9 @@ export class DashboardComponent implements OnInit {
     playerLabel(value): string {
         let label = (value == 1)? 'Jugador' : 'Jugadores';
         return value + ' ' + label;
+    }
+
+    viewFantasyTournament(slug: string): void {
+        this.router.navigate(['/torneo/' + slug]);
     }
 }

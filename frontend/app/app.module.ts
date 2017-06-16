@@ -17,11 +17,12 @@ import { HomepageComponent } from './common/homepage.component';
 import { NotFoundComponent } from './common/notfound.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewFantasyTournamentComponent } from './fantasy_tournament/new_fantasy_tournament.component';
+import { FantasyTournamentDetailComponent } from './fantasy_tournament/fantasy_tournament_detail.component';
 
 @NgModule({
   declarations: [
     AppComponent, MenuComponent, HomepageComponent, NotFoundComponent, DashboardComponent,
-    NewFantasyTournamentComponent
+    NewFantasyTournamentComponent, FantasyTournamentDetailComponent
   ],
   imports: [
     BrowserModule,
