@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FacebookModule } from 'ngx-facebook';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MdTabsModule, MdProgressSpinnerModule } from '@angular/material';
 import { ToasterModule } from 'angular2-toaster';
 
 import { appRoutes } from './routes';
 import { AuthGuard } from './service/auth.guard';
 import { AuthService } from './service/auth.service';
 import { ApiService } from './service/api.service';
+import { SpinnerService } from './service/spinner.service';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './common/menu.component';
 import { HomepageComponent } from './common/homepage.component';
@@ -28,13 +30,15 @@ import { FantasyTournamentDetailComponent } from './fantasy_tournament/fantasy_t
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
+    MdTabsModule,
+    MdProgressSpinnerModule,
     FacebookModule.forRoot(),
     FormsModule,
     HttpModule,
     ToasterModule
   ],
   providers: [
-    AuthService, AuthGuard, ApiService
+    AuthService, AuthGuard, ApiService, SpinnerService
   ],
   bootstrap: [AppComponent]
 })

@@ -6,6 +6,7 @@ import { FantasyTournament } from '../model/fantasyTournament';
 import { Tournament } from '../model/tournament';
 import { ApiService } from '../service/api.service';
 import { AuthService } from '../service/auth.service';
+import { SpinnerService } from '../service/spinner.service';
 import { prodeUserKey } from '../global';
 
 let loading = document.getElementById('loading');
@@ -15,7 +16,6 @@ let loading = document.getElementById('loading');
 })
 export class NewFantasyTournamentComponent implements OnInit {
 
-    loading = true;
     tournaments: Tournament[];
     pointsPerGameOptions = [2, 3, 4, 5];
     pointsPerExactOptions = [1, 2];
@@ -27,22 +27,21 @@ export class NewFantasyTournamentComponent implements OnInit {
     constructor(
         private auth: AuthService,
         private api: ApiService,
+        private spinner: SpinnerService,
         private location: Location,
         private toasterService: ToasterService
     ) { }
 
     ngOnInit(): void {
-        loading.style.display = 'block';
+        this.spinner.show();
         this.api.getTournaments().subscribe(
             data => {
                 this.tournaments = data;
-                loading.style.display = 'none';
-                this.loading = false;
+                this.spinner.hide();
             },
             error => {
                 console.log(<any>error);
-                loading.style.display = 'none';
-                this.loading = false;
+                this.spinner.hide();
             }
         );
     };
@@ -50,21 +49,19 @@ export class NewFantasyTournamentComponent implements OnInit {
     upsert(): void { // Create or Edit
         this.createdTournamentName = this.model.name;
         this.shareUrl += '/' + this.model.name;
-        console.log(JSON.stringify(this.model));
+        //console.log(JSON.stringify(this.model));
 
-        loading.style.display = 'block';
+        this.spinner.show();
         this.api.createFantasyTournament(this.auth.userId, this.model).subscribe(
             data => {
-                loading.style.display = 'none';
                 this.toasterService.pop('success', 'OK');
-                this.loading = false;
+                this.spinner.hide();
                 this.submitted = true;
             },
             error => {
                 console.log(<any>error);
-                loading.style.display = 'none';
                 this.toasterService.pop('error', 'Error', 'Hubo un error. Intenta mas tarde.');
-                this.loading = false;
+                this.spinner.hide();
             }
         );
 

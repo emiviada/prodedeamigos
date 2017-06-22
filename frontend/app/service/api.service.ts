@@ -51,6 +51,13 @@ export class ApiService {
       .catch(this.handleError);
   }
 
+  // getFantasyTournament (by slug)
+  getFantasyTournament(userId, slug) {
+    return this.http.get(this.baseUrl + '/users/' + userId + '/fantasy-tournaments/' + slug, {headers: this.headers})
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   createFantasyTournament(userId, object) {
     let data = {'fantasy_tournament': object};
     return this.http.post(
