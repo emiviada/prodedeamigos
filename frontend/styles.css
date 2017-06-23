@@ -15,6 +15,7 @@ body {
   font-family: "Calibre Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
+  letter-spacing: 0.025em;
 }
 a {
     color: #fff;
@@ -24,12 +25,16 @@ a {
 /*** Margin & Paddings styles ***/
 .mtl, .mal { margin-top: 20px !important; }
 .mtm, .mam { margin-top: 10px !important; }
+.mts, .mas { margin-top: 5px !important; }
 .mrm, .mam { margin-right: 10px !important; }
 .mls, .mas { margin-left: 5px !important; }
 .mrs, .mas { margin-right: 5px !important; }
 
+.pl30, .pa30 { padding-left: 30px !important; }
 .ptl, .pal { padding-top: 20px !important; }
 .ptm, .pam { padding-top: 10px !important; }
+.plm, .pam { padding-left: 10px !important; }
+.pts, .pas { padding-top: 5px !important; }
 .ptn, .pan { padding-top: 0 !important; }
 .prn, .pan { padding-right: 0 !important; }
 .pbn, .pan { padding-bottom: 0 !important; }
@@ -172,7 +177,7 @@ a.logo:hover,a.logo:active { color: inherit; }
 .main-content h1 {
   font-size: 20px;
   margin-top: 10px;
-  padding-bottom: 5px;
+  padding-bottom: 8px;
   border-bottom: 1px solid #fff;
 }
 /*** END Main Content ***/
@@ -231,6 +236,24 @@ a.logo:hover,a.logo:active { color: inherit; }
 .prode-snapshot .pos .posr .fa-level-down { color: #d9534f; }
 /*** END Dashboard ***/
 
+/*** Fantasy Tournament Details ***/
+.table-header .th { text-transform: uppercase; }
+.pos-item {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 0;
+  margin: 10px 0;
+}
+.pos-item.myself { background: rgba(99, 99, 99, 0.35); }
+.pos-item .points {
+  font-weight: bold;
+  font-size: 16px;
+}
+.pos-item .username {
+  position: relative;
+  top: 4px;
+}
+/*** END Fantasy Tournament Details ***/
+
 /*** Angular CSS classes ***/
 .ng-valid[required], .ng-valid.required  {
   border-left: 5px solid #42A948; /* green */
@@ -259,6 +282,7 @@ a.logo:hover,a.logo:active { color: inherit; }
 
 .bg-strong-success { background-color: #468847; }
 .create-success { font-size: 16px; }
+.dib { display: inline-block; }
 
 /*** MEDIA QUERIES ***/
 /* Small devices (tablets, 768px and up) */
@@ -278,6 +302,7 @@ a.logo:hover,a.logo:active { color: inherit; }
     padding: 10px;
   }
   .create-prode .col-xs-12 { padding-left: 0; }
+  .prode-snapshot { padding: 10px; }
   .single-form { width: 50%; }
 }
 @media (min-width: 1200px) {

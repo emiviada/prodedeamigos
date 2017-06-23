@@ -10,7 +10,9 @@
         <div class="col-xs-12 col-lg-6">
             <md-tab-group selectedIndex="0">
                 <md-tab label="Partidos">Content 1</md-tab>
-                <md-tab label="Posiciones">Content 2</md-tab>
+                <md-tab label="Posiciones">
+                    <positions *ngIf="fantasyTournament" [fantasyTournament]="fantasyTournament"></positions>
+                </md-tab>
                 <md-tab label="Resultados">Content 3</md-tab>
             </md-tab-group>
         </div>

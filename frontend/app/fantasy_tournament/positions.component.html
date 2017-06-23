@@ -1,0 +1,18 @@
+<div class="ptm">
+    <div class="row table-header">
+        <div class="col-xs-1 th text-center">Pos.</div>
+        <div class="col-xs-7 th pl30">Jugador</div>
+        <div class="col-xs-2 th text-center">Pts.</div>
+        <div class="col-xs-2 th text-center">-</div>
+    </div>
+
+    <div class="row pos-item" *ngFor="let user of fantasyTournament.members; let i = index" [ngClass]="{'myself': isMyself(user.id)}">
+        <div class="col-xs-1 text-center pts">{{ getPosition(i) }}</div>
+        <div class="col-xs-7">
+            <img class="img-circle pull-left mrm" src="{{ user.profile_pic || '/assets/imgs/user-placeholder.png' }}" width="30px">&nbsp;
+            <span class="username">{{ user.username }}</span>
+        </div>
+        <div class="col-xs-2 text-center points pts">50</div>
+        <div class="col-xs-2 text-center pts"><i class="fa fa-arrow-up text-success"></i> 3</div>
+    </div>
+</div>
