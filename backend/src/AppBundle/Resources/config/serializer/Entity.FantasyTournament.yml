@@ -13,7 +13,7 @@ AppBundle\Entity\FantasyTournament:
             expose: true
         slug:
             expose: true
-        members:
+        memberships:
             expose: true
     virtual_properties:
         getPictureUri:

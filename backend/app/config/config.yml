@@ -153,12 +153,15 @@ easy_admin:
                     - { property: 'pointsPerExact', type_options: { required: false } }
                     - { property: 'tournament', type_options: { required: true, placeholder: 'None' } }
                     - { property: 'owner', type_options: { required: true, placeholder: 'None' } }
-                    - members
+                    - { property: 'members', type: 'easyadmin_autocomplete',
+                        type_options: { multiple: true, mapped: true, class: 'AppBundle\Entity\User' } }
+                    #- { property: 'members', type: 'easyadmin_autocomplete' }
             new:
                 title: 'Create %%entity_label%%'
             edit:
                 title: 'Edit %%entity_label%%'
-
+        Membership:
+            class: AppBundle\Entity\Membership
 
 # Nelmio CORS Configuration
 nelmio_cors:

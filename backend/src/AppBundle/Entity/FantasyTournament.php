@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -91,13 +92,10 @@ class FantasyTournament
     private $pointsPerExact;
 
     /**
-     * Many FantasyTournaments have Many Users.
-     * @ORM\ManyToMany(targetEntity="User")
-     * @ORM\JoinTable(name="fantasy_tournaments_members",
-     *      joinColumns={@ORM\JoinColumn(name="fantasy_tournament_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
-     * )
+     * @ORM\OneToMany(targetEntity="Membership", mappedBy="fantasyTournament", cascade={"all"}, orphanRemoval=true)
      */
+    private $memberships;
+
     private $members;
 
     /**
@@ -118,7 +116,8 @@ class FantasyTournament
      */
     public function __construct()
     {
-        $this->members = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->memberships = new ArrayCollection();
+        $this->members = new ArrayCollection();
         $this->updatedAt = new \DateTime();
     }
 
@@ -279,40 +278,6 @@ class FantasyTournament
     }
 
     /**
-     * Add member
-     *
-     * @param \AppBundle\Entity\User $member
-     *
-     * @return FantasyTournament
-     */
-    public function addMember(\AppBundle\Entity\User $member)
-    {
-        $this->members[] = $member;
-
-        return $this;
-    }
-
-    /**
-     * Remove member
-     *
-     * @param \AppBundle\Entity\User $member
-     */
-    public function removeMember(\AppBundle\Entity\User $member)
-    {
-        $this->members->removeElement($member);
-    }
-
-    /**
-     * Get members
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getMembers()
-    {
-        return $this->members;
-    }
-
-    /**
      * Set slug
      *
      * @param string $slug
@@ -425,5 +390,101 @@ class FantasyTournament
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Add membership
+     *
+     * @param \AppBundle\Entity\Membership $membership
+     *
+     * @return FantasyTournament
+     */
+    public function addMembership(\AppBundle\Entity\Membership $membership)
+    {
+        if (!$this->memberships->exists(function($key, $element) use ($membership) {
+            return $element->getFantasyTournament()->getId() === $membership->getFantasyTournament()->getId() && $element->getUser()->getId() === $membership->getUser()->getId();
+        })) {
+            $this->memberships[] = $membership;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove membership
+     *
+     * @param \AppBundle\Entity\Membership $membership
+     */
+    public function removeMembership(\AppBundle\Entity\Membership $membership)
+    {
+        $existingMembership = null;
+        $this->memberships->exists(function($key, $element) use ($membership, &$existingMembership) {
+            if ($element->getFantasyTournament()->getId() === $membership->getFantasyTournament()->getId() && $element->getUser()->getId() === $membership->getUser()->getId()) {
+                $existingMembership = $element;
+            }
+        });
+
+        if ($existingMembership) {
+            $this->memberships->removeElement($existingMembership);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get memberships
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMemberships()
+    {
+        return $this->memberships;
+    }
+
+    /**
+     * Get members
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMembers()
+    {
+        if ($this->memberships->count()) {
+            foreach ($this->memberships->toArray() as $membership) {
+                $this->members[] = $membership->getUser();
+            }
+        }
+        return $this->members;
+    }
+
+    /**
+     * Add member
+     *
+     * @param \AppBundle\Entity\User $member
+     *
+     * @return FantasyTournament
+     */
+    public function addMember(\AppBundle\Entity\User $member)
+    {
+        $membership = new Membership();
+        $membership->setFantasyTournament($this);
+        $membership->setUser($member);
+        $this->addMembership($membership);
+
+        return $this;
+    }
+
+    /**
+     * Remove member
+     *
+     * @param \AppBundle\Entity\User $member
+     */
+    public function removeMember(\AppBundle\Entity\User $member)
+    {
+        $membership = new Membership();
+        $membership->setFantasyTournament($this);
+        $membership->setUser($member);
+        $this->removeMembership($membership);
+
+        return $this;
     }
 }

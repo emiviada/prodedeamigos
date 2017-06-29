@@ -19,8 +19,8 @@ class FantasyTournamentRepository extends \Doctrine\ORM\EntityRepository
     public function findByMembership($params, $sortBy, $limit)
     {
         $query = $this->createQueryBuilder('ft')
-            ->innerJoin('ft.members', 'ftm')
-            ->where('ftm.id = :member_id');
+            ->innerJoin('ft.memberships', 'ftm')
+            ->where('ftm.user = :member_id');
 
         if (isset($params['slug'])) {
             $query->andWhere('ft.slug = :slug')
