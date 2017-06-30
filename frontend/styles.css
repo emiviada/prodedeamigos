@@ -246,7 +246,7 @@ a.logo:hover,a.logo:active { color: inherit; }
 .pos-item.myself { background: rgba(99, 99, 99, 0.35); }
 .pos-item .points {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 18px;
 }
 .pos-item .username {
   position: relative;

@@ -93,6 +93,7 @@ class FantasyTournament
 
     /**
      * @ORM\OneToMany(targetEntity="Membership", mappedBy="fantasyTournament", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OrderBy({"points" = "DESC"})
      */
     private $memberships;
 
@@ -119,6 +120,14 @@ class FantasyTournament
         $this->memberships = new ArrayCollection();
         $this->members = new ArrayCollection();
         $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * __toString magic method
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
 
     /**

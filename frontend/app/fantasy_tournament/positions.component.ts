@@ -20,4 +20,21 @@ export class PositionsComponent {
     isMyself(userId: number): boolean {
         return this.auth.userId === userId;
     }
+
+    getPosChange(membership): number {
+        return Math.abs(membership.position-membership.prev_position);
+    }
+
+    getPosChangeIcon(membership): string {
+        let icon;
+        if (membership.position == membership.prev_position) {
+            icon = 'fa-minus text-primary';
+        } else if (membership.position < membership.prev_position) {
+            icon = 'fa-arrow-up text-success';
+        } else if (membership.position > membership.prev_position) {
+            icon = 'fa-arrow-down text-danger';
+        }
+
+        return icon;
+    }
 }
