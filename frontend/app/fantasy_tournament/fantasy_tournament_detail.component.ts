@@ -5,6 +5,8 @@ import 'rxjs/add/operator/switchMap';
 import { AuthService } from '../service/auth.service';
 import { ApiService } from '../service/api.service';
 import { SpinnerService } from '../service/spinner.service';
+import { FantasyTournament } from '../model/fantasyTournament';
+import { Game } from '../model/game';
 import { prodeUserKey } from '../global';
 
 
@@ -13,7 +15,8 @@ import { prodeUserKey } from '../global';
 })
 export class FantasyTournamentDetailComponent implements OnInit {
 
-    fantasyTournament: {};
+    fantasyTournament: FantasyTournament;
+    games: Game[];
 
     constructor(
         private auth: AuthService,
@@ -28,15 +31,29 @@ export class FantasyTournamentDetailComponent implements OnInit {
         this.route.params
             .switchMap((params: Params) =>
                 this.api.getFantasyTournament(this.auth.userId, params['slug']))
-            .subscribe(
-                data => {
-                    this.fantasyTournament = data[0];
-                    this.spinner.hide();
-                },
-                error => {
-                    console.log(<any>error);
-                    this.spinner.hide();
-                }
-            );
+                    .subscribe(
+                        data => {
+                            this.fantasyTournament = data[0];
+                            this.spinner.hide();
+                        },
+                        error => {
+                            console.log(<any>error);
+                            this.spinner.hide();
+                        }
+                    );
+        // Get Games
+        this.route.params
+            .switchMap((params: Params) =>
+                this.api.getGames(this.auth.userId, params['slug']))
+                    .subscribe(
+                        data => {
+                            this.games = data;
+                            this.spinner.hide();
+                        },
+                        error => {
+                            console.log(<any>error);
+                            this.spinner.hide();
+                        }
+                    );
     }
 }

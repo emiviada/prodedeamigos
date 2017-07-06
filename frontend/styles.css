@@ -27,6 +27,7 @@ a {
 .mtm, .mam { margin-top: 10px !important; }
 .mts, .mas { margin-top: 5px !important; }
 .mrm, .mam { margin-right: 10px !important; }
+.mbm, .mam { margin-bottom: 10px !important; }
 .mls, .mas { margin-left: 5px !important; }
 .mrs, .mas { margin-right: 5px !important; }
 
@@ -173,7 +174,7 @@ a.logo:hover,a.logo:active { color: inherit; }
 
 /*** Main Content ***/
 .container-fluid { padding: 0; }
-.main-content { padding: 20px 15px; }
+.main-content { padding: 10px 15px 20px; }
 .main-content h1 {
   font-size: 20px;
   margin-top: 10px;
@@ -253,6 +254,15 @@ a.logo:hover,a.logo:active { color: inherit; }
   top: 4px;
 }
 /*** END Fantasy Tournament Details ***/
+
+/*** Results Details ***/
+.result-date {
+  background-color: rgba(96, 125, 139, 0.75);
+  text-align: center;
+  padding: 2px 0;
+}
+.result-detail { background: rgba(0, 0, 0, 0.5); }
+/*** END Results Details ***/
 
 /*** Angular CSS classes ***/
 .ng-valid[required], .ng-valid.required  {

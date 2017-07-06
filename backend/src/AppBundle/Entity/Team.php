@@ -216,7 +216,9 @@ class Team
      */
     public function getFlagUri()
     {
-        return \Cloudinary::cloudinary_url($this->getFlag());
+        $this->flagUri = ($this->getFlag())?
+            \Cloudinary::cloudinary_url($this->getFlag()) : null;
+        return $this->flagUri;
     }
 
     /**

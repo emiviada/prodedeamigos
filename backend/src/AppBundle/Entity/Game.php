@@ -168,6 +168,16 @@ class Game
     }
 
     /**
+     * Get playDateAtToString
+     *
+     * @return string
+     */
+    public function getPlayDateAtToString()
+    {
+        return $this->getPlayDateAt()->format('Y-m-d H:i:s');
+    }
+
+    /**
      * Set finished
      *
      * @param boolean $finished

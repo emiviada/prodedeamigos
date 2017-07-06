@@ -1,0 +1,21 @@
+AppBundle\Entity\Game:
+    exclusion_policy: all
+    properties:
+        id:
+            expose: true
+        tournament:
+            expose: true
+        teamHome:
+            expose: true
+        teamAway:
+            expose: true
+        goalsHome:
+            expose: true
+        goalsAway:
+            expose: true
+        finished:
+            expose: true
+    virtual_properties:
+        getPlayDateAtToString:
+            serialized_name: play_date_at
+            type: string

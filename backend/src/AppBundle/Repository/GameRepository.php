@@ -10,4 +10,30 @@ namespace AppBundle\Repository;
  */
 class GameRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * findBetweenDates() method
+     * @param AppBundle\Entity\Tournament
+     * @param string $from (date string)
+     * @param string $to (date string)
+     */
+    public function findBetweenDates($tournament, $from, $to)
+    {
+        $query = $this->createQueryBuilder('g')
+            ->where('g.tournament = :tournament')
+            ->andWhere('g.playDateAt >= :from')
+            ->andWhere('g.playDateAt <= :to');
+
+        $query->setParameters(array(
+            'tournament' => $tournament,
+            'from' => $from,
+            'to' => $to
+        ));
+        $query = $query->getQuery();
+
+        try {
+            return $query->getResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
 }

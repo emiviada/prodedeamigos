@@ -81,6 +81,19 @@ export class ApiService {
 
   /*** END TOURNAMENTS functionalities ***/
 
+  /*** GAMES functionalities ***/
+
+  // getGames
+  getGames(userId, FantasyTournamentSlug) {
+    return this.http.get(
+      this.baseUrl + '/users/' + userId + '/fantasy-tournaments/' + FantasyTournamentSlug + '/games',
+      {headers: this.headers})
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
+  /*** END GAMES functionalities ***/
+
   private extractData(res: Response) {
     let data = {};
     if (res.status === 200) {

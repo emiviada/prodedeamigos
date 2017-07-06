@@ -1,0 +1,15 @@
+AppBundle\Entity\Team:
+    exclusion_policy: all
+    properties:
+        id:
+            expose: true
+        name:
+            expose: true
+        alias:
+            expose: true
+        stadium:
+            expose: true
+    virtual_properties:
+        getFlagUri:
+            serialized_name: flag_uri
+            type: string
