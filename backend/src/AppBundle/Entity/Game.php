@@ -64,6 +64,13 @@ class Game
     private $playDateAt;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="stadium", type="string", length=255, nullable=true)
+     */
+    private $stadium;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="finished", type="boolean")
@@ -287,5 +294,35 @@ class Game
     public function getResult()
     {
         return $this->getGoalsHome() . ' - ' . $this->getGoalsAway();
+    }
+
+    /**
+     * Set stadium
+     *
+     * @param string $stadium
+     *
+     * @return Game
+     */
+    public function setStadium($stadium)
+    {
+        $this->stadium = $stadium;
+
+        return $this;
+    }
+
+    /**
+     * Get stadium
+     *
+     * @return string
+     */
+    public function getStadium()
+    {
+        if ($this->stadium) {
+            $stadium = $this->stadium;
+        } else {
+            $stadium = $this->getTeamHome()->getStadium();
+        }
+
+        return $stadium;
     }
 }

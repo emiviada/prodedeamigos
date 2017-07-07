@@ -22,12 +22,13 @@ import { NewFantasyTournamentComponent } from './fantasy_tournament/new_fantasy_
 import { FantasyTournamentDetailComponent } from './fantasy_tournament/fantasy_tournament_detail.component';
 import { PositionsComponent } from './fantasy_tournament/positions.component';
 import { ResultComponent } from './fantasy_tournament/result.component';
+import { PredictionComponent } from './fantasy_tournament/prediction.component';
 
 @NgModule({
   declarations: [
     AppComponent, MenuComponent, HomepageComponent, NotFoundComponent, DashboardComponent,
     NewFantasyTournamentComponent, FantasyTournamentDetailComponent, PositionsComponent,
-    ResultComponent
+    ResultComponent, PredictionComponent
   ],
   imports: [
     BrowserModule,

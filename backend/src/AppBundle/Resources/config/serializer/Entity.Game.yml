@@ -19,3 +19,6 @@ AppBundle\Entity\Game:
         getPlayDateAtToString:
             serialized_name: play_date_at
             type: string
+        getStadium:
+            serialized_name: stadium
+            type: string

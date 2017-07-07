@@ -9,7 +9,13 @@
     <div class="row">
         <div class="col-xs-12 col-lg-6">
             <md-tab-group selectedIndex="0">
-                <md-tab label="Partidos">Content 1</md-tab>
+                <md-tab label="Partidos">
+                    <div class="container ptl">
+                        <div *ngFor="let game of games;">
+                            <prediction *ngIf="!game.finished" [game]="game"></prediction>
+                        </div>
+                    </div>
+                </md-tab>
 
                 <md-tab label="Posiciones">
                     <positions *ngIf="fantasyTournament" [fantasyTournament]="fantasyTournament"></positions>
