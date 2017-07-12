@@ -1,0 +1,19 @@
+AppBundle\Entity\Prediction:
+    exclusion_policy: all
+    properties:
+        id:
+            expose: true
+        game:
+            expose: true
+        user:
+            expose: true
+        goalsHome:
+            expose: true
+        goalsAway:
+            expose: true
+        hit:
+            expose: true
+        hitExact:
+            expose: true
+        processed:
+            expose: true

@@ -69,6 +69,11 @@ doctrine:
                 prefix: Gedmo\Slugable\Entity
                 dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Sluggable"
                 is_bundle: false
+            gedmo_timestampable:
+                type: annotation
+                prefix: Gedmo\Timestampable\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Timestampable"
+                is_bundle: false
 
 # Stof Doctrine Extensions
 stof_doctrine_extensions:
@@ -76,6 +81,7 @@ stof_doctrine_extensions:
     orm:
         default:
             sluggable: true
+            timestampable: true
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -155,13 +161,28 @@ easy_admin:
                     - { property: 'owner', type_options: { required: true, placeholder: 'None' } }
                     - { property: 'members', type: 'easyadmin_autocomplete',
                         type_options: { multiple: true, mapped: true, class: 'AppBundle\Entity\User' } }
-                    #- { property: 'members', type: 'easyadmin_autocomplete' }
             new:
                 title: 'Create %%entity_label%%'
             edit:
                 title: 'Edit %%entity_label%%'
         Membership:
             class: AppBundle\Entity\Membership
+        Prediction:
+            class: AppBundle\Entity\Prediction
+            label: 'Predictions'
+            list:
+                title: '%%entity_label%%'
+                fields: [ fantasyTournament, game, user, result, hit, hitExact, processed ]
+            form:
+                fields:
+                    - { property: fantasyTournament, type_options: { required: true, placeholder: 'None' } }
+                    - { property: game, type_options: { required: true, placeholder: 'None' } }
+                    - { property: user, type_options: { required: true, placeholder: 'None' } }
+                    - goalsHome
+                    - goalsAway
+                    - hit
+                    - hitExact
+                    - processed
 
 # Nelmio CORS Configuration
 nelmio_cors:

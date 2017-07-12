@@ -86,6 +86,14 @@ class Game
     }
 
     /**
+     * __toString() Magic method
+     */
+    public function __toString()
+    {
+        return $this->getTeamHome() . ' vs ' . $this->getTeamAway();
+    }
+
+    /**
      * Get id
      *
      * @return int
