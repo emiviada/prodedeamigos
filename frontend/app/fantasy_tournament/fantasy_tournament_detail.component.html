@@ -12,7 +12,7 @@
                 <md-tab label="Partidos">
                     <div class="container ptl">
                         <div *ngFor="let game of games;">
-                            <prediction *ngIf="!game.finished" [game]="game"></prediction>
+                            <prediction *ngIf="!game.finished" [fantasyTournament]="fantasyTournament" [game]="game" [predictions]="predictions"></prediction>
                         </div>
                     </div>
                 </md-tab>
@@ -24,7 +24,7 @@
                 <md-tab label="Resultados">
                     <div class="container ptl">
                         <div *ngFor="let game of games;">
-                            <result *ngIf="game.finished" [game]="game"></result>
+                            <result *ngIf="game.finished" [fantasyTournament]="fantasyTournament" [game]="game" [predictions]="predictions"></result>
                         </div>
                     </div>
                 </md-tab>

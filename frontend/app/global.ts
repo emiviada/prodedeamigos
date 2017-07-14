@@ -3,3 +3,15 @@
 export const prodeUserKey = 'prodeUser';
 export const monthLabels = {0: 'Enero', 1: 'Febrero', 2: 'Marzo', 3: 'Abril', 4: 'Mayo', 5: 'Junio',
     6: 'Julio', 7: 'Agosto', 8: 'Septiembre', 9: 'Octubre', 10: 'Noviembre', 11: 'Diciembre'};
+export const getDateTime = (datetime): string => {
+    let d = new Date(datetime), hours = String(d.getHours()),
+        mins = String(d.getMinutes()), dateString;
+
+    hours = (hours.length > 1)? hours : '0'+hours;
+    mins = (mins.length > 1)? mins : '0'+mins;
+
+    dateString = d.getDate() + ' de ' + monthLabels[d.getMonth()] + ' - '
+        + hours + ':' + mins + ' Hs.';
+
+    return dateString;
+};

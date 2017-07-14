@@ -94,6 +94,52 @@ export class ApiService {
 
   /*** END GAMES functionalities ***/
 
+  /*** PREDICTIONS functionalities ***/
+
+  // getPredictions
+  getPredictions(userId, FantasyTournamentSlug) {
+    return this.http.get(
+      this.baseUrl + '/users/' + userId + '/fantasy-tournaments/' + FantasyTournamentSlug + '/predictions',
+      {headers: this.headers})
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
+  // editPrediction
+  editPrediction(userId, fantasyTournamentSlug, prediction) {
+    let data = {
+      'prediction': {
+        "goalsHome": prediction.goals_home,
+        "goalsAway": prediction.goals_away
+      }
+    };
+    return this.http.put(
+      this.baseUrl + '/users/' + userId + '/fantasy-tournaments/' + fantasyTournamentSlug + '/predictions/' + prediction.id,
+      data,
+      {headers: this.headers})
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
+  // newPrediction
+  newPrediction(userId, fantasyTournamentSlug, prediction) {
+    let data = {
+      'prediction': {
+        "game": prediction.game.id,
+        "goalsHome": prediction.goals_home,
+        "goalsAway": prediction.goals_away
+      }
+    };
+    return this.http.post(
+      this.baseUrl + '/users/' + userId + '/fantasy-tournaments/' + fantasyTournamentSlug + '/predictions',
+      data,
+      {headers: this.headers})
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
+  /*** END PREDICTIONS functionalities ***/
+
   private extractData(res: Response) {
     let data = {};
     if (res.status === 200) {
@@ -101,6 +147,8 @@ export class ApiService {
     } else if (res.status === 201) {
         let headers = res.headers;
         data = headers.get('Location');
+    } else if (res.status === 204) {
+        // No Content
     } else {
         this.handleError(res);
     }

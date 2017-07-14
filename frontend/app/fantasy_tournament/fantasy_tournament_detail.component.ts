@@ -7,6 +7,7 @@ import { ApiService } from '../service/api.service';
 import { SpinnerService } from '../service/spinner.service';
 import { FantasyTournament } from '../model/fantasyTournament';
 import { Game } from '../model/game';
+import { Prediction } from '../model/prediction';
 import { prodeUserKey } from '../global';
 
 
@@ -17,6 +18,7 @@ export class FantasyTournamentDetailComponent implements OnInit {
 
     fantasyTournament: FantasyTournament;
     games: Game[];
+    predictions: Prediction[];
 
     constructor(
         private auth: AuthService,
@@ -48,6 +50,20 @@ export class FantasyTournamentDetailComponent implements OnInit {
                     .subscribe(
                         data => {
                             this.games = data;
+                            this.spinner.hide();
+                        },
+                        error => {
+                            console.log(<any>error);
+                            this.spinner.hide();
+                        }
+                    );
+        // Get Predictions
+        this.route.params
+            .switchMap((params: Params) =>
+                this.api.getPredictions(this.auth.userId, params['slug']))
+                    .subscribe(
+                        data => {
+                            this.predictions = data;
                             this.spinner.hide();
                         },
                         error => {

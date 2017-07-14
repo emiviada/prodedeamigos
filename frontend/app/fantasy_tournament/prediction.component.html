@@ -14,9 +14,9 @@
             <div class="col-xs-12 result">
                 <span>Tu jugada</span>
                 <span class="numbers ptm">
-                    <input class="predict" type="number" placeholder="-" min="0" max="9" (keypress)="validateLength($event)">
+                    <input class="predict" type="number" [(ngModel)]="prediction.goals_home" placeholder="-" #goalsHome="ngModel" min="0" max="9" (keypress)="validateLength($event)" required>
                     -
-                    <input class="predict" type="number" placeholder="-" min="0" max="9" (keypress)="validateLength($event)">
+                    <input class="predict" type="number" [(ngModel)]="prediction.goals_away" placeholder="-" #goalsAway="ngModel" min="0" max="9" (keypress)="validateLength($event)" required>
                 </span>
             </div>
         </div>
@@ -31,7 +31,9 @@
 
     <div class="col-xs-2">
         <div class="submit-pred">
-            <button class="btn btn-sm btn-success" disabled><i class="fa fa-check"></i></button>
+            <button class="btn btn-sm btn-success" [disabled]="!((goalsHome.dirty || goalsAway.dirty) && (goalsHome.valid && goalsAway.valid) && !submitted)" (click)="save($event)">
+                <i class="fa fa-check"></i>
+            </button>
         </div>
     </div>
 </div>
