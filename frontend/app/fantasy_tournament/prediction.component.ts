@@ -1,6 +1,8 @@
 import { Component, OnChanges, Input } from '@angular/core';
 import { ToasterService } from 'angular2-toaster';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+import * as moment from 'moment-timezone';
 
 import { AuthService } from '../service/auth.service';
 import { ApiService } from '../service/api.service';
@@ -8,7 +10,7 @@ import { SpinnerService } from '../service/spinner.service';
 import { FantasyTournament } from '../model/fantasyTournament';
 import { Game } from '../model/game';
 import { Prediction } from '../model/prediction';
-import { monthLabels, getDateTime } from '../global';
+import { monthLabels, TimeZone, getDateTime } from '../global';
 
 @Component({
   selector: 'prediction',
@@ -20,7 +22,9 @@ export class PredictionComponent implements OnChanges {
     @Input() fantasyTournament: FantasyTournament;
     @Input() predictions: Prediction[];
     prediction: Prediction;
+    expired: boolean = false;
     submitted: boolean = false;
+    timeLeft: string = '';
 
     constructor(
         private auth: AuthService,
@@ -37,6 +41,42 @@ export class PredictionComponent implements OnChanges {
                     this.prediction = p;
                 }
             });
+
+            // Start timer to show time left
+            let timer = Observable.timer(1000, 3000);
+            timer.subscribe(t => this._timeLeft(t));
+        }
+    }
+
+    /**
+     * Calculates how much time is left to be able to submit a Prediction
+     */
+    _timeLeft(t): void {
+        let gameDate = moment.tz(this.game.play_date_at, TimeZone),
+            utc = moment.utc().valueOf(),
+            now = moment(utc).tz('America/Argentina/Cordoba'),
+            diff = gameDate.diff(now); // Different in miliseconds
+
+        if (diff <= 0) {
+            this.expired = true;
+        } else {
+            let seconds = Math.round(diff/1000);
+            if (seconds > 60) {
+                let minutes = Math.round(seconds/60);
+                if (minutes > 99) {
+                    let hours = Math.round(minutes/60);
+                    if (hours > 24) {
+                        let days = Math.round(hours/24);
+                        this.timeLeft = 'Faltan ' + days + ' dias';
+                    } else {
+                        this.timeLeft = 'Faltan ' + minutes + ' horas';
+                    }
+                } else {
+                    this.timeLeft = 'Faltan ' + minutes + ' min.';
+                }
+            } else {
+                this.timeLeft = 'Faltan ' + seconds + ' seg.';
+            }
         }
     }
 

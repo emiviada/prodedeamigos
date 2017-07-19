@@ -14,10 +14,11 @@
             <div class="col-xs-12 result">
                 <span>Tu jugada</span>
                 <span class="numbers ptm">
-                    <input class="predict" type="number" [(ngModel)]="prediction.goals_home" placeholder="-" #goalsHome="ngModel" min="0" max="9" (keypress)="validateLength($event)" required>
+                    <input class="predict" type="number" [(ngModel)]="prediction.goals_home" placeholder="-" #goalsHome="ngModel" min="0" max="9" (keypress)="validateLength($event)" required [disabled]="expired">
                     -
-                    <input class="predict" type="number" [(ngModel)]="prediction.goals_away" placeholder="-" #goalsAway="ngModel" min="0" max="9" (keypress)="validateLength($event)" required>
+                    <input class="predict" type="number" [(ngModel)]="prediction.goals_away" placeholder="-" #goalsAway="ngModel" min="0" max="9" (keypress)="validateLength($event)" required [disabled]="expired">
                 </span>
+                <span class="time-left ptm">{{ timeLeft }}</span>
             </div>
         </div>
     </div>
@@ -31,8 +32,11 @@
 
     <div class="col-xs-2">
         <div class="submit-pred">
-            <button class="btn btn-sm btn-success" [disabled]="!((goalsHome.dirty || goalsAway.dirty) && (goalsHome.valid && goalsAway.valid) && !submitted)" (click)="save($event)">
+            <button *ngIf="!expired" class="btn btn-sm btn-success" [disabled]="!((goalsHome.dirty || goalsAway.dirty) && (goalsHome.valid && goalsAway.valid) && !submitted)" (click)="save($event)">
                 <i class="fa fa-check"></i>
+            </button>
+            <button *ngIf="expired" class="btn btn-sm btn-default" [disabled]="expired">
+                <i class="fa fa-lock"></i>
             </button>
         </div>
     </div>

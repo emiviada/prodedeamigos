@@ -18,6 +18,8 @@ export class FantasyTournamentDetailComponent implements OnInit {
 
     fantasyTournament: FantasyTournament;
     games: Game[];
+    nextGames: Game[] = [];
+    finishedGames: Game[] = [];
     predictions: Prediction[];
 
     constructor(
@@ -50,6 +52,13 @@ export class FantasyTournamentDetailComponent implements OnInit {
                     .subscribe(
                         data => {
                             this.games = data;
+                            this.games.map(game => {
+                                if (game.finished) {
+                                    this.finishedGames.push(game);
+                                } else {
+                                    this.nextGames.push(game);
+                                }
+                            });
                             this.spinner.hide();
                         },
                         error => {

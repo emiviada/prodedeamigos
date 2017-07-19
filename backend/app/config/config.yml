@@ -135,7 +135,9 @@ easy_admin:
             class: AppBundle\Entity\Game
             label: 'Games'
             list:
+                title: '%%entity_label%%'
                 fields: [ tournament, versus, playDateAt, result, finished ]
+                sort: ['playDateAt', 'DESC']
             form:
                 fields:
                     - { property: 'tournament', type_options: { required: true, placeholder: 'None' } }

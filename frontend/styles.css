@@ -300,6 +300,11 @@ a.logo:hover,a.logo:active { color: inherit; }
     -webkit-appearance: none;
     margin: 0;
 }
+.result-detail .result .predict:disabled {
+  background-color: #999;
+  border-color: #666;
+  color: #ccc;
+}
 .result-detail .points {
   text-align: center;
   font-weight: bold;
@@ -314,6 +319,7 @@ a.logo:hover,a.logo:active { color: inherit; }
   font-weight: bold;
   margin-top: 32px;
 }
+.time-left { font-size: 12px; }
 /*** END Results Details ***/
 
 /*** Angular CSS classes ***/

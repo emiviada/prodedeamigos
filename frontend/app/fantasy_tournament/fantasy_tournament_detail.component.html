@@ -11,9 +11,12 @@
             <md-tab-group selectedIndex="0">
                 <md-tab label="Partidos">
                     <div class="container ptl">
-                        <div *ngFor="let game of games;">
-                            <prediction *ngIf="!game.finished" [fantasyTournament]="fantasyTournament" [game]="game" [predictions]="predictions"></prediction>
+                        <div *ngFor="let game of nextGames;">
+                            <prediction [fantasyTournament]="fantasyTournament" [game]="game" [predictions]="predictions"></prediction>
                         </div>
+                        <p *ngIf="!nextGames?.length">
+                            No hay partidos para pronosticar.
+                        </p>
                     </div>
                 </md-tab>
 
@@ -23,9 +26,12 @@
 
                 <md-tab label="Resultados">
                     <div class="container ptl">
-                        <div *ngFor="let game of games;">
-                            <result *ngIf="game.finished" [fantasyTournament]="fantasyTournament" [game]="game" [predictions]="predictions"></result>
+                        <div *ngFor="let game of finishedGames;">
+                            <result [fantasyTournament]="fantasyTournament" [game]="game" [predictions]="predictions"></result>
                         </div>
+                        <p *ngIf="!finishedGames?.length">
+                            No hay resultados para mostrar.
+                        </p>
                     </div>
                 </md-tab>
 
