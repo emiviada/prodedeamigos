@@ -3,3 +3,5 @@ AppBundle\Entity\User:
     properties:
         id:
             expose: true
+        profilePictureUrl:
+            expose: true

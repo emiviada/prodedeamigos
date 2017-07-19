@@ -40,6 +40,13 @@ export class ApiService {
       .catch(this.handleError);
   }
 
+  // editUser
+  editUser(userId, params) {
+    return this.http.put(this.baseUrl + '/users/' + userId, JSON.stringify(params), {headers: this.headers})
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   /*** END USERS functionalities ***/
 
   /*** FANTASY TOURNAMENTS functionalities ***/

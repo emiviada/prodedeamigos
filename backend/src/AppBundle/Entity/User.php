@@ -23,6 +23,12 @@ class User extends BaseUser
      */
     protected $facebookId;
 
+    /**
+     * @ORM\Column(type="string", length=1000, name="profile_picture_url", nullable=true)
+     */
+    protected $profilePictureUrl;
+
+
     public function __construct()
     {
         parent::__construct();
@@ -59,5 +65,29 @@ class User extends BaseUser
     public function getFacebookId()
     {
         return $this->facebookId;
+    }
+
+    /**
+     * Set profilePictureUrl
+     *
+     * @param string $profilePictureUrl
+     *
+     * @return User
+     */
+    public function setProfilePictureUrl($profilePictureUrl)
+    {
+        $this->profilePictureUrl = $profilePictureUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get profilePictureUrl
+     *
+     * @return string
+     */
+    public function getProfilePictureUrl()
+    {
+        return $this->profilePictureUrl;
     }
 }

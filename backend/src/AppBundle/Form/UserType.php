@@ -30,6 +30,7 @@ class UserType extends AbstractType
         $builder->add('email', EmailType::class, array('required' => true));
         $builder->add('password', PasswordType::class, array('required' => true));
         $builder->add('facebookId', null, array('required' => false));
+        $builder->add('profilePictureUrl', null, array('required' => false));
     }
 
     /**

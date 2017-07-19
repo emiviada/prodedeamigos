@@ -81,6 +81,14 @@ class UserController extends FOSRestController
 
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+        if ($request->getMethod() === 'PUT' && !$form->isSubmitted()) {
+            $requestData = $request->request->get($form->getName());
+            $requestData['email'] = $user->getEmail();
+            $requestData['username'] = $user->getUsername();
+            $requestData['password'] = $user->getPassword();
+            $requestData['facebookId'] = $user->getFacebookId();
+            $form->submit($requestData);
+        }
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();

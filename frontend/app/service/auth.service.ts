@@ -6,7 +6,9 @@ import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/map';
 import { FacebookService, InitParams, LoginResponse, LoginOptions } from 'ngx-facebook';
 
+import { environment } from '../../environments/environment';
 import { ApiService } from './api.service';
+import { SpinnerService } from './spinner.service';
 import { prodeUserKey } from '../global';
 
 // https://github.com/localForage/localForage
@@ -23,11 +25,15 @@ export class AuthService {
 
     loading = document.getElementById('loading');
 
-    constructor(private api: ApiService, private fb: FacebookService, private router: Router) {
+    constructor(
+      private api: ApiService,
+      private fb: FacebookService,
+      private router: Router,
+      private spinner: SpinnerService) {
         const initParams: InitParams = {
-          appId: '809333382485791',
+          appId: environment.facebook_app_id,
           xfbml: true,
-          version: 'v2.3'
+          version: 'v2.5'
         };
 
         fb.init(initParams);
@@ -60,7 +66,7 @@ export class AuthService {
           scope: 'public_profile,email'
         };
 
-        this.loading.style.display = 'block';
+        this.spinner.show();
         this.fb.login(options)
           .then((response: LoginResponse) =>  {
               //console.log(response);
@@ -72,17 +78,35 @@ export class AuthService {
                       data  => {
                         if (data.length) { // User exists, just authenticate
                             let userId = data[0].id;
+                            // If user exists, just update profile picture
+                            this.fb.api('/' + fbId + '/picture')
+                              .then(res => {
+                                let picture_url = res.data.url;
+                                let params = {'user': {
+                                  'profilePictureUrl': picture_url
+                                }};
+                                this.api.editUser(userId, params)
+                                .subscribe(
+                                  data => {
+                                    console.log('User edited!');
+                                  },
+                                  error => { return Observable.throw(error); }
+                                );
+                              }).catch(error => { return Observable.throw(error); });
+
                             this.authenticate(userId, token);
+
                         } else { // Create the user
                           let fields = 'id,name,picture,email';
                           this.fb.api('/' + fbId + '?fields=' + fields)
                             .then(res => {
-                              let picture = res.picture.data.url;
+                              let picture_url = res.picture.data.url;
                               let params = {'user': {
                                 'email': res.email,
                                 'password': res.id,
                                 'facebookId': res.id,
-                                'username': res.name
+                                'username': res.name,
+                                'profilePictureUrl': picture_url
                               }};
                               this.api.createUser(params)
                                 .subscribe(
@@ -105,13 +129,14 @@ export class AuthService {
     }
 
     authenticate(userId, token) {
-      console.log(userId, token);
+      //console.log(userId, token);
       //this.api.authenticate()
       //  .subscribe(
       //      data => {
-              this.loading.style.display = 'none';
               localForage.setItem(prodeUserKey, userId);
+              this.userId = userId;
               this.setLoggedIn(true);
+              this.spinner.hide();
               this.router.navigate(['/dashboard']);
       //      },
       //      error => console.log(<any>error)
