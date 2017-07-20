@@ -18,6 +18,7 @@ import { MenuComponent } from './common/menu.component';
 import { HomepageComponent } from './common/homepage.component';
 import { NotFoundComponent } from './common/notfound.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MyFantasyTournamentsComponent } from './fantasy_tournament/my_fantasy_tournaments.component';
 import { NewFantasyTournamentComponent } from './fantasy_tournament/new_fantasy_tournament.component';
 import { FantasyTournamentDetailComponent } from './fantasy_tournament/fantasy_tournament_detail.component';
 import { PositionsComponent } from './fantasy_tournament/positions.component';
@@ -28,7 +29,7 @@ import { PredictionComponent } from './fantasy_tournament/prediction.component';
   declarations: [
     AppComponent, MenuComponent, HomepageComponent, NotFoundComponent, DashboardComponent,
     NewFantasyTournamentComponent, FantasyTournamentDetailComponent, PositionsComponent,
-    ResultComponent, PredictionComponent
+    ResultComponent, PredictionComponent, MyFantasyTournamentsComponent
   ],
   imports: [
     BrowserModule,

@@ -17,7 +17,8 @@ import * as localForage from "localforage";
 @Injectable()
 export class AuthService {
 
-    userId;
+    public userId;
+    public profilePictureUrl: string;
 
     // Create a stream of logged in status to communicate throughout app
     loggedIn: boolean;
@@ -78,8 +79,9 @@ export class AuthService {
                       data  => {
                         if (data.length) { // User exists, just authenticate
                             let userId = data[0].id;
+                            let profilePicture = data[0].profile_picture_url;
                             // If user exists, just update profile picture
-                            this.fb.api('/' + fbId + '/picture')
+                            this.fb.api('/' + fbId + '/picture?width=200')
                               .then(res => {
                                 let picture_url = res.data.url;
                                 let params = {'user': {
@@ -94,10 +96,10 @@ export class AuthService {
                                 );
                               }).catch(error => { return Observable.throw(error); });
 
-                            this.authenticate(userId, token);
+                            this.authenticate(userId, profilePicture, token);
 
                         } else { // Create the user
-                          let fields = 'id,name,picture,email';
+                          let fields = 'id,name,picture.width(200),email';
                           this.fb.api('/' + fbId + '?fields=' + fields)
                             .then(res => {
                               let picture_url = res.picture.data.url;
@@ -113,7 +115,7 @@ export class AuthService {
                                   data => {
                                     let p = data.split('/');
                                     let userId = p[3];
-                                    this.authenticate(userId, token);
+                                    this.authenticate(userId, picture_url, token);
                                   },
                                   error => {return Observable.throw(error);}
                                 );
@@ -128,13 +130,14 @@ export class AuthService {
 
     }
 
-    authenticate(userId, token) {
+    authenticate(userId, profilePictureUrl, token) {
       //console.log(userId, token);
       //this.api.authenticate()
       //  .subscribe(
       //      data => {
               localForage.setItem(prodeUserKey, userId);
               this.userId = userId;
+              this.profilePictureUrl = profilePictureUrl;
               this.setLoggedIn(true);
               this.spinner.hide();
               this.router.navigate(['/dashboard']);

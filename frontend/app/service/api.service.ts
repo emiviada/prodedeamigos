@@ -52,8 +52,9 @@ export class ApiService {
   /*** FANTASY TOURNAMENTS functionalities ***/
 
   // getFantasyTournaments
-  getFantasyTournaments(userId) {
-    return this.http.get(this.baseUrl + '/users/' + userId + '/fantasy-tournaments', {headers: this.headers})
+  getFantasyTournaments(userId, owned: boolean = false) {
+    let ownedQuery = (owned)? '?owned=1' : '';
+    return this.http.get(this.baseUrl + '/users/' + userId + '/fantasy-tournaments' + ownedQuery, {headers: this.headers})
       .map(this.extractData)
       .catch(this.handleError);
   }

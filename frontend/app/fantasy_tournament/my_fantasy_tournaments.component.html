@@ -1,0 +1,45 @@
+<div class="main-content">
+    <h1>Mis Torneos</h1>
+
+    <div class="row create-prode">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+            <a routerLink="/crear-torneo" class="btn btn-primary btn-block">
+                <i class="fa fa-trophy" aria-hidden="true"></i>&nbsp;
+                Crear nuevo torneo Prode
+            </a>
+        </div>
+    </div>
+
+    <div class="snapshot-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div *ngFor="let ftournament of fantasyTournaments" class="prode-snapshot col-xs-12 col-sm-6 col-md-4 col-lg-4" (click)="viewFantasyTournament(ftournament.slug)">
+                    <div class="col-xs-2 pan text-center">
+                        <img class="img-circle" src="{{ ftournament.picture_uri || '/assets/imgs/trophy_placeholder.png' }}" width="100%">
+                    </div>
+                    <div class="col-xs-8">
+                        <h3 class="ttitle">{{ ftournament.name }}</h3>
+                        <span class="players">
+                            <i class="fa fa-user-plus" aria-hidden="true"></i>
+                            {{ playerLabel(ftournament.memberships.length) }}
+                        </span>
+                        <span class="info">Some info</span>
+                    </div>
+                    <div class="col-xs-2 pos">
+                        <span class="posl text-center">
+                            Pos.
+                            <span class="position bg-primary">99</span>
+                        </span>
+                        <span class="posr text-center">
+                            <i class="fa fa-minus" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <p *ngIf="!fantasyTournaments?.length && !loading">
+                    No has creado ning&uacute;n torneo a&uacute;n. Crea tu propio torneo e invita a tus amigos.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

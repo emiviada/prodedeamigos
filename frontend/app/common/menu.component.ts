@@ -12,12 +12,27 @@ const Slideout = require('slideout');
 export class MenuComponent {
     private slideoutLeft;
     private slideoutRight;
+    private profilePictureUrl: string;
 
     constructor(private auth: AuthService) { }
 
+    /**
+     * logout() function
+     */
     logout(): void {
         this.slideoutRight.toggle();
         this.auth.logout();
+    }
+
+    /**
+     * toggle() function
+     */
+    toggle(side): void {
+        if (side === 'right') {
+            this.slideoutRight.toggle();
+        } else if (side === 'left') {
+            this.slideoutLeft.toggle();
+        }
     }
 
     ngOnInit(): void {
@@ -58,9 +73,12 @@ export class MenuComponent {
             menuLeft.style.transform = "translateX(0px)";
             menuRight.style.visibility = "visible";
         });
+
         // Toggle button
         document.querySelector('.toggle-button-right').addEventListener('click', function() {
             _this.slideoutRight.toggle();
         });
+
+        this.profilePictureUrl = this.auth.profilePictureUrl;
     }
 }

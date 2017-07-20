@@ -100,6 +100,14 @@ class FantasyTournament
     private $members;
 
     /**
+     * @var string
+     *
+     * @Assert\NotBlank
+     * @ORM\Column(name="invitation_hash", type="string", length=255)
+     */
+    private $invitationHash;
+
+    /**
      * @Gedmo\Slug(fields={"name"}, updatable=false, separator="-")
      * @ORM\Column(length=100, unique=true)
      */
@@ -117,6 +125,7 @@ class FantasyTournament
      */
     public function __construct()
     {
+        $this->invitationHash = sha1(random_bytes(10));
         $this->memberships = new ArrayCollection();
         $this->members = new ArrayCollection();
         $this->updatedAt = new \DateTime();
@@ -495,5 +504,39 @@ class FantasyTournament
         $this->removeMembership($membership);
 
         return $this;
+    }
+
+    /**
+     * Set invitationHash
+     *
+     * @param string $invitationHash
+     *
+     * @return FantasyTournament
+     */
+    public function setInvitationHash($invitationHash)
+    {
+        $this->invitationHash = $invitationHash;
+
+        return $this;
+    }
+
+    /**
+     * Get invitationHash
+     *
+     * @return string
+     */
+    public function getInvitationHash()
+    {
+        return $this->invitationHash;
+    }
+
+    /**
+     * Get members amount
+     *
+     * @return integer
+     */
+    public function getMembersCount()
+    {
+        return count($this->memberships);
     }
 }

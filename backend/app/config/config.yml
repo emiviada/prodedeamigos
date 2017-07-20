@@ -152,9 +152,19 @@ easy_admin:
             label: 'Fantasy Tournaments'
             list:
                 title: '%%entity_label%%'
+                fields:
+                    - name
+                    - pictureFile
+                    - pointsPerGame
+                    - matchExact
+                    - pointsPerExact
+                    - tournament
+                    - owner
+                    - { property: membersCount, label: 'Members', css_class: 'text-center' }
             form:
                 fields:
                     - name
+                    - { property: invitationHash, type_options: { disabled: true } }
                     - pointsPerGame
                     - { property: 'pictureFile', type: 'vich_image' }
                     - matchExact

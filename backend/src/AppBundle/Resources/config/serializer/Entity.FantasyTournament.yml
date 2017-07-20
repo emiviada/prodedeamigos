@@ -13,6 +13,8 @@ AppBundle\Entity\FantasyTournament:
             expose: true
         slug:
             expose: true
+        invitationHash:
+            expose: true
         memberships:
             expose: true
     virtual_properties:
