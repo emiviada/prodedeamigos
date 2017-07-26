@@ -46,6 +46,7 @@ nginx_vhosts:
     index: "index.php app.php index.html index.htm"
     access_log: "/var/log/nginx/{{ backend_server_name }}_access.log"
     error_log: "/var/log/nginx/{{ backend_server_name }}_error.log"
+    rewrite: "^/$ /admin permanent;"
 
 nginx_extra_conf_options: ""
 # Example extra main options, used within the main nginx's context:

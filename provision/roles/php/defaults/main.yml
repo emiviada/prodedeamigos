@@ -17,3 +17,4 @@ php_upload_max_filesize: "5M"
 php_post_max_size: "5M"
 php_memory_limit: "1024M"
 php_max_execution_time: 60
+php_opcache_max_accelerated_files: 20000

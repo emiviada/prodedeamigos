@@ -57,6 +57,12 @@
               line='memory_limit = {{ php_memory_limit }}'
   notify: restart php7-fpm
 
+- name: Set opcache.max_accelerated_files
+  lineinfile: dest=/etc/php/{{ php_version }}/fpm/php.ini
+              regexp='opcache.max_accelerated_files(\s)?='
+              line='opcache.max_accelerated_files = {{ php_opcache_max_accelerated_files }}'
+  notify: restart php7-fpm
+
 - name: Set max_execution_time
   lineinfile: dest=/etc/php/{{ php_version }}/fpm/php.ini
               regexp='max_execution_time(\s)?='
