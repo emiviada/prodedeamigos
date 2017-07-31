@@ -5,16 +5,22 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class SpinnerService {
 
     public loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+    public isLoading: boolean = true;
 
     show(): void {
-        this.setLoadingValue(true);
+        if (!this.isLoading) {
+            this.setLoadingValue(true);
+        }
     }
 
     hide(): void {
-        this.setLoadingValue(false);
+        if (this.isLoading) {
+            this.setLoadingValue(false);
+        }
     }
 
     setLoadingValue(value: boolean) {
         this.loading.next(value);
+        this.isLoading = value;
     }
 }

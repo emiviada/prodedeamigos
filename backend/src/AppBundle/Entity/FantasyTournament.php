@@ -466,9 +466,13 @@ class FantasyTournament
      */
     public function getMembers()
     {
+        if (!$this->members) {
+            $this->members = new ArrayCollection();
+        }
+
         if ($this->memberships->count()) {
             foreach ($this->memberships->toArray() as $membership) {
-                $this->members[] = $membership->getUser();
+                $this->members->add($membership->getUser());
             }
         }
         return $this->members;

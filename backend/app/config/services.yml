@@ -9,3 +9,8 @@ services:
     app.cloudinary_storage:
         class:     AppBundle\Storage\CloudinaryStorage
         arguments: ['@vich_uploader.property_mapping_factory']
+    app.link_unlink_request_listener:
+        class: AppBundle\EventListener\LinkUnlinkRequestListener
+        arguments: ['@event_dispatcher', '@controller_resolver', '@router']
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }

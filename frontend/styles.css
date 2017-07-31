@@ -37,6 +37,8 @@ a {
 .ptm, .pam { padding-top: 10px !important; }
 .plm, .pam { padding-left: 10px !important; }
 .pts, .pas { padding-top: 5px !important; }
+.prs, .pas { padding-right: 5px !important; }
+.pls, .pas { padding-left: 5px !important; }
 .ptn, .pan { padding-top: 0 !important; }
 .prn, .pan { padding-right: 0 !important; }
 .pbn, .pan { padding-bottom: 0 !important; }
@@ -259,6 +261,10 @@ a.logo:hover,a.logo:active { color: inherit; }
   position: relative;
   top: 4px;
 }
+.share-url {
+  font-size: 16px;
+  word-wrap: break-word;
+}
 /*** END Fantasy Tournament Details ***/
 
 /*** Results Details ***/
@@ -341,6 +347,7 @@ a.logo:hover,a.logo:active { color: inherit; }
   color: #fff;
   min-width: 33% !important;
 }
+md-tab-group.half .mat-tab-label { min-width: 50% !important; }
 .mat-ink-bar { background-color: #fff; }
 [_nghost-c2] {
   margin-top: -50px;

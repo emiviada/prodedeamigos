@@ -158,4 +158,65 @@ class FantasyTournamentController extends FOSRestController
             throw new HttpException(403, 'Fantasy Tournament not owned by user');
         }
     }
+
+    /**
+     * @Rest\Link("/users/{id}/fantasy-tournaments/{slug}")
+     * @Rest\View(statusCode=204)
+     */
+    public function linkAction(User $user, $slug, Request $request)
+    {
+        $this->commonLinkUnlink('link', $user, $slug, $request);
+    }
+
+    /**
+     * @Rest\Unlink("/users/{id}/fantasy-tournaments/{slug}")
+     * @Rest\View(statusCode=204)
+     */
+    public function unlinkAction(User $user, $slug, Request $request)
+    {
+        $this->commonLinkUnlink('unlink', $user, $slug, $request);
+    }
+
+    /**
+     * commonLinkUnlink() function
+     */
+    private function commonLinkUnlink($method, User $user, $slug, Request $request)
+    {
+        if (!$request->attributes->has($method . 's')) {
+            throw new HttpException(400);
+        }
+
+        $fantasyTournament = $this->getDoctrine()->getRepository('AppBundle:FantasyTournament')
+            ->findOneBySlug($slug);
+
+        if (!$fantasyTournament) {
+            throw new HttpException(404, 'Fantasy Tournament not found');
+        }
+
+        foreach ($request->attributes->get($method . 's') as $u) {
+            if (!$u instanceof User) {
+                throw new HttpException(404, 'Invalid resource');
+            }
+
+            $contains = $fantasyTournament->getMembers()->contains($u);
+            if ($method === 'link') {
+                if ($contains) {
+                    throw new HttpException(409, 'User is already a member of the Fantasy Tournament');
+                }
+
+                $fantasyTournament->addMember($u);
+
+            } elseif ($method === 'unlink') {
+                if (!$contains) {
+                    throw new HttpException(409, 'User is not a member of the Fantasy Tournament');
+                }
+
+                $fantasyTournament->removeMember($u);
+            }
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($fantasyTournament);
+        $em->flush();
+    }
 }

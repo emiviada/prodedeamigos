@@ -202,7 +202,7 @@ nelmio_cors:
         allow_credentials: false
         allow_origin: ['*']
         allow_headers: ['*']
-        allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+        allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'LINK', 'UNLINK']
         expose_headers: ['Origin','Accept','Content-Type', 'Location']
         max_age: 3600
         hosts: []

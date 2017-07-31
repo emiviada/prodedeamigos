@@ -23,22 +23,30 @@ export class DashboardComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.spinner.show();
-        this.spinner.loading.subscribe((val: boolean) => {
-            this.loading = val;
+        setTimeout(() => {
+          this.spinner.loading.subscribe((val: boolean) => {
+              this.loading = val;
+          });
         });
+        this.spinner.show();
         this.api.getFantasyTournaments(this.auth.userId).subscribe(
             data => {
                 this.fantasyTournaments = data;
-                this.loading = false;
                 this.spinner.hide();
             },
             error => {
                 console.log(<any>error);
-                this.loading = false;
                 this.spinner.hide();
             }
         );
+    }
+
+    ngAfterViewInit(): void {
+        setTimeout(() => {
+          this.spinner.loading.subscribe((val: boolean) => {
+              this.loading = val;
+          });
+        }, 300);
     }
 
     playerLabel(value): string {

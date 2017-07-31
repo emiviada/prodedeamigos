@@ -46,7 +46,7 @@ export class MyFantasyTournamentsComponent implements OnInit {
         return value + ' ' + label;
     }
 
-    viewFantasyTournament(slug: string): void {
-        this.router.navigate(['/torneo/' + slug]);
+    editFantasyTournament(slug: string): void {
+        this.router.navigate(['/mis-torneos/' + slug]);
     }
 }

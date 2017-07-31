@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
-
-import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpHeaders, HttpRequest, HttpErrorResponse } from '@angular/common/http';
+import { Observable, ObservableInput } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 
 import { environment } from '../../environments/environment';
+
+//interface APIResponse {}
 
 @Injectable()
 export class ApiService {
@@ -14,13 +15,13 @@ export class ApiService {
   private apiUsername = environment.api_user;
   private apiPassword = environment.api_password;
 
-  private headers = new Headers({
+  private headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
     'X-PRODE-AUTH-TOKEN': this.apiUsername + ':' + this.apiPassword
   });
 
-  constructor (private http: Http) {}
+  constructor (private http: HttpClient) {}
 
   /*** USERS functionalities ***/
 
@@ -28,21 +29,29 @@ export class ApiService {
   findUsers(params) {
     let query = Object.keys(params)
       .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`).join('&');
-    return this.http.get(this.baseUrl + '/users?' + query, {headers: this.headers})
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.http.get(
+      this.baseUrl + '/users?' + query,
+      { headers: this.headers, observe: 'response' })
+        .map(this.extractData)
+        .catch(this.handleError);
   }
 
   // createUser
   createUser(params) {
-    return this.http.post(this.baseUrl + '/users?', JSON.stringify(params), {headers: this.headers})
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.http.post(
+      this.baseUrl + '/users?',
+      JSON.stringify(params),
+      { headers: this.headers, observe: 'response' })
+        .map(this.extractData)
+        .catch(this.handleError);
   }
 
   // editUser
   editUser(userId, params) {
-    return this.http.put(this.baseUrl + '/users/' + userId, JSON.stringify(params), {headers: this.headers})
+    return this.http.put(
+      this.baseUrl + '/users/' + userId,
+      JSON.stringify(params),
+      { headers: this.headers, observe: 'response' })
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -54,16 +63,20 @@ export class ApiService {
   // getFantasyTournaments
   getFantasyTournaments(userId, owned: boolean = false) {
     let ownedQuery = (owned)? '?owned=1' : '';
-    return this.http.get(this.baseUrl + '/users/' + userId + '/fantasy-tournaments' + ownedQuery, {headers: this.headers})
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.http.get(
+      this.baseUrl + '/users/' + userId + '/fantasy-tournaments' + ownedQuery,
+      { headers: this.headers, observe: 'response' })
+        .map(this.extractData)
+        .catch(this.handleError);
   }
 
   // getFantasyTournament (by slug)
   getFantasyTournament(userId, slug) {
-    return this.http.get(this.baseUrl + '/users/' + userId + '/fantasy-tournaments/' + slug, {headers: this.headers})
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.http.get(
+      this.baseUrl + '/users/' + userId + '/fantasy-tournaments/' + slug,
+      { headers: this.headers, observe: 'response' })
+        .map(this.extractData)
+        .catch(this.handleError);
   }
 
   createFantasyTournament(userId, object) {
@@ -71,7 +84,19 @@ export class ApiService {
     return this.http.post(
       this.baseUrl + '/users/' + userId + '/fantasy-tournaments',
       data,
-      {headers: this.headers})
+      { headers: this.headers, observe: 'response' })
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
+  // removeUserFromFantasyTournament
+  removeUserFromFantasyTournament(userId, slug, userToRemoveId) {
+    let headers = this.headers.append("Unlink", "/api/users/" + userToRemoveId);
+
+    return this.http.request(
+      "UNLINK",
+      this.baseUrl + '/users/' + userId + '/fantasy-tournaments/' + slug,
+      { headers: headers, observe: 'response' })
         .map(this.extractData)
         .catch(this.handleError);
   }
@@ -82,9 +107,11 @@ export class ApiService {
 
   // getTournaments
   getTournaments() {
-    return this.http.get(this.baseUrl + '/tournaments', {headers: this.headers})
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.http.get(
+      this.baseUrl + '/tournaments',
+      { headers: this.headers, observe: 'response' })
+        .map(this.extractData)
+        .catch(this.handleError);
   }
 
   /*** END TOURNAMENTS functionalities ***/
@@ -95,7 +122,7 @@ export class ApiService {
   getGames(userId, FantasyTournamentSlug) {
     return this.http.get(
       this.baseUrl + '/users/' + userId + '/fantasy-tournaments/' + FantasyTournamentSlug + '/games',
-      {headers: this.headers})
+      { headers: this.headers, observe: 'response' })
         .map(this.extractData)
         .catch(this.handleError);
   }
@@ -108,7 +135,7 @@ export class ApiService {
   getPredictions(userId, FantasyTournamentSlug) {
     return this.http.get(
       this.baseUrl + '/users/' + userId + '/fantasy-tournaments/' + FantasyTournamentSlug + '/predictions',
-      {headers: this.headers})
+      { headers: this.headers, observe: 'response' })
         .map(this.extractData)
         .catch(this.handleError);
   }
@@ -124,7 +151,7 @@ export class ApiService {
     return this.http.put(
       this.baseUrl + '/users/' + userId + '/fantasy-tournaments/' + fantasyTournamentSlug + '/predictions/' + prediction.id,
       data,
-      {headers: this.headers})
+      { headers: this.headers, observe: 'response' })
         .map(this.extractData)
         .catch(this.handleError);
   }
@@ -141,36 +168,36 @@ export class ApiService {
     return this.http.post(
       this.baseUrl + '/users/' + userId + '/fantasy-tournaments/' + fantasyTournamentSlug + '/predictions',
       data,
-      {headers: this.headers})
+      { headers: this.headers, observe: 'response' })
         .map(this.extractData)
         .catch(this.handleError);
   }
 
   /*** END PREDICTIONS functionalities ***/
 
-  private extractData(res: Response) {
+  private extractData(res: any): any {
     let data = {};
     if (res.status === 200) {
-        data = res.json();
+        data = res.body;
     } else if (res.status === 201) {
         let headers = res.headers;
         data = headers.get('Location');
     } else if (res.status === 204) {
         // No Content
     } else {
-        this.handleError(res);
+        this.handleError('Status code is not 2xx', res);
     }
 
     return data;
   }
 
-  private handleError (error: Response | any) {
+  private handleError(error: any, caught: Observable<{}>): ObservableInput<{}> {
     // In a real world app, you might use a remote logging infrastructure
     let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
+    if (error instanceof HttpErrorResponse) {
+      const body = error.error || '';
       const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+      errMsg = `${error.status} - ${error.statusText || ''} | ${err.code} - ${err.message}`;
     } else {
       errMsg = error.message ? error.message : error.toString();
     }

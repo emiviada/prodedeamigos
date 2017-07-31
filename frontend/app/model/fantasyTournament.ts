@@ -8,6 +8,7 @@ export class FantasyTournament {
   points_per_exact: number;
   picture_uri: string;
   slug: string;
+  invitation_hash: string;
   memberships;
 
   constructor() {

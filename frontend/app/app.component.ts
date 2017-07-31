@@ -11,21 +11,18 @@ import { SpinnerService } from './service/spinner.service';
 })
 export class AppComponent {
 
-    loading: boolean;
-
     private appToasterConfig: IToasterConfig = new ToasterConfig({
         animation: 'fade',
         timeout: 3000
     });
 
-    constructor(private auth: AuthService, private spinner: SpinnerService) {
-      this.loading = true;
-    }
+    constructor(private auth: AuthService, private spinner: SpinnerService) {}
 
-    ngOnInit(): void {
-        this.spinner.loading.subscribe((val: boolean) => {
-            this.loading = val;
-        });
+    /**
+     * isLoading() function
+     */
+    isLoading(): boolean {
+        return this.spinner.isLoading;
     }
 
     isLoggedIn() {

@@ -13,7 +13,7 @@
     <div class="snapshot-wrapper">
         <div class="container-fluid">
             <div class="row">
-                <div *ngFor="let ftournament of fantasyTournaments" class="prode-snapshot col-xs-12 col-sm-6 col-md-4 col-lg-4" (click)="viewFantasyTournament(ftournament.slug)">
+                <div *ngFor="let ftournament of fantasyTournaments" class="prode-snapshot col-xs-12 col-sm-6 col-md-4 col-lg-4" (click)="editFantasyTournament(ftournament.slug)">
                     <div class="col-xs-2 pan text-center">
                         <img class="img-circle" src="{{ ftournament.picture_uri || '/assets/imgs/trophy_placeholder.png' }}" width="100%">
                     </div>

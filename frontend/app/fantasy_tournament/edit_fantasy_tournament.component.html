@@ -1,0 +1,60 @@
+<div class="main-content">
+    <h1>
+        <a routerLink="/mis-torneos">
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+        </a>&nbsp;
+        Editar Torneo
+    </h1>
+
+    <div class="row" *ngIf="fantasyTournament">
+        <div class="col-xs-12 col-lg-6">
+            <md-tab-group selectedIndex="0" class="half">
+
+                <md-tab label="Torneo">
+                    <div class="container ptl">
+                        <form (ngSubmit)="upsert();" #tournamentForm="ngForm" class="single-form">
+                            <div class="form-group">
+                                <label for="name">Nombre:</label>
+                                <input type="text" class="form-control" id="name" required [(ngModel)]="fantasyTournament.name" name="name" #name="ngModel">
+                                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                                    El Nombre es requerido.
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-lg btn-block" [disabled]="!tournamentForm.form.valid || !name.dirty">
+                                <strong>Editar Torneo</strong>
+                            </button>
+                        </form>
+
+                        <div class="mtm">
+                            <p>Invita a tus amigos a participar en tu torneo copiando la URL que aparece abajo y compartela con ellos. Buena suerte!.</p>
+                        </div>
+
+                        <div class="prode-snapshot mts prs pls text-center">
+                            <span class="share-url dib">{{ shareUrl }}</span>
+                            <!--<input type="hidden" name="shareUrl" value="{{shareUrl}}" #shareUrlToCopy>-->
+                            <a class="text-success" ngxClipboard [cbContent]="shareUrl">[copiar]</a>
+                        </div>
+                    </div>
+                </md-tab>
+
+                <md-tab label="Jugadores">
+                    <div class="ptm">
+                        <div class="row pos-item" *ngFor="let membership of fantasyTournament.memberships; let i = index" [ngClass]="{'myself': isMyself(membership.user.id)}">
+                            <div class="col-xs-10">
+                                <img class="img-circle pull-left mrm" src="{{ membership.user.profile_picture_url || '/assets/imgs/user-placeholder.png' }}" width="30px">&nbsp;
+                                <span class="username">{{ membership.user.username }}</span>
+                            </div>
+                            <div class="col-xs-2 text-center pts">
+                                <button *ngIf="!isMyself(membership.user.id)" class="btn btn-sm btn-danger" (click)="removeUser($event, membership.user)">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </md-tab>
+
+            </md-tab-group>
+        </div>
+    </div>
+</div>
