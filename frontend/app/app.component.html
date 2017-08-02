@@ -23,7 +23,7 @@
   </header>
 
   <toaster-container [toasterconfig]="appToasterConfig"></toaster-container>
-  <div id="loading" class="loading" *ngIf="isLoading()"><md-spinner></md-spinner></div>
+  <spinner-loading></spinner-loading>
   <router-outlet></router-outlet>
 
 </main>

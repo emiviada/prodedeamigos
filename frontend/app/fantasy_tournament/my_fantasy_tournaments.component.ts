@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { FantasyTournament } from '../model/fantasyTournament';
 import { AuthService } from '../service/auth.service';
 import { ApiService } from '../service/api.service';
 import { SpinnerService } from '../service/spinner.service';
 import { prodeUserKey } from '../global';
+import { LoaderState } from '../model/loader';
+
 
 @Component({
   templateUrl: './my_fantasy_tournaments.component.html'
 })
 export class MyFantasyTournamentsComponent implements OnInit {
 
-    loading: boolean;
+    loading: boolean = false;
+    private subscription: Subscription;
     fantasyTournaments: FantasyTournament[];
 
     constructor(
@@ -23,10 +27,11 @@ export class MyFantasyTournamentsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.subscription = this.spinner.loaderState
+            .subscribe((state: LoaderState) => {
+                this.loading = state.loading;
+            });
         this.spinner.show();
-        this.spinner.loading.subscribe((val: boolean) => {
-            this.loading = val;
-        });
         this.api.getFantasyTournaments(this.auth.userId, true).subscribe(
             data => {
                 this.fantasyTournaments = data;
@@ -48,5 +53,9 @@ export class MyFantasyTournamentsComponent implements OnInit {
 
     editFantasyTournament(slug: string): void {
         this.router.navigate(['/mis-torneos/' + slug]);
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

@@ -14,7 +14,7 @@
                         <div *ngFor="let game of nextGames;">
                             <prediction [fantasyTournament]="fantasyTournament" [game]="game" [predictions]="predictions"></prediction>
                         </div>
-                        <p *ngIf="!nextGames?.length">
+                        <p *ngIf="!nextGames?.length && !loading">
                             No hay partidos para pronosticar.
                         </p>
                     </div>

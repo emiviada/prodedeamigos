@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
+import { Subscription } from 'rxjs/Subscription';
 
 import { AuthService } from '../service/auth.service';
 import { ApiService } from '../service/api.service';
@@ -8,6 +9,7 @@ import { SpinnerService } from '../service/spinner.service';
 import { FantasyTournament } from '../model/fantasyTournament';
 import { Game } from '../model/game';
 import { Prediction } from '../model/prediction';
+import { LoaderState } from '../model/loader';
 import { prodeUserKey } from '../global';
 
 
@@ -16,6 +18,8 @@ import { prodeUserKey } from '../global';
 })
 export class FantasyTournamentDetailComponent implements OnInit {
 
+    loading: boolean = false;
+    private subscription: Subscription;
     fantasyTournament: FantasyTournament;
     games: Game[];
     nextGames: Game[] = [];
@@ -31,6 +35,10 @@ export class FantasyTournamentDetailComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.subscription = this.spinner.loaderState
+            .subscribe((state: LoaderState) => {
+                this.loading = state.loading;
+            });
         this.spinner.show();
         this.route.params
             .switchMap((params: Params) =>
@@ -80,5 +88,9 @@ export class FantasyTournamentDetailComponent implements OnInit {
                             this.spinner.hide();
                         }
                     );
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

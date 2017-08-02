@@ -17,6 +17,7 @@ import { ApiService } from './service/api.service';
 import { SpinnerService } from './service/spinner.service';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './common/menu.component';
+import { SpinnerComponent } from './common/spinner.component';
 import { HomepageComponent } from './common/homepage.component';
 import { NotFoundComponent } from './common/notfound.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -30,7 +31,7 @@ import { PredictionComponent } from './fantasy_tournament/prediction.component';
 
 @NgModule({
   declarations: [
-    AppComponent, MenuComponent, HomepageComponent, NotFoundComponent, DashboardComponent,
+    AppComponent, MenuComponent, SpinnerComponent, HomepageComponent, NotFoundComponent, DashboardComponent,
     NewFantasyTournamentComponent, FantasyTournamentDetailComponent, PositionsComponent,
     ResultComponent, PredictionComponent, MyFantasyTournamentsComponent, EditFantasyTournamentComponent
   ],

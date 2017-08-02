@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IToasterConfig, ToasterConfig } from 'angular2-toaster';
 
 import { AuthService } from './service/auth.service';
@@ -16,14 +16,7 @@ export class AppComponent {
         timeout: 3000
     });
 
-    constructor(private auth: AuthService, private spinner: SpinnerService) {}
-
-    /**
-     * isLoading() function
-     */
-    isLoading(): boolean {
-        return this.spinner.isLoading;
-    }
+    constructor(private auth: AuthService) {}
 
     isLoggedIn() {
         return this.auth.loggedIn;

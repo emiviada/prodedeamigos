@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { FantasyTournament } from '../model/fantasyTournament';
 import { AuthService } from '../service/auth.service';
 import { ApiService } from '../service/api.service';
 import { SpinnerService } from '../service/spinner.service';
+import { LoaderState } from '../model/loader';
 import { prodeUserKey } from '../global';
+
 
 @Component({
   templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
 
-    loading: boolean;
+    loading: boolean = false;
+    private subscription: Subscription;
     fantasyTournaments: FantasyTournament[];
 
     constructor(
@@ -23,11 +27,10 @@ export class DashboardComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        setTimeout(() => {
-          this.spinner.loading.subscribe((val: boolean) => {
-              this.loading = val;
-          });
-        });
+        this.subscription = this.spinner.loaderState
+            .subscribe((state: LoaderState) => {
+                this.loading = state.loading;
+            });
         this.spinner.show();
         this.api.getFantasyTournaments(this.auth.userId).subscribe(
             data => {
@@ -41,12 +44,8 @@ export class DashboardComponent implements OnInit {
         );
     }
 
-    ngAfterViewInit(): void {
-        setTimeout(() => {
-          this.spinner.loading.subscribe((val: boolean) => {
-              this.loading = val;
-          });
-        }, 300);
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 
     playerLabel(value): string {
