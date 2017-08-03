@@ -7,6 +7,7 @@ import { MyFantasyTournamentsComponent } from './fantasy_tournament/my_fantasy_t
 import { NewFantasyTournamentComponent } from './fantasy_tournament/new_fantasy_tournament.component';
 import { EditFantasyTournamentComponent } from './fantasy_tournament/edit_fantasy_tournament.component';
 import { FantasyTournamentDetailComponent } from './fantasy_tournament/fantasy_tournament_detail.component';
+import { JoinFantasyTournamentComponent } from './fantasy_tournament/join_fantasy_tournament.component';
 import { NotFoundComponent } from './common/notfound.component';
 
 export const appRoutes: Routes = [
@@ -15,6 +16,7 @@ export const appRoutes: Routes = [
   { path: 'mis-torneos', component: MyFantasyTournamentsComponent, pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'crear-torneo', component: NewFantasyTournamentComponent, pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'torneo/:slug', component: FantasyTournamentDetailComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'torneo/:slug/:invitation_hash', component: JoinFantasyTournamentComponent, pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'mis-torneos/:slug', component: EditFantasyTournamentComponent, pathMatch: 'full', canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent }
 ];

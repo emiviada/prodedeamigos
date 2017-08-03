@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/fromPromise';
@@ -14,11 +14,17 @@ import { prodeUserKey } from '../global';
 // https://github.com/localForage/localForage
 import * as localForage from "localforage";
 
+interface LoggedInUser {
+  id: number;
+  profile_picture_url: string;
+}
+
 @Injectable()
 export class AuthService {
 
     public userId;
     public profilePictureUrl: string;
+    protected returnUrl: string;
 
     // Create a stream of logged in status to communicate throughout app
     loggedIn: boolean;
@@ -30,6 +36,7 @@ export class AuthService {
       private api: ApiService,
       private fb: FacebookService,
       private router: Router,
+      private route: ActivatedRoute,
       private spinner: SpinnerService) {
         const initParams: InitParams = {
           appId: environment.facebook_app_id,
@@ -55,10 +62,13 @@ export class AuthService {
 
     isLoggedIn() {
         let that = this;
-        this.checkLoginStatus().subscribe(value => {
-            let authenticated = (value)? true : false;
+        this.checkLoginStatus().subscribe((loggedInUser: LoggedInUser) => {
+            let authenticated = (loggedInUser)? true : false;
             this.setLoggedIn(authenticated);
-            that.userId = value;
+            if (authenticated) {
+              that.userId = loggedInUser.id;
+              that.profilePictureUrl = loggedInUser.profile_picture_url;
+            }
         });
     }
 
@@ -90,7 +100,7 @@ export class AuthService {
                                 this.api.editUser(userId, params)
                                 .subscribe(
                                   data => {
-                                    console.log('User edited!');
+                                    //console.log('User edited!');
                                   },
                                   error => { return Observable.throw(error); }
                                 );
@@ -135,12 +145,16 @@ export class AuthService {
       //this.api.authenticate()
       //  .subscribe(
       //      data => {
-              localForage.setItem(prodeUserKey, userId);
+              // get return url from route parameters or default to '/'
+              this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
+
+              let loggedInUser = {id: userId, profile_picture_url: profilePictureUrl};
+              localForage.setItem(prodeUserKey, loggedInUser);
               this.userId = userId;
               this.profilePictureUrl = profilePictureUrl;
               this.setLoggedIn(true);
               this.spinner.hide();
-              this.router.navigate(['/dashboard']);
+              this.router.navigate([this.returnUrl]);
       //      },
       //      error => console.log(<any>error)
       //  );

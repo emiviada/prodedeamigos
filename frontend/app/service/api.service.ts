@@ -79,11 +79,25 @@ export class ApiService {
         .catch(this.handleError);
   }
 
+  /**
+   * createFantasyTournament
+   */
   createFantasyTournament(userId, object) {
     let data = {'fantasy_tournament': object};
     return this.http.post(
       this.baseUrl + '/users/' + userId + '/fantasy-tournaments',
       data,
+      { headers: this.headers, observe: 'response' })
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
+  /**
+   * findFantasyTournamentByHash
+   */
+  findFantasyTournamentByHash(invitation_hash: string) {
+    return this.http.get(
+      this.baseUrl + '/fantasy-tournaments?invitation_hash=' + invitation_hash,
       { headers: this.headers, observe: 'response' })
         .map(this.extractData)
         .catch(this.handleError);
@@ -95,6 +109,20 @@ export class ApiService {
 
     return this.http.request(
       "UNLINK",
+      this.baseUrl + '/users/' + userId + '/fantasy-tournaments/' + slug,
+      { headers: headers, observe: 'response' })
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
+  /**
+   * joinToFantasyTournament
+   */
+  joinToFantasyTournament(userId, slug, userToJoinId) {
+    let headers = this.headers.append("Link", "/api/users/" + userToJoinId);
+
+    return this.http.request(
+      "LINK",
       this.baseUrl + '/users/' + userId + '/fantasy-tournaments/' + slug,
       { headers: headers, observe: 'response' })
         .map(this.extractData)

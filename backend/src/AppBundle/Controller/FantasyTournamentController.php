@@ -15,6 +15,34 @@ use AppBundle\Form\FantasyTournamentType;
 class FantasyTournamentController extends FOSRestController
 {
     /**
+     * @Rest\Get("/fantasy-tournaments")
+     */
+    public function findGlobalAction(Request $request)
+    {
+        $defaultLimit = $this->container->getParameter('api.max_results_default');
+        $findParams = array();
+        $allowedSearchProperties = array('invitation_hash');
+        $propertyMapper = array('invitation_hash' => 'invitationHash');
+        foreach ($allowedSearchProperties as $property) {
+            if ($request->query->get($property)) {
+                $findParams[$propertyMapper[$property]] = $request->query->get($property);
+            }
+        }
+        $result = $this->getDoctrine()->getRepository('AppBundle:FantasyTournament')->findBy(
+            $findParams,
+            array(),
+            $defaultLimit
+        );
+        if ($result === null || count($result) === 0) {
+            throw new HttpException(404, 'Fantasy Tournaments Not Found');
+        }
+
+        return $result;
+    }
+
+    /*** Based on User ***/
+
+    /**
      * @Rest\Get("/users/{id}/fantasy-tournaments")
      */
     public function getAction($id, Request $request)

@@ -25,6 +25,7 @@ import { MyFantasyTournamentsComponent } from './fantasy_tournament/my_fantasy_t
 import { NewFantasyTournamentComponent } from './fantasy_tournament/new_fantasy_tournament.component';
 import { EditFantasyTournamentComponent } from './fantasy_tournament/edit_fantasy_tournament.component';
 import { FantasyTournamentDetailComponent } from './fantasy_tournament/fantasy_tournament_detail.component';
+import { JoinFantasyTournamentComponent } from './fantasy_tournament/join_fantasy_tournament.component';
 import { PositionsComponent } from './fantasy_tournament/positions.component';
 import { ResultComponent } from './fantasy_tournament/result.component';
 import { PredictionComponent } from './fantasy_tournament/prediction.component';
@@ -33,7 +34,8 @@ import { PredictionComponent } from './fantasy_tournament/prediction.component';
   declarations: [
     AppComponent, MenuComponent, SpinnerComponent, HomepageComponent, NotFoundComponent, DashboardComponent,
     NewFantasyTournamentComponent, FantasyTournamentDetailComponent, PositionsComponent,
-    ResultComponent, PredictionComponent, MyFantasyTournamentsComponent, EditFantasyTournamentComponent
+    ResultComponent, PredictionComponent, MyFantasyTournamentsComponent, EditFantasyTournamentComponent,
+    JoinFantasyTournamentComponent
   ],
   imports: [
     BrowserModule,
