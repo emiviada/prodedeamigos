@@ -34,6 +34,9 @@ a {
 
 .pl30, .pa30 { padding-left: 30px !important; }
 .ptl, .pal { padding-top: 20px !important; }
+.prl, .pal { padding-right: 20px !important; }
+.pbl, .pal { padding-bottom: 20px !important; }
+.pll, .pal { padding-left: 20px !important; }
 .ptm, .pam { padding-top: 10px !important; }
 .plm, .pam { padding-left: 10px !important; }
 .pts, .pas { padding-top: 5px !important; }
@@ -161,6 +164,7 @@ a.logo:hover,a.logo:active { color: inherit; }
     padding: 0 20px;
     margin: 0;
 }
+.menu-section-title .logo-title { color: #fff; }
 .menu-section-list {
     padding: 0;
     margin: 10px 0;
@@ -178,6 +182,7 @@ a.logo:hover,a.logo:active { color: inherit; }
   color: inherit;
   text-decoration: none;
 }
+.left-desc { color: #999; }
 /*** Sidebar Menu ***/
 
 /*** Main Content ***/

@@ -14,26 +14,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div *ngFor="let ftournament of fantasyTournaments" class="prode-snapshot col-xs-12 col-sm-6 col-md-4 col-lg-4" (click)="editFantasyTournament(ftournament.slug)">
-                    <div class="col-xs-2 pan text-center">
-                        <img class="img-circle" src="{{ ftournament.picture_uri || '/assets/imgs/trophy_placeholder.png' }}" width="100%">
-                    </div>
-                    <div class="col-xs-8">
-                        <h3 class="ttitle">{{ ftournament.name }}</h3>
-                        <span class="players">
-                            <i class="fa fa-user-plus" aria-hidden="true"></i>
-                            {{ playerLabel(ftournament.memberships.length) }}
-                        </span>
-                        <span class="info">Some info</span>
-                    </div>
-                    <div class="col-xs-2 pos">
-                        <span class="posl text-center">
-                            Pos.
-                            <span class="position bg-primary">99</span>
-                        </span>
-                        <span class="posr text-center">
-                            <i class="fa fa-minus" aria-hidden="true"></i>
-                        </span>
-                    </div>
+                    <snapshot [fantasyTournament]="ftournament"></snapshot>
                 </div>
 
                 <p *ngIf="!fantasyTournaments?.length && !loading">

@@ -48,11 +48,6 @@ export class DashboardComponent implements OnInit {
         this.subscription.unsubscribe();
     }
 
-    playerLabel(value): string {
-        let label = (value == 1)? 'Jugador' : 'Jugadores';
-        return value + ' ' + label;
-    }
-
     viewFantasyTournament(slug: string): void {
         this.router.navigate(['/torneo/' + slug]);
     }

@@ -8,7 +8,6 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
 import { MdTabsModule, MdProgressSpinnerModule } from '@angular/material';
 import { ToasterModule } from 'angular2-toaster';
 import { ClipboardModule } from 'ngx-clipboard';
-//import * as localForage from "localforage";
 
 import { appRoutes } from './routes';
 import { AuthGuard } from './service/auth.guard';
@@ -29,13 +28,14 @@ import { JoinFantasyTournamentComponent } from './fantasy_tournament/join_fantas
 import { PositionsComponent } from './fantasy_tournament/positions.component';
 import { ResultComponent } from './fantasy_tournament/result.component';
 import { PredictionComponent } from './fantasy_tournament/prediction.component';
+import { SnapshotComponent } from './fantasy_tournament/snapshot.component';
 
 @NgModule({
   declarations: [
     AppComponent, MenuComponent, SpinnerComponent, HomepageComponent, NotFoundComponent, DashboardComponent,
     NewFantasyTournamentComponent, FantasyTournamentDetailComponent, PositionsComponent,
     ResultComponent, PredictionComponent, MyFantasyTournamentsComponent, EditFantasyTournamentComponent,
-    JoinFantasyTournamentComponent
+    JoinFantasyTournamentComponent, SnapshotComponent
   ],
   imports: [
     BrowserModule,
