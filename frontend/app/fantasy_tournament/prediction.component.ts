@@ -69,7 +69,7 @@ export class PredictionComponent implements OnChanges {
                         let days = Math.round(hours/24);
                         this.timeLeft = 'Faltan ' + days + ' dias';
                     } else {
-                        this.timeLeft = 'Faltan ' + minutes + ' horas';
+                        this.timeLeft = 'Faltan ' + hours + ' horas';
                     }
                 } else {
                     this.timeLeft = 'Faltan ' + minutes + ' min.';

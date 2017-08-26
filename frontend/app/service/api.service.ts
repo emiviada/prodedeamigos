@@ -201,6 +201,15 @@ export class ApiService {
         .catch(this.handleError);
   }
 
+  // getAllPredictionsByGame
+  getAllPredictionsByGame(fantasyTournamentId, gameId) {
+    return this.http.get(
+      this.baseUrl + '/predictions?fantasy_tournament_id='+fantasyTournamentId+'&game_id='+gameId,
+      { headers: this.headers, observe: 'response' })
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
   /*** END PREDICTIONS functionalities ***/
 
   private extractData(res: any): any {

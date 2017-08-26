@@ -1,9 +1,11 @@
 import { Component, OnChanges, Input } from '@angular/core';
+import { MdDialog } from '@angular/material';
 
 import { FantasyTournament } from '../model/fantasyTournament';
 import { Game } from '../model/game';
 import { Prediction } from '../model/prediction';
-import { monthLabels, getDateTime } from '../global';
+import { PredictionsModalComponent } from './predictions_modal.component';
+import { monthLabels, getDateTime, getPredictionPoints } from '../global';
 
 @Component({
   selector: 'result',
@@ -18,7 +20,7 @@ export class ResultComponent implements OnChanges {
     points: number = 0;
     pointsClass: string = 'text-primary';
 
-    constructor() {}
+    constructor(public dialog: MdDialog) {}
 
     ngOnChanges(): void {
         if (this.predictions) {
@@ -42,14 +44,7 @@ export class ResultComponent implements OnChanges {
     }
 
     _getPoints(): number {
-        if (this.fantasyTournament && this.game && this.prediction && this.prediction.processed) {
-            if (this.prediction.hit) {
-                this.points += this.fantasyTournament.points_per_game;
-            }
-            if (this.fantasyTournament.match_exact && this.prediction.hit_exact) {
-                this.points += this.fantasyTournament.points_per_exact;
-            }
-        }
+        this.points = getPredictionPoints(this.fantasyTournament, this.game, this.prediction);
 
         if (this.points > 2) {
             this.pointsClass = 'text-success';
@@ -60,5 +55,14 @@ export class ResultComponent implements OnChanges {
 
     getDateTime(datetime): string {
         return getDateTime(datetime);
+    }
+
+    /**
+     * seePredictions() function
+     */
+    seePredictions(): void {
+        this.dialog.open(PredictionsModalComponent, {
+            data: { fantasyTournament: this.fantasyTournament, game: this.game }
+        });
     }
 }

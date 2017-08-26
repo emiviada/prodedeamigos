@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FacebookModule } from 'ngx-facebook';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MdTabsModule, MdProgressSpinnerModule } from '@angular/material';
+import { MdTabsModule, MdProgressSpinnerModule, MdDialogModule } from '@angular/material';
 import { ToasterModule } from 'angular2-toaster';
 import { ClipboardModule } from 'ngx-clipboard';
 
@@ -29,13 +29,14 @@ import { PositionsComponent } from './fantasy_tournament/positions.component';
 import { ResultComponent } from './fantasy_tournament/result.component';
 import { PredictionComponent } from './fantasy_tournament/prediction.component';
 import { SnapshotComponent } from './fantasy_tournament/snapshot.component';
+import { PredictionsModalComponent } from './fantasy_tournament/predictions_modal.component';
 
 @NgModule({
   declarations: [
     AppComponent, MenuComponent, SpinnerComponent, HomepageComponent, NotFoundComponent, DashboardComponent,
     NewFantasyTournamentComponent, FantasyTournamentDetailComponent, PositionsComponent,
     ResultComponent, PredictionComponent, MyFantasyTournamentsComponent, EditFantasyTournamentComponent,
-    JoinFantasyTournamentComponent, SnapshotComponent
+    JoinFantasyTournamentComponent, SnapshotComponent, PredictionsModalComponent
   ],
   imports: [
     BrowserModule,
@@ -43,11 +44,15 @@ import { SnapshotComponent } from './fantasy_tournament/snapshot.component';
     RouterModule.forRoot(appRoutes),
     MdTabsModule,
     MdProgressSpinnerModule,
+    MdDialogModule,
     FacebookModule.forRoot(),
     FormsModule,
     HttpClientModule,
     ToasterModule,
     ClipboardModule
+  ],
+  entryComponents: [
+    PredictionsModalComponent
   ],
   providers: [
     AuthService, AuthGuard, ApiService, SpinnerService

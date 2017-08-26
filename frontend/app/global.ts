@@ -17,3 +17,18 @@ export const getDateTime = (datetime): string => {
 
     return dateString;
 };
+
+// Get prediction points
+export const getPredictionPoints = (fantasyTournament, game, prediction): number => {
+    let points = 0;
+    if (fantasyTournament && game && prediction && prediction.processed) {
+        if (prediction.hit) {
+            points += fantasyTournament.points_per_game;
+        }
+        if (fantasyTournament.match_exact && prediction.hit_exact) {
+            points += fantasyTournament.points_per_exact;
+        }
+    }
+
+    return points;
+};

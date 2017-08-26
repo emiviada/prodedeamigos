@@ -22,6 +22,36 @@ class PredictionController extends FOSRestController
 
 
     /**
+     * @Rest\Get("/predictions")
+     */
+    public function getAll(Request $request)
+    {
+        //$defaultLimit = $this->container->getParameter('api.max_results_default');
+        $findParams = array();
+        $allowedSearchProperties = array('fantasy_tournament_id', 'game_id');
+        $propertyMapper = array(
+            'fantasy_tournament_id' => 'fantasyTournament',
+            'game_id' => 'game'
+        );
+        foreach ($allowedSearchProperties as $property) {
+            if ($request->query->get($property)) {
+                $findParams[$propertyMapper[$property]] = $request->query->get($property);
+            }
+        }
+        $result = $this->getDoctrine()->getRepository('AppBundle:Prediction')->findBy(
+            $findParams,
+            array()
+        );
+        if ($result === null) {
+            throw new HttpException(404, 'There are no predictions to show');
+        }
+
+        return $result;
+    }
+
+    /*** Based on User ***/
+
+    /**
      * validate() function
      */
     protected function validate($id, $slug, Request $request)

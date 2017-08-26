@@ -1,0 +1,55 @@
+<div class="container">
+    <div class="row result-date mbs">
+        {{ getDateTime(game.play_date_at) }} - Estadio {{ game.stadium }}
+    </div>
+    <div class="row result-detail">
+        <div class="col-xs-4">
+            <div class="team">
+                <img src="{{ game.team_home.flag_uri }}">
+                <span>{{ game.team_home.alias }}</span>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="result">
+                <span>Resultado</span>
+                <span class="numbers">{{ game.goals_home }} - {{ game.goals_away }}</span>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="team">
+                <img src="{{ game.team_away.flag_uri }}">
+                <span>{{ game.team_away.alias }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center ptl pbl" *ngIf="loading">
+        <div id="fountainG">
+            <div id="fountainG_1" class="fountainG"></div>
+            <div id="fountainG_2" class="fountainG"></div>
+            <div id="fountainG_3" class="fountainG"></div>
+            <div id="fountainG_4" class="fountainG"></div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="!loading">
+        <div class="row pos-item mts mbs" *ngFor="let prediction of predictions">
+            <div class="col-xs-2 pts">
+                <img class="img-circle pull-left mrm" src="{{ prediction.user.profile_picture_url || '/assets/imgs/user-placeholder.png' }}" width="30px">
+            </div>
+            <div class="col-xs-10">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <span class="llg">{{ prediction.user.username }} &nbsp;|&nbsp; </span>
+                        <span>{{ prediction.goals_home }} - {{ prediction.goals_away }}</span>
+                    </div>
+                    <div class="col-xs-12" *ngIf="prediction.processed">
+                        <span class="llg">Sumo:</span>
+                        <span>{{ getPoints(prediction) }} puntos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
