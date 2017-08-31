@@ -14,3 +14,8 @@ services:
         arguments: ['@event_dispatcher', '@controller_resolver', '@router']
         tags:
             - { name: kernel.event_listener, event: kernel.request }
+    app.trigger_calculation_subscriber:
+        class: AppBundle\EventListener\TriggerCalculationSubscriber
+        arguments: ["@logger" , "@kernel"]
+        tags:
+            - { name: kernel.event_subscriber }
