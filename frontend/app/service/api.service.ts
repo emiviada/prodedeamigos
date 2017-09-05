@@ -16,6 +16,7 @@ export class ApiService {
   private apiPassword = environment.api_password;
 
   private headers = new HttpHeaders({
+    'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
     'Accept': 'application/json',
     'X-PRODE-AUTH-TOKEN': this.apiUsername + ':' + this.apiPassword

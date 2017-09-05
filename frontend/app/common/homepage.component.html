@@ -1,4 +1,13 @@
-<h1>Homepage</h1>
+<div id="homepage">
+    <h1>
+        <img src="/assets/imgs/prode-logo.png" width="50%" />
+        Prodedeamigos.com
+    </h1>
+    <p class="ptm pbm">Bienvenidos a Prode de Amigos! Por favor, ingresa con tu cuenta de Facebook y comienza a jugar!</p>
 
-<button (click)="loginWithFacebook()">Login</button>
-<a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+    <a class="btn btn-block btn-social btn-facebook mtm mbm" (click)="loginWithFacebook()">
+        <span class="fa fa-facebook"></span> Ingresa con Facebook
+    </a>
+
+    <a href="#" class="terms">T&eacute;rminos y condiciones</a>
+</div>

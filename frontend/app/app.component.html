@@ -1,6 +1,6 @@
 <menu-component *ngIf="isLoggedIn()"></menu-component>
 
-<main id="panel">
+<main id="panel" [ngClass]="{'homepage': isHomepage()}">
   <header *ngIf="isLoggedIn()">
     <div class="row ptm">
       <div class="col-xs-3">
