@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToasterService } from 'angular2-toaster';
 
 import { AuthService } from '../service/auth.service';
 
@@ -14,7 +15,7 @@ export class MenuComponent {
     private slideoutRight;
     private profilePictureUrl: string;
 
-    constructor(private auth: AuthService) { }
+    constructor(private auth: AuthService, private toasterService: ToasterService) { }
 
     /**
      * logout() function
@@ -22,6 +23,14 @@ export class MenuComponent {
     logout(): void {
         this.slideoutRight.toggle();
         this.auth.logout();
+    }
+
+    /**
+     * editProfile() function
+     */
+    editProfile(): void {
+        this.slideoutRight.toggle();
+        this.toasterService.pop('warning', 'No Disponible');
     }
 
     /**

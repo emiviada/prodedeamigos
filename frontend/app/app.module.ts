@@ -18,6 +18,7 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './common/menu.component';
 import { SpinnerComponent } from './common/spinner.component';
 import { HomepageComponent } from './common/homepage.component';
+import { TermsComponent } from './common/terms.component';
 import { NotFoundComponent } from './common/notfound.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MyFantasyTournamentsComponent } from './fantasy_tournament/my_fantasy_tournaments.component';
@@ -30,13 +31,14 @@ import { ResultComponent } from './fantasy_tournament/result.component';
 import { PredictionComponent } from './fantasy_tournament/prediction.component';
 import { SnapshotComponent } from './fantasy_tournament/snapshot.component';
 import { PredictionsModalComponent } from './fantasy_tournament/predictions_modal.component';
+import { SupportComponent } from './common/support.component';
 
 @NgModule({
   declarations: [
     AppComponent, MenuComponent, SpinnerComponent, HomepageComponent, NotFoundComponent, DashboardComponent,
-    NewFantasyTournamentComponent, FantasyTournamentDetailComponent, PositionsComponent,
+    NewFantasyTournamentComponent, FantasyTournamentDetailComponent, PositionsComponent, SupportComponent,
     ResultComponent, PredictionComponent, MyFantasyTournamentsComponent, EditFantasyTournamentComponent,
-    JoinFantasyTournamentComponent, SnapshotComponent, PredictionsModalComponent
+    JoinFantasyTournamentComponent, SnapshotComponent, PredictionsModalComponent, TermsComponent
   ],
   imports: [
     BrowserModule,

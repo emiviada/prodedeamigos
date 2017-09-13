@@ -1,0 +1,23 @@
+<div class="main-content">
+    <h1>
+        <a routerLink="/">
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+        </a>&nbsp;
+        Soporte
+    </h1>
+
+    <div class="row" [hidden]="submitted">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <p>Deja nos tus comentarios, preguntas y/o sugerencias y en breve nos contactaremos contigo.</p>
+        </div>
+    </div>
+
+    <div class="row" [hidden]="!submitted">
+        <div class="col-xs-12">
+            <p>El formulario ha sido enviado exitosamente. En breve nos comunicaremos contigo. </p>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-sm-offset-4 ptm">
+            <a routerLink="/dashboard" class="btn btn-primary btn-block">Volver</a>
+        </div>
+    </div>
+</div>

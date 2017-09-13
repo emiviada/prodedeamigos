@@ -14,7 +14,7 @@ import { prodeUserKey } from '../global';
 // https://github.com/localForage/localForage
 import * as localForage from "localforage";
 
-interface LoggedInUser {
+export interface LoggedInUser {
   id: number;
   profile_picture_url: string;
 }

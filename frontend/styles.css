@@ -224,6 +224,9 @@ a.logo:hover,a.logo:active { color: inherit; }
   padding-bottom: 8px;
   border-bottom: 1px solid #fff;
 }
+.main-content h2 {
+  font-size: 18px;
+}
 /*** END Main Content ***/
 
 /*** Dashboard ***/
