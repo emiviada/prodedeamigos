@@ -36,4 +36,15 @@ export class AppComponent {
         }
         return is;
     }
+
+    /**
+     * isTerms() function
+     */
+    isTerms(): boolean {
+        let is = false;
+        if (this.router.url.split("?")[0] === '/terminos') {
+          is = true;
+        }
+        return is;
+    }
 }

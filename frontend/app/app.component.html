@@ -1,21 +1,21 @@
 <menu-component *ngIf="isLoggedIn()"></menu-component>
 
-<main id="panel" [ngClass]="{'homepage': isHomepage()}">
-  <header *ngIf="isLoggedIn()">
+<main id="panel" [ngClass]="{'homepage': isHomepage(), 'bg-terms': isTerms()}">
+  <header *ngIf="!isHomepage()">
     <div class="row ptm">
       <div class="col-xs-3">
-        <button class="toggle-button mls">
+        <button class="toggle-button mls" *ngIf="isLoggedIn()">
           <i class="fa fa-bars" aria-hidden="true"></i>
         </button>
       </div>
       <div class="col-xs-6 text-center">
-        <a routerLink="/" class="logo">
+        <a routerLink="/dashboard" class="logo">
           <img src="/assets/imgs/prode-logo-small.png" />
           <span class="logo-title hidden-xs">Prode De Amigos</span>
         </a>
       </div>
       <div class="col-xs-3 text-right">
-        <button class="toggle-button-right mrm">
+        <button class="toggle-button-right mrm" *ngIf="isLoggedIn()">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
         </button>
       </div>

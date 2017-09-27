@@ -63,10 +63,6 @@ export class MenuComponent {
             menuRight.style.transform = "translateX(0px)";
             menuLeft.style.visibility = "visible";
         });
-        // Toggle button
-        document.querySelector('.toggle-button').addEventListener('click', function() {
-            _this.slideoutLeft.toggle();
-        });
 
         this.slideoutRight = new Slideout({
             'panel': document.getElementById('panel'),
@@ -83,10 +79,15 @@ export class MenuComponent {
             menuRight.style.visibility = "visible";
         });
 
-        // Toggle button
-        document.querySelector('.toggle-button-right').addEventListener('click', function() {
-            _this.slideoutRight.toggle();
-        });
+        // Toggle buttons
+        setTimeout(function() {
+            document.querySelector('.toggle-button').addEventListener('click', function() {
+                _this.slideoutLeft.toggle();
+            });
+            document.querySelector('.toggle-button-right').addEventListener('click', function() {
+                _this.slideoutRight.toggle();
+            });
+        }, 500);
 
         this.profilePictureUrl = this.auth.profilePictureUrl;
     }

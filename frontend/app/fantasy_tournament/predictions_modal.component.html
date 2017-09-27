@@ -3,19 +3,19 @@
         {{ getDateTime(game.play_date_at) }} - Estadio {{ game.stadium }}
     </div>
     <div class="row result-detail">
-        <div class="col-xs-4">
+        <div class="col-xs-4 submit-wrapper">
             <div class="team">
                 <img src="{{ game.team_home.flag_uri }}">
                 <span>{{ game.team_home.alias }}</span>
             </div>
         </div>
-        <div class="col-xs-4">
+        <div class="col-xs-4 submit-wrapper">
             <div class="result">
                 <span>Resultado</span>
                 <span class="numbers">{{ game.goals_home }} - {{ game.goals_away }}</span>
             </div>
         </div>
-        <div class="col-xs-4">
+        <div class="col-xs-4 submit-wrapper">
             <div class="team">
                 <img src="{{ game.team_away.flag_uri }}">
                 <span>{{ game.team_away.alias }}</span>

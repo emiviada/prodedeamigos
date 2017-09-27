@@ -169,6 +169,11 @@ a.logo:hover,a.logo:active { color: inherit; }
 .slideout-panel.homepage {
   background-color: transparent;
 }
+.bg-terms {
+  background-color: rgba(0, 0, 0, 0.7);
+  min-height: 100vh;
+  overflow-y: auto;
+}
 .slideout-open,
 .slideout-open body,
 .slideout-open .slideout-panel {
@@ -246,11 +251,8 @@ a.logo:hover,a.logo:active { color: inherit; }
   cursor: pointer;
 }
 .prode-snapshot img {
-  //-webkit-border-radius: 50%;
-  //-moz-border-radius: 50%;
-  //border-radius: 50%;
-  max-height: 69px;
-  max-width: 65px;
+  max-height: 75%;
+  max-width: 75%;
 }
 .prode-snapshot .ttitle {
   margin: 0;
@@ -259,7 +261,7 @@ a.logo:hover,a.logo:active { color: inherit; }
 .prode-snapshot span { display: block; }
 .prode-snapshot .players { color: #ccc; }
 .prode-snapshot .info { color: #999; }
-.prode-snapshot .pos { padding: 0; }
+.prode-snapshot .pos { padding: 0 5px 0 0; }
 .prode-snapshot .pos .posl {
   display: inline-block;
   width: 65%;
@@ -696,12 +698,36 @@ md-tab-group.half .mat-tab-label { min-width: 50% !important; }
 .btn-yahoo:active,.btn-yahoo.active,.open>.dropdown-toggle.btn-yahoo{color:#fff;background-color:#500a6f;border-color:rgba(0,0,0,0.2)}.btn-yahoo:active:hover,.btn-yahoo.active:hover,.open>.dropdown-toggle.btn-yahoo:hover,.btn-yahoo:active:focus,.btn-yahoo.active:focus,.open>.dropdown-toggle.btn-yahoo:focus,.btn-yahoo:active.focus,.btn-yahoo.active.focus,.open>.dropdown-toggle.btn-yahoo.focus{color:#fff;background-color:#39074e;border-color:rgba(0,0,0,0.2)}
 .btn-yahoo:active,.btn-yahoo.active,.open>.dropdown-toggle.btn-yahoo{background-image:none}
 .btn-yahoo.disabled:hover,.btn-yahoo[disabled]:hover,fieldset[disabled] .btn-yahoo:hover,.btn-yahoo.disabled:focus,.btn-yahoo[disabled]:focus,fieldset[disabled] .btn-yahoo:focus,.btn-yahoo.disabled.focus,.btn-yahoo[disabled].focus,fieldset[disabled] .btn-yahoo.focus{background-color:#720e9e;border-color:rgba(0,0,0,0.2)}
-.btn-yahoo .badge{color:#720e9e;background-color:#fff}
+.btn-yahoo .badge{color:#720e9e;background-color:#fff;}
+
+.text-center-important { text-align: center !important; }
 
 
 /*** MEDIA QUERIES ***/
+/* Smallest width */
+@media (max-width: 320px) {
+  #homepage h1 { font-size: 23px; }
+  .prode-snapshot .pos .posl { font-size: 11px; }
+  .prode-snapshot .pos .posl .position { font-size: 14px; }
+  .result { padding: 0 5px; }
+  .result-detail .team img { width: 60px; }
+  .submit-wrapper { padding: 0 5px; }
+  .submit-pred .btn-sm { font-size: 11px; }
+}
+@media (max-width: 375px) {
+  .positions .col-xs-1, .positions .col-xs-2,
+  .positions .col-xs-7 { padding-right: 5px; }
+}
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
+  #homepage {
+    max-width: 400px;
+    top: 200px;
+  }
+  .btn-facebook {
+    width: 80%;
+    margin: 0 auto;
+  }
   .col-sm-6 {
     width: 47%;
     margin: 0 6px;
@@ -718,11 +744,25 @@ md-tab-group.half .mat-tab-label { min-width: 50% !important; }
     padding: 10px;
   }
   .create-prode .col-xs-12 { padding-left: 0; }
-  .prode-snapshot { padding: 10px; }
+  .prode-snapshot {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  .prode-snapshot .pos { padding: 0; }
   .single-form { width: 50%; }
   .result-date { font-size: 14px; }
 }
+/* Medium devices (970px and up) */
+@media (min-width: 970px) {
+  header, .main-content {
+    width: 70%;
+  }
+}
+/* Large devices (desktops, 1200px and up) */
 @media (min-width: 1200px) {
+  #homepage {
+    top: 150px;
+  }
   .col-lg-4 {
     width: 32%;
     margin: 0 5px;

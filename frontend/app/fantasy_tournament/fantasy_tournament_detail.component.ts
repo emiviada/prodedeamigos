@@ -62,7 +62,7 @@ export class FantasyTournamentDetailComponent implements OnInit {
                             this.games = data;
                             this.games.map(game => {
                                 if (game.finished) {
-                                    this.finishedGames.push(game);
+                                    this.finishedGames.unshift(game);
                                 } else {
                                     this.nextGames.push(game);
                                 }

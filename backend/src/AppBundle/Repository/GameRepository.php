@@ -21,7 +21,8 @@ class GameRepository extends \Doctrine\ORM\EntityRepository
         $query = $this->createQueryBuilder('g')
             ->where('g.tournament = :tournament')
             ->andWhere('g.playDateAt >= :from')
-            ->andWhere('g.playDateAt <= :to');
+            ->andWhere('g.playDateAt <= :to')
+            ->orderBy('g.playDateAt', 'ASC');
 
         $query->setParameters(array(
             'tournament' => $tournament,

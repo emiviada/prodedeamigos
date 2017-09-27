@@ -1,4 +1,4 @@
-<div class="ptm">
+<div class="ptm positions">
     <div class="row table-header">
         <div class="col-xs-1 th text-center">Pos.</div>
         <div class="col-xs-7 th pl30">Jugador</div>
@@ -13,6 +13,8 @@
             <span class="username">{{ membership.user.username }}</span>
         </div>
         <div class="col-xs-2 text-center points pts">{{ membership.points }}</div>
-        <div class="col-xs-2 text-center pts"><i class="fa {{ getPosChangeIcon(membership) }}"></i> {{ getPosChange(membership) }}</div>
+        <div class="col-xs-2 text-center pts">
+            <i class="fa {{ getPosChangeIcon(membership) }}"></i> {{ getPosChange(membership) }}
+        </div>
     </div>
 </div>

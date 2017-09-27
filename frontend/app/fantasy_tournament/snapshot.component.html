@@ -1,7 +1,7 @@
-<div class="col-xs-2 pan text-center">
-    <img class="img-circle" src="{{ fantasyTournament.picture_uri || '/assets/imgs/trophy_placeholder.png' }}" width="100%">
+<div class="col-xs-2 col-sm-2 pan text-center">
+    <img class="img-circle pts" src="{{ fantasyTournament.picture_uri || '/assets/imgs/trophy_placeholder.png' }}" width="100%">
 </div>
-<div class="col-xs-8">
+<div class="col-xs-8 col-sm-8 pls prs pts">
     <h3 class="ttitle">{{ fantasyTournament.name }}</h3>
     <span class="players">
         <i class="fa fa-user-plus" aria-hidden="true"></i>
@@ -9,7 +9,7 @@
     </span>
     <!--<span class="info">Some info</span>-->
 </div>
-<div class="col-xs-2 pos">
+<div class="col-xs-2 col-sm-2 pos">
     <span class="posl text-center">
         Pos.
         <span class="position {{ positionClass }}">{{ position }}</span>
