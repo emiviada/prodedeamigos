@@ -124,4 +124,44 @@ class UserController extends FOSRestController
         $em->remove($user);
         $em->flush();
     }
+
+    /**
+     * @Rest\Post("/users/{id}/send-message")
+     * @Rest\View(statusCode=200)
+     */
+    public function sendMessage($id, Request $request)
+    {
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->findOneById($id);
+        if (is_null($user)) {
+            throw new HttpException(404, 'User not found');
+        }
+
+        $postData = $request->request->get('message');
+        $result = array('success' => 0);
+
+        try {
+            $message = \Swift_Message::newInstance()
+                ->setSubject($postData['subject'])
+                ->setFrom($user->getEmail())
+                ->setTo($postData['to'])
+                /*->setBody(
+                    $this->renderView(
+                        'HelloBundle:Hello:email.txt.twig',
+                        array('name' => $name)
+                    )
+                )*/
+                ->setBody($postData['text'], 'text/html')
+            ;
+
+            $sent = $this->get('mailer')->send($message);
+            if ($sent) {
+                $result['success'] = 1;
+            }
+
+        } catch (\Exception $e) {
+            $result = array('success' => 0, 'error' => $e->getMessage());
+        }
+
+        return $result;
+    }
 }

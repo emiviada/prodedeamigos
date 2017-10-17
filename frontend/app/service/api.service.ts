@@ -57,6 +57,17 @@ export class ApiService {
       .catch(this.handleError);
   }
 
+  // sendMessage: Send an email
+  sendMessage(userId, message) {
+    let params = {message: message};
+    return this.http.post(
+      this.baseUrl + '/users/' + userId + '/send-message',
+      JSON.stringify(params),
+      { headers: this.headers, observe: 'response' })
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+
   /*** END USERS functionalities ***/
 
   /*** FANTASY TOURNAMENTS functionalities ***/

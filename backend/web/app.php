@@ -7,7 +7,7 @@ $loader = require __DIR__.'/../app/autoload.php';
 include_once __DIR__.'/../var/bootstrap.php.cache';
 
 // Get SF environment
-$env = null;//getenv('SF_ENVIRONMENT');
+$env = getenv('SF_ENVIRONMENT');
 $debug = false;
 switch ($env) {
     case 'dev':
