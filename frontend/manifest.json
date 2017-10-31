@@ -1,0 +1,29 @@
+{
+    "name": "Prode De Amigos",
+    "short_name": "ProdeDeAmigos",
+    "icons": [
+        {
+            "src": "/assets/imgs/favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png",
+            "density": 0.75
+        },
+        {
+            "src": "/assets/imgs/favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png",
+            "density": 1
+        },
+        {
+            "src": "/assets/imgs/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png",
+            "density": 4
+        }
+    ],
+    "theme_color": "#000000",
+    "background_color": "#e0e0e0",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "orientation": "portrait"
+}

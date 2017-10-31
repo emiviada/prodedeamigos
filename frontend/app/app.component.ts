@@ -12,7 +12,7 @@ import { SpinnerService } from './service/spinner.service';
 })
 export class AppComponent {
 
-    private appToasterConfig: IToasterConfig = new ToasterConfig({
+    public appToasterConfig: IToasterConfig = new ToasterConfig({
         animation: 'fade',
         timeout: 3000
     });

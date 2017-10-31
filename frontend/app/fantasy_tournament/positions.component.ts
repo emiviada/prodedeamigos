@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { AuthService } from '../service/auth.service';
+import { FantasyTournament } from '../model/fantasyTournament';
 
 @Component({
   selector: 'positions',
@@ -8,7 +9,7 @@ import { AuthService } from '../service/auth.service';
 })
 export class PositionsComponent {
 
-    @Input() fantasyTournament: {};
+    @Input() fantasyTournament: FantasyTournament;
 
     constructor(private auth: AuthService) {}
 

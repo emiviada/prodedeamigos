@@ -91,4 +91,11 @@ export class MenuComponent {
 
         this.profilePictureUrl = this.auth.profilePictureUrl;
     }
+
+    /**
+     * getProfilePictureUrl()
+     */
+    getProfilePictureUrl(): string {
+        return this.profilePictureUrl;
+    }
 }

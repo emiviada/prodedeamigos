@@ -23,21 +23,21 @@
 
             <div class="form-group">
                 <label for="pointsPerGame">Puntos por juego:</label>
-                <select class="form-control" id="pointsPerGame" required [(ngModel)]="model.pointsPerGame" name="pointsPerGame" #pointsPerGame="ngModel">
+                <select class="form-control" id="pointsPerGame" required [(ngModel)]="model.points_per_game" name="pointsPerGame" #pointsPerGame="ngModel">
                     <option *ngFor="let points of pointsPerGameOptions" [value]="points">{{points}}</option>
                 </select>
             </div>
 
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" id="matchExact" [(ngModel)]="model.matchExact" name="matchExact" #matchExact="ngModel">
+                    <input type="checkbox" id="matchExact" [(ngModel)]="model.match_exact" name="matchExact" #matchExact="ngModel">
                     Acertar resultado exacto
                 </label>
             </div>
 
-            <div class="form-group" [hidden]="!model.matchExact">
+            <div class="form-group" [hidden]="!model.match_exact">
                 <label for="pointsPerExact">Puntos por acierto exacto:</label>
-                <select class="form-control" id="pointsPerExact" [required]="model.matchExact" [(ngModel)]="model.pointsPerExact" name="pointsPerExact" #pointsPerExact="ngModel">
+                <select class="form-control" id="pointsPerExact" [required]="model.match_exact" [(ngModel)]="model.points_per_exact" name="pointsPerExact" #pointsPerExact="ngModel">
                     <option *ngFor="let pointse of pointsPerExactOptions" [value]="pointse">{{pointse}}</option>
                 </select>
                 <div [hidden]="pointsPerExact.valid || pointsPerExact.pristine" class="alert alert-danger">
