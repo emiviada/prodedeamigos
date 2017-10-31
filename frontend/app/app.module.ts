@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AppShellModule } from '@angular/app-shell';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FacebookModule } from 'ngx-facebook';
@@ -15,6 +16,7 @@ import { AuthService } from './service/auth.service';
 import { ApiService } from './service/api.service';
 import { SpinnerService } from './service/spinner.service';
 import { AppComponent } from './app.component';
+import { AppShellComponent } from './common/app_shell.component';
 import { MenuComponent } from './common/menu.component';
 import { SpinnerComponent } from './common/spinner.component';
 import { HomepageComponent } from './common/homepage.component';
@@ -35,15 +37,17 @@ import { SupportComponent } from './common/support.component';
 
 @NgModule({
   declarations: [
-    AppComponent, MenuComponent, SpinnerComponent, HomepageComponent, NotFoundComponent, DashboardComponent,
-    NewFantasyTournamentComponent, FantasyTournamentDetailComponent, PositionsComponent, SupportComponent,
-    ResultComponent, PredictionComponent, MyFantasyTournamentsComponent, EditFantasyTournamentComponent,
-    JoinFantasyTournamentComponent, SnapshotComponent, PredictionsModalComponent, TermsComponent
+    AppComponent, AppShellComponent, MenuComponent, SpinnerComponent, HomepageComponent, NotFoundComponent,
+    DashboardComponent, NewFantasyTournamentComponent, FantasyTournamentDetailComponent, PositionsComponent,
+    SupportComponent, ResultComponent, PredictionComponent, MyFantasyTournamentsComponent,
+    EditFantasyTournamentComponent, JoinFantasyTournamentComponent, SnapshotComponent, PredictionsModalComponent,
+    TermsComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
+    AppShellModule.runtime(),
     MdTabsModule,
     MdProgressSpinnerModule,
     MdDialogModule,
