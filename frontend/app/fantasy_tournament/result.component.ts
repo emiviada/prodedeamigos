@@ -1,5 +1,5 @@
 import { Component, OnChanges, Input } from '@angular/core';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 import { FantasyTournament } from '../model/fantasyTournament';
 import { Game } from '../model/game';
@@ -20,7 +20,7 @@ export class ResultComponent implements OnChanges {
     points: number = 0;
     pointsClass: string = 'text-primary';
 
-    constructor(public dialog: MdDialog) {}
+    constructor(public dialog: MatDialog) {}
 
     ngOnChanges(): void {
         if (this.predictions) {

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
-import { MD_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ApiService } from '../service/api.service';
@@ -22,7 +22,7 @@ export class PredictionsModalComponent implements OnInit {
     predictions: Prediction[];
 
     constructor(
-        @Inject(MD_DIALOG_DATA) public data: any,
+        @Inject(MAT_DIALOG_DATA) public data: any,
         private spinner: SpinnerService,
         private api: ApiService
     ) { }

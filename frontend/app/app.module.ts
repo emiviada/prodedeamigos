@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AppShellModule } from '@angular/app-shell';
+//import { AppShellModule } from '@angular/app-shell';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FacebookModule } from 'ngx-facebook';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MdTabsModule, MdProgressSpinnerModule, MdDialogModule } from '@angular/material';
+import { MatTabsModule, MatProgressSpinnerModule, MatDialogModule } from '@angular/material';
 import { ToasterModule } from 'angular2-toaster';
 import { ClipboardModule } from 'ngx-clipboard';
 
@@ -47,10 +47,10 @@ import { SupportComponent } from './common/support.component';
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
-    AppShellModule.runtime(),
-    MdTabsModule,
-    MdProgressSpinnerModule,
-    MdDialogModule,
+    //AppShellModule.runtime(),
+    MatTabsModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
     FacebookModule.forRoot(),
     FormsModule,
     HttpClientModule,

@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
       </header>
       <div class="main-content">
         <div class="row text-center">
-          <md-spinner></md-spinner>
+          <mat-spinner></mat-spinner>
         </div>
       </div>
     </main>

@@ -18,6 +18,36 @@
 <body>
     <app-root></app-root>
 
+    <!-- IF NO JAVASCRIPT ENABLED, SHOW THIS -->
+    <noscript>
+        <style type="text/css">
+            body { width: 100%; height: 100%; margin: 0; background-image: url(/assets/imgs/prode-background.jpg);
+                background-attachment: fixed; background-position: 50%; background-repeat: no-repeat; background-size: cover; -webkit-background-size: cover; -moz-background-size: cover;
+                -o-background-size: cover; background-color: #000; font-family: Calibre Light,Helvetica Neue,Helvetica,Arial,sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden;
+                overflow-y: auto; letter-spacing: .025em; color: #fff;
+            }
+            #homepage { margin: auto; width: 80%; max-width: 300px; position: relative; top: 100px;
+                border-radius: 10px; background: rgba(0,0,0,.75); padding: 20px;
+            }
+            #homepage h1 { text-align: center; font-size: 25px; }
+            .text-center { text-align: center; }
+            @media (min-width: 768px) {
+                #homepage { max-width: 400px; top: 200px; }
+            }
+            @media (min-width: 1200px) {
+                #homepage { top: 150px; }
+            }
+        </style>
+        <div id="homepage">
+            <h1>
+                <img src="/assets/imgs/prode-logo.png" width="50%" />
+                Prodedeamigos.com
+            </h1>
+            <p class="ptm pbm text-center">Debes tener activado el soporte para <strong>Javascript</strong> para poder utilizar esta aplicaci&oacute;n.</p>
+        </div>
+    </noscript>
+    <!-- END NO JAVASCRIPT -->
+
     <!-- External Javascript -->
     <script type="text/javascript" src="https://connect.facebook.net/en_US/sdk.js"></script>
 </body>

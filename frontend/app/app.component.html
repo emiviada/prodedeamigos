@@ -1,6 +1,7 @@
-<app-shell *shellRender></app-shell>
+<!--<app-shell *shellRender></app-shell>-->
 
-<div *shellNoRender>
+<!--<div *shellNoRender>-->
+<div>
     <menu-component *ngIf="isLoggedIn()"></menu-component>
 
     <main id="panel" [ngClass]="{'homepage': isHomepage(), 'bg-terms': isTerms()}">

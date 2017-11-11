@@ -8,9 +8,9 @@
 
     <div class="row" *ngIf="fantasyTournament">
         <div class="col-xs-12 col-lg-6">
-            <md-tab-group selectedIndex="0" class="half">
+            <mat-tab-group selectedIndex="0" class="half">
 
-                <md-tab label="Torneo">
+                <mat-tab label="Torneo">
                     <div class="container ptl">
                         <form (ngSubmit)="upsert();" #tournamentForm="ngForm" class="single-form">
                             <div class="form-group">
@@ -36,9 +36,9 @@
                             <a class="text-success" ngxClipboard [cbContent]="shareUrl">[copiar]</a>
                         </div>
                     </div>
-                </md-tab>
+                </mat-tab>
 
-                <md-tab label="Jugadores">
+                <mat-tab label="Jugadores">
                     <div class="ptm">
                         <div class="row pos-item" *ngFor="let membership of fantasyTournament.memberships; let i = index" [ngClass]="{'myself': isMyself(membership.user.id)}">
                             <div class="col-xs-10">
@@ -52,9 +52,9 @@
                             </div>
                         </div>
                     </div>
-                </md-tab>
+                </mat-tab>
 
-            </md-tab-group>
+            </mat-tab-group>
         </div>
     </div>
 </div>
