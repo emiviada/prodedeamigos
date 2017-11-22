@@ -26,7 +26,7 @@ export class SnapshotComponent {
         if (this.fantasyTournament) {
             let _this = this;
             this.fantasyTournament.memberships.forEach(function(m) {
-                if (_this.auth.userId === m.user.id) {
+                if (_this.auth.user.id === m.user.id) {
                     _this.position = m.position;
                     _this.positionClass = (m.position > 0 && m.position <= 3)? 'bg-strong-success' : 'bg-primary';
                     if (m.position === m.prev_position) {

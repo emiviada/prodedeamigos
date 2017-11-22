@@ -49,10 +49,9 @@ export class NewFantasyTournamentComponent implements OnInit {
     upsert(): void { // Create or Edit
         this.createdTournamentName = this.model.name;
         this.shareUrl += '/' + this.model.name;
-        //console.log(JSON.stringify(this.model));
 
         this.spinner.show();
-        this.api.createFantasyTournament(this.auth.userId, this.model).subscribe(
+        this.api.createFantasyTournament(this.auth.user.id, this.model).subscribe(
             data => {
                 this.toasterService.pop('success', 'OK');
                 this.spinner.hide();

@@ -59,6 +59,13 @@ class Team
     private $stadium;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_country", type="boolean", options={"default" : false})
+     */
+    private $isCountry;
+
+    /**
      * @ORM\Column(type="datetime")
      * @var \DateTime
      */
@@ -243,5 +250,39 @@ class Team
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set isCountry
+     *
+     * @param boolean $isCountry
+     *
+     * @return Team
+     */
+    public function setIsCountry($isCountry)
+    {
+        $this->isCountry = $isCountry;
+
+        return $this;
+    }
+
+    /**
+     * Get isCountry
+     *
+     * @return boolean
+     */
+    public function getIsCountry()
+    {
+        return $this->isCountry;
+    }
+
+    /**
+     * isCountry
+     *
+     * @return boolean
+     */
+    public function isCountry()
+    {
+        return $this->isCountry;
     }
 }

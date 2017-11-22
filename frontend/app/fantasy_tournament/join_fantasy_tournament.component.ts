@@ -41,7 +41,7 @@ export class JoinFantasyTournamentComponent implements OnInit {
                             this.api.joinToFantasyTournament(
                               fantasyTournament.owner.id,
                               fantasyTournament.slug,
-                              this.auth.userId
+                              this.auth.user.id
                             )
                             .subscribe(
                                 data => {

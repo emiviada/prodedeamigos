@@ -3,15 +3,15 @@ export class FantasyTournament {
   name: string;
   tournament: string;
   owner: {};
-  points_per_game: number;
-  match_exact: boolean;
-  points_per_exact: number;
-  picture_uri: string;
+  pointsPerGame: number;
+  matchExact: boolean;
+  pointsPerExact: number;
+  pictureUri: string;
   slug: string;
-  invitation_hash: string;
+  invitationHash: string;
   memberships;
 
   constructor() {
-      this.points_per_game = 3;
+      this.pointsPerGame = 3;
   }
 }

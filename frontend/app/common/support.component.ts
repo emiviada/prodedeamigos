@@ -33,9 +33,9 @@ export class SupportComponent {
            to: "emjovi@gmail.com",
            subject: "Prode de Amigos | Soporte"
         };
-//console.log(message);
+
         this.spinner.show();
-        this.api.sendMessage(this.auth.userId, message).subscribe(
+        this.api.sendMessage(this.auth.user.id, message).subscribe(
             data => {
                 this.toasterService.pop('success', 'OK', 'Mensaje enviado.');
                 this.spinner.hide();

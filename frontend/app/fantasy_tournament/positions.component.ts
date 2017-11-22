@@ -19,7 +19,7 @@ export class PositionsComponent {
     }
 
     isMyself(userId: number): boolean {
-        return this.auth.userId === userId;
+        return this.auth.user.id === userId;
     }
 
     getPosChange(membership): number {

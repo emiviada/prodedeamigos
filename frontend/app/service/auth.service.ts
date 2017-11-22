@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/map';
 import { FacebookService, InitParams, LoginResponse, LoginOptions } from 'ngx-facebook';
@@ -22,9 +23,9 @@ export interface LoggedInUser {
 @Injectable()
 export class AuthService {
 
-    public userId;
-    public profilePictureUrl: string;
     protected returnUrl: string;
+    public userInitialized = new Subject();
+    public user;
 
     // Create a stream of logged in status to communicate throughout app
     loggedIn: boolean;
@@ -66,8 +67,8 @@ export class AuthService {
             let authenticated = (loggedInUser)? true : false;
             this.setLoggedIn(authenticated);
             if (authenticated) {
-              that.userId = loggedInUser.id;
-              that.profilePictureUrl = loggedInUser.profile_picture_url;
+              that.user = loggedInUser;
+              that.userInitialized.next(that.user);
             }
         });
     }
@@ -150,8 +151,7 @@ export class AuthService {
 
               let loggedInUser = {id: userId, profile_picture_url: profilePictureUrl};
               localForage.setItem(prodeUserKey, loggedInUser);
-              this.userId = userId;
-              this.profilePictureUrl = profilePictureUrl;
+              this.user = loggedInUser;
               this.setLoggedIn(true);
               this.spinner.hide();
               this.router.navigate([this.returnUrl]);

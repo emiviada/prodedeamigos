@@ -37,12 +37,12 @@ export class EditFantasyTournamentComponent implements OnInit {
         this.spinner.show();
         this.route.params
             .switchMap((params: Params) =>
-                this.api.getFantasyTournament(this.auth.userId, params['slug']))
+                this.api.getFantasyTournament(this.auth.user.id, params['slug']))
                     .subscribe(
                         data => {
                             this.fantasyTournament = data[0];
                             this.shareUrl += '/torneo/' + this.fantasyTournament.slug
-                                + '/' + this.fantasyTournament.invitation_hash;
+                                + '/' + this.fantasyTournament.invitationHash;
                             this.spinner.hide();
                         },
                         error => {
@@ -64,7 +64,7 @@ export class EditFantasyTournamentComponent implements OnInit {
      * Check if userId is the same as logged in user
      */
     isMyself(userId: number): boolean {
-        return this.auth.userId === userId;
+        return this.auth.user.id === userId;
     }
 
     /**
@@ -82,7 +82,7 @@ export class EditFantasyTournamentComponent implements OnInit {
             html: false
         }, function() {
               _this.spinner.show();
-              _this.api.removeUserFromFantasyTournament(_this.auth.userId, _this.fantasyTournament.slug, user.id)
+              _this.api.removeUserFromFantasyTournament(_this.auth.user.id, _this.fantasyTournament.slug, user.id)
                 .subscribe(
                     data => {
                         _this.toasterService.pop('success', 'OK');

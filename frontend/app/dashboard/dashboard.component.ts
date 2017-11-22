@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/mergeMap';
 
 import { FantasyTournament } from '../model/fantasyTournament';
 import { AuthService } from '../service/auth.service';
@@ -32,7 +33,20 @@ export class DashboardComponent implements OnInit {
                 this.loading = state.loading;
             });
         this.spinner.show();
-        this.api.getFantasyTournaments(this.auth.userId).subscribe(
+        if (this.auth.user) {
+            this.getFantasyTournaments(this.auth.user);
+        } else {
+            this.auth.userInitialized.subscribe((user) => {
+                this.getFantasyTournaments(user);
+            });
+        }
+    }
+
+    /*
+     * getFantasyTournaments() Call API
+     */
+    getFantasyTournaments(user) {
+        this.api.getFantasyTournaments(user.id).subscribe(
             data => {
                 this.fantasyTournaments = data;
                 this.spinner.hide();

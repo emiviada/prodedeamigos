@@ -113,7 +113,7 @@ a {
 #panel header .toggle-button-right:focus { outline: none; }
 
 a.logo { text-decoration: none; }
-a.logo:hover,a.logo:active { color: inherit; }
+a.logo:hover,a.logo:active,a.logo:focus { color: inherit; }
 /*** End Header styles ***/
 
 /*** Homepage ***/
@@ -247,7 +247,7 @@ a.logo:hover,a.logo:active { color: inherit; }
 .prode-snapshot {
   background: rgba(0, 0, 0, 0.5);
   padding: 10px 0;
-  margin-bottom: 10px;
+  margin-bottom: 10px !important;
   cursor: pointer;
 }
 .prode-snapshot img {
@@ -530,12 +530,12 @@ a.logo:hover,a.logo:active { color: inherit; }
   min-width: 33% !important;
 }
 md-tab-group.half .mat-tab-label { min-width: 50% !important; }
-.mat-ink-bar { background-color: #fff; }
-[_nghost-c2] {
+.mat-ink-bar { background-color: #fff !important; }
+.mat-spinner {
   margin-top: -50px;
   margin-left: -50px;
 }
-.mat-spinner path { stroke: #666; }
+.mat-progress-spinner circle, .mat-spinner circle { stroke: #666 !important; }
 .mat-dialog-container {
   background-color: #111;
   background-image: linear-gradient(175deg, #111, #222);
@@ -746,7 +746,7 @@ md-tab-group.half .mat-tab-label { min-width: 50% !important; }
   .create-prode .col-xs-12 { padding-left: 0; }
   .prode-snapshot {
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 10px !important;
   }
   .prode-snapshot .pos { padding: 0; }
   .single-form { width: 50%; }

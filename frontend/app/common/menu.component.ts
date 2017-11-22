@@ -89,7 +89,7 @@ export class MenuComponent {
             });
         }, 500);
 
-        this.profilePictureUrl = this.auth.profilePictureUrl;
+        this.profilePictureUrl = this.auth.user.profile_picture_url;
     }
 
     /**

@@ -42,7 +42,7 @@ export class FantasyTournamentDetailComponent implements OnInit {
         this.spinner.show();
         this.route.params
             .switchMap((params: Params) =>
-                this.api.getFantasyTournament(this.auth.userId, params['slug']))
+                this.api.getFantasyTournament(this.auth.user.id, params['slug']))
                     .subscribe(
                         data => {
                             this.fantasyTournament = data[0];
@@ -56,7 +56,7 @@ export class FantasyTournamentDetailComponent implements OnInit {
         // Get Games
         this.route.params
             .switchMap((params: Params) =>
-                this.api.getGames(this.auth.userId, params['slug']))
+                this.api.getGames(this.auth.user.id, params['slug']))
                     .subscribe(
                         data => {
                             this.games = data;
@@ -77,7 +77,7 @@ export class FantasyTournamentDetailComponent implements OnInit {
         // Get Predictions
         this.route.params
             .switchMap((params: Params) =>
-                this.api.getPredictions(this.auth.userId, params['slug']))
+                this.api.getPredictions(this.auth.user.id, params['slug']))
                     .subscribe(
                         data => {
                             this.predictions = data;

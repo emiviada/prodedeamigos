@@ -99,9 +99,8 @@ export class ApiService {
     return this.http.post(
       this.baseUrl + '/users/' + userId + '/fantasy-tournaments',
       data,
-      { headers: this.headers, observe: 'response' })
-        .map(this.extractData)
-        .catch(this.handleError);
+      { headers: this.headers, observe: 'response', responseType: 'text' }
+    )
   }
 
   /**

@@ -9,6 +9,8 @@ AppBundle\Entity\Team:
             expose: true
         stadium:
             expose: true
+        isCountry:
+            expose: true
     virtual_properties:
         getFlagUri:
             serialized_name: flag_uri

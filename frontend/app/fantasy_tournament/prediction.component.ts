@@ -92,7 +92,7 @@ export class PredictionComponent implements OnChanges {
 
     _edit(prediction: Prediction): void {
         this.spinner.show();
-        this.api.editPrediction(this.auth.userId, this.fantasyTournament.slug, prediction)
+        this.api.editPrediction(this.auth.user.id, this.fantasyTournament.slug, prediction)
             .subscribe(
                 data => {
                     this.spinner.hide();
@@ -110,7 +110,7 @@ export class PredictionComponent implements OnChanges {
 
     _new(prediction: Prediction): void {
         this.spinner.show();
-        this.api.newPrediction(this.auth.userId, this.fantasyTournament.slug, prediction)
+        this.api.newPrediction(this.auth.user.id, this.fantasyTournament.slug, prediction)
             .subscribe(
                 data => {
                     let splitted = data.split('/');
