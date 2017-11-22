@@ -40,9 +40,26 @@ export class FantasyTournamentDetailComponent implements OnInit {
                 this.loading = state.loading;
             });
         this.spinner.show();
+        if (this.auth.user) {
+            this.getFantasyTournament(this.auth.user);
+            this.getGames(this.auth.user);
+            this.getPredictions(this.auth.user);
+        } else {
+            this.auth.userInitialized.subscribe((user) => {
+                this.getFantasyTournament(user);
+                this.getGames(user);
+                this.getPredictions(user);
+            });
+        }
+    }
+
+    /*
+     * getFantasyTournament() Call API
+     */
+    getFantasyTournament(user) {
         this.route.params
             .switchMap((params: Params) =>
-                this.api.getFantasyTournament(this.auth.user.id, params['slug']))
+                this.api.getFantasyTournament(user.id, params['slug']))
                     .subscribe(
                         data => {
                             this.fantasyTournament = data[0];
@@ -53,10 +70,15 @@ export class FantasyTournamentDetailComponent implements OnInit {
                             this.spinner.hide();
                         }
                     );
-        // Get Games
+    }
+
+    /*
+     * getGames() Call API
+     */
+    getGames(user) {
         this.route.params
             .switchMap((params: Params) =>
-                this.api.getGames(this.auth.user.id, params['slug']))
+                this.api.getGames(user.id, params['slug']))
                     .subscribe(
                         data => {
                             this.games = data;
@@ -74,10 +96,15 @@ export class FantasyTournamentDetailComponent implements OnInit {
                             this.spinner.hide();
                         }
                     );
-        // Get Predictions
+    }
+
+    /*
+     * getPredictions() Call API
+     */
+    getPredictions(user) {
         this.route.params
             .switchMap((params: Params) =>
-                this.api.getPredictions(this.auth.user.id, params['slug']))
+                this.api.getPredictions(user.id, params['slug']))
                     .subscribe(
                         data => {
                             this.predictions = data;

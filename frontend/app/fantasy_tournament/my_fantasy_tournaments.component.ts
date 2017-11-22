@@ -32,7 +32,20 @@ export class MyFantasyTournamentsComponent implements OnInit {
                 this.loading = state.loading;
             });
         this.spinner.show();
-        this.api.getFantasyTournaments(this.auth.user.id, true).subscribe(
+        if (this.auth.user) {
+            this.getFantasyTournaments(this.auth.user);
+        } else {
+            this.auth.userInitialized.subscribe((user) => {
+                this.getFantasyTournaments(user);
+            });
+        }
+    }
+
+    /*
+     * getFantasyTournaments() Call API
+     */
+    getFantasyTournaments(user) {
+        this.api.getFantasyTournaments(user.id, true).subscribe(
             data => {
                 this.fantasyTournaments = data;
                 this.spinner.hide();

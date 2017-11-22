@@ -42,7 +42,7 @@ export class ApiService {
     return this.http.post(
       this.baseUrl + '/users?',
       JSON.stringify(params),
-      { headers: this.headers, observe: 'response' })
+      { headers: this.headers, observe: 'response', responseType: 'text' })
         .map(this.extractData)
         .catch(this.handleError);
   }
@@ -207,7 +207,7 @@ export class ApiService {
     return this.http.post(
       this.baseUrl + '/users/' + userId + '/fantasy-tournaments/' + fantasyTournamentSlug + '/predictions',
       data,
-      { headers: this.headers, observe: 'response' })
+      { headers: this.headers, observe: 'response', responseType: 'text' })
         .map(this.extractData)
         .catch(this.handleError);
   }

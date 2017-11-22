@@ -38,7 +38,7 @@ class FantasyTournament
     /**
      * One FantasyTournament belongs to One User.
      * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $owner;
 

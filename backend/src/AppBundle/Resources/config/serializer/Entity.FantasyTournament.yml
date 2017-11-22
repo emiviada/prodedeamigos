@@ -15,11 +15,12 @@ AppBundle\Entity\FantasyTournament:
             expose: true
         slug:
             expose: true
-        invitationHash:
-            expose: true
         memberships:
             expose: true
     virtual_properties:
         getPictureUri:
             serialized_name: picture_uri
+            type: string
+        getInvitationHash:
+            serialized_name: invitationHash
             type: string

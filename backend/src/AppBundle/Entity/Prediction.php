@@ -47,7 +47,7 @@ class Prediction
     /**
      * One Prediction belongs to One User.
      * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotBlank
      */
     private $user;

@@ -35,9 +35,20 @@ export class EditFantasyTournamentComponent implements OnInit {
 
     ngOnInit(): void {
         this.spinner.show();
+        if (this.auth.user) {
+            this.getFantasyTournament(this.auth.user);
+        } else {
+            this.auth.userInitialized.subscribe((user) => {
+                this.getFantasyTournament(user);
+            });
+        }
+    }
+
+    /***/
+    getFantasyTournament(user) {
         this.route.params
             .switchMap((params: Params) =>
-                this.api.getFantasyTournament(this.auth.user.id, params['slug']))
+                this.api.getFantasyTournament(user.id, params['slug']))
                     .subscribe(
                         data => {
                             this.fantasyTournament = data[0];
