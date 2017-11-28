@@ -7,10 +7,8 @@
     </h1>
 
     <div class="row" [hidden]="submitted">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
             <p>Deja nos tus comentarios, preguntas y/o sugerencias y en breve nos contactaremos contigo.</p>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <form (ngSubmit)="send(); supportForm.reset();" #supportForm="ngForm" class="single-form">
                 <div class="form-group">
                     <label for="message">Tu mensaje:</label>
@@ -28,7 +26,7 @@
     </div>
 
     <div class="row" [hidden]="!submitted">
-        <div class="col-xs-12">
+        <div class="col-xs-12 col-lg-6 col-lg-offset-3">
             <p>El formulario ha sido enviado exitosamente. En breve nos comunicaremos contigo. </p>
         </div>
         <div class="col-xs-12 col-sm-4 col-sm-offset-4 ptm">

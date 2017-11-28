@@ -23,6 +23,7 @@ export class NewFantasyTournamentComponent implements OnInit {
     submitted = false;
     createdTournamentName = null;
     shareUrl = window.location.protocol + '//' + window.location.hostname + '/torneo';
+    fantasyTournament: FantasyTournament;
 
     constructor(
         private auth: AuthService,
@@ -48,14 +49,13 @@ export class NewFantasyTournamentComponent implements OnInit {
 
     upsert(): void { // Create or Edit
         this.createdTournamentName = this.model.name;
-        this.shareUrl += '/' + this.model.name;
 
         this.spinner.show();
         this.api.createFantasyTournament(this.auth.user.id, this.model).subscribe(
             data => {
-                this.toasterService.pop('success', 'OK');
-                this.spinner.hide();
-                this.submitted = true;
+                let locationHeader = data.headers.get('Location');
+                let slug = locationHeader.split('/').slice(-1).pop();
+                this.getFantasyTournament(this.auth.user, slug);
             },
             error => {
                 console.log(<any>error);
@@ -65,6 +65,28 @@ export class NewFantasyTournamentComponent implements OnInit {
         );
 
         this.model = new FantasyTournament;
+    }
+
+    /**
+     * getFantasyTournament() Call API
+     */
+    getFantasyTournament(user, slug) {
+        this.api.getFantasyTournament(user.id, slug)
+            .subscribe(
+                data => {
+                    this.fantasyTournament = data[0];
+                    this.toasterService.pop('success', 'OK');
+                    this.shareUrl += '/' + this.fantasyTournament.slug
+                        + '/' + this.fantasyTournament.invitationHash;
+                    this.submitted = true;
+                    this.spinner.hide();
+                },
+                error => {
+                    console.log(<any>error);
+                    this.toasterService.pop('error', 'Error', 'Hubo un error. Intenta mas tarde.');
+                    this.spinner.hide();
+                }
+            );
     }
 
     onSubmit() { this.submitted = true; }

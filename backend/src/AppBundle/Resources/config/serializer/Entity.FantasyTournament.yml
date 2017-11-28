@@ -19,7 +19,7 @@ AppBundle\Entity\FantasyTournament:
             expose: true
     virtual_properties:
         getPictureUri:
-            serialized_name: picture_uri
+            serialized_name: pictureUri
             type: string
         getInvitationHash:
             serialized_name: invitationHash

@@ -44,7 +44,9 @@ export class EditFantasyTournamentComponent implements OnInit {
         }
     }
 
-    /***/
+    /**
+     * getFantasyTournament() Call API
+     */
     getFantasyTournament(user) {
         this.route.params
             .switchMap((params: Params) =>

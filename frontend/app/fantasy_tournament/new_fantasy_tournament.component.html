@@ -1,67 +1,69 @@
 <div class="main-content">
     <h1>Crear Nuevo Torneo</h1>
-    <div [hidden]="submitted">
-        <form (ngSubmit)="upsert(); tournamentForm.reset();" #tournamentForm="ngForm" class="single-form">
-            <div class="form-group">
-                <label for="tournament">Elige un Torneo:</label>
-                <select class="form-control" id="tournament" required [(ngModel)]="model.tournament" name="tournament" #tournament="ngModel">
-                    <option value="">---</option>
-                    <option *ngFor="let tournament of tournaments" [value]="tournament.id">{{tournament.name}}</option>
-                </select>
-                <div [hidden]="tournament.valid || tournament.pristine" class="alert alert-danger">
-                    Debes elegir un torneo.
+    <div [hidden]="submitted" class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
+            <form (ngSubmit)="upsert(); tournamentForm.reset();" #tournamentForm="ngForm" class="single-form">
+                <div class="form-group">
+                    <label for="tournament">Elige un Torneo:</label>
+                    <select class="form-control" id="tournament" required [(ngModel)]="model.tournament" name="tournament" #tournament="ngModel">
+                        <option value="">---</option>
+                        <option *ngFor="let tournament of tournaments" [value]="tournament.id">{{tournament.name}}</option>
+                    </select>
+                    <div [hidden]="tournament.valid || tournament.pristine" class="alert alert-danger">
+                        Debes elegir un torneo.
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="name">Nombre:</label>
-                <input type="text" class="form-control" id="name" required [(ngModel)]="model.name" name="name" #name="ngModel">
-                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-                    El Nombre es requerido.
+                <div class="form-group">
+                    <label for="name">Nombre:</label>
+                    <input type="text" class="form-control" id="name" required [(ngModel)]="model.name" name="name" #name="ngModel">
+                    <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                        El Nombre es requerido.
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="pointsPerGame">Puntos por juego:</label>
-                <select class="form-control" id="pointsPerGame" required [(ngModel)]="model.pointsPerGame" name="pointsPerGame" #pointsPerGame="ngModel">
-                    <option *ngFor="let points of pointsPerGameOptions" [value]="points">{{points}}</option>
-                </select>
-            </div>
-
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" id="matchExact" [(ngModel)]="model.matchExact" name="matchExact" #matchExact="ngModel">
-                    Acertar resultado exacto
-                </label>
-            </div>
-
-            <div class="form-group" [hidden]="!model.matchExact">
-                <label for="pointsPerExact">Puntos por acierto exacto:</label>
-                <select class="form-control" id="pointsPerExact" [required]="model.matchExact" [(ngModel)]="model.pointsPerExact" name="pointsPerExact" #pointsPerExact="ngModel">
-                    <option *ngFor="let pointse of pointsPerExactOptions" [value]="pointse">{{pointse}}</option>
-                </select>
-                <div [hidden]="pointsPerExact.valid || pointsPerExact.pristine" class="alert alert-danger">
-                    Puntos por acierto exacto es requerido.
+                <div class="form-group">
+                    <label for="pointsPerGame">Puntos por juego:</label>
+                    <select class="form-control" id="pointsPerGame" required [(ngModel)]="model.pointsPerGame" name="pointsPerGame" #pointsPerGame="ngModel">
+                        <option *ngFor="let points of pointsPerGameOptions" [value]="points">{{points}}</option>
+                    </select>
                 </div>
-            </div>
 
-            <button type="submit" class="btn btn-success btn-lg btn-block" [disabled]="!tournamentForm.form.valid">
-                <strong>Crear Torneo</strong>
-            </button>
-            <button type="button" class="btn btn-danger btn-block mtm" (click)="cancel()">Cancelar</button>
-        </form>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="matchExact" [(ngModel)]="model.matchExact" name="matchExact" #matchExact="ngModel">
+                        Acertar resultado exacto
+                    </label>
+                </div>
+
+                <div class="form-group" [hidden]="!model.matchExact">
+                    <label for="pointsPerExact">Puntos por acierto exacto:</label>
+                    <select class="form-control" id="pointsPerExact" [required]="model.matchExact" [(ngModel)]="model.pointsPerExact" name="pointsPerExact" #pointsPerExact="ngModel">
+                        <option *ngFor="let pointse of pointsPerExactOptions" [value]="pointse">{{pointse}}</option>
+                    </select>
+                    <div [hidden]="pointsPerExact.valid || pointsPerExact.pristine" class="alert alert-danger">
+                        Puntos por acierto exacto es requerido.
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success btn-lg btn-block" [disabled]="!tournamentForm.form.valid">
+                    <strong>Crear Torneo</strong>
+                </button>
+                <button type="button" class="btn btn-danger btn-block mtm" (click)="cancel()">Cancelar</button>
+            </form>
+        </div>
     </div>
 
     <div class="row" [hidden]="!submitted">
         <div class="col-xs-12">
-            <p class="create-success ptl">El Torneo "{{createdTournamentName}}" ha sido creado exitosamente. Comparte la siguiente URL con tus amigos para invitar los a jugar: </p>
+            <p class="create-success ptl">El Torneo "{{createdTournamentName}}" ha sido creado exitosamente. Comparte la siguiente URL con tus amigos para invitarlos a jugar: </p>
             <p class="create-success text-primary text-center">{{shareUrl}}</p>
         </div>
         <div class="col-xs-12 col-sm-4 col-sm-offset-4 ptm">
-            <a class="btn btn-primary btn-block">Editar Torneo</a>
+            <a routerLink="/mis-torneos/{{fantasyTournament?.slug}}" class="btn btn-primary btn-block">Editar Torneo</a>
         </div>
         <div class="col-xs-12 col-sm-4 col-sm-offset-4 ptm">
-            <a class="btn btn-success btn-block">Ver Torneo</a>
+            <a routerLink="/torneo/{{fantasyTournament?.slug}}" class="btn btn-success btn-block">Ver Torneo</a>
         </div>
     </div>
 </div>

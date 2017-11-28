@@ -325,9 +325,8 @@ class Game
      */
     public function getStadium()
     {
-        if ($this->stadium) {
-            $stadium = $this->stadium;
-        } else {
+        $stadium = $this->stadium;
+        if (is_null($this->stadium) && $this->getTeamHome()) {
             $stadium = $this->getTeamHome()->getStadium();
         }
 

@@ -150,6 +150,7 @@ easy_admin:
                     - { property: 'teamHome', type_options: { required: true, placeholder: 'None' } }
                     - { property: 'teamAway', type_options: { required: true, placeholder: 'None' } }
                     - playDateAt
+                    - stadium
                     - goalsHome
                     - goalsAway
                     - finished
